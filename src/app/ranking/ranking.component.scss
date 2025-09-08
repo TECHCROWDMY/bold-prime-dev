@@ -1,0 +1,232 @@
+.ranking-wrapper{
+  // background-color: #055D76;
+  
+    background: linear-gradient(55deg, #034e65 0%, #077580 100%);
+    
+  height: 100%;
+}
+.switch-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem; // Adjusts space between labels and switch
+    // background-color: #055D76;
+    color: #01D6AD;
+  }
+  
+  .switch-label {
+    font-size: 1.2rem;
+    font-weight: 500;
+    min-width: 80px; // Ensures text is aligned properly
+    text-align: center;
+  }
+  
+  /* Wider Toggle Background */
+  .switch-container {
+    width: 100px;  // Increased width for a wider appearance
+    height: 30px; // Slightly larger height
+    background-color: #055D76;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 5px;
+    border: 2px solid #FFF;
+  }
+  
+  /* Active (ON) state */
+  .switch-container.on {
+    background-color: #055D76; // Green when ON
+    justify-content: flex-end;
+  }
+  
+  /* Wider Switch Handle */
+  .switch-handle {
+    width: 25px; // Larger handle
+    height: 25px;
+    background-color: #01D6AD;
+    border-radius: 50%;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  /* Adjust Handle Position when ON */
+  .switch-container.on .switch-handle {
+    transform: translateX(0px); // Move handle further to the right
+  }
+  
+
+  .full-width-table th, 
+.full-width-table td {
+  border-left: 2px solid #055D76; /* Left border color */
+  border-right: 2px solid #055D76; /* Right border color */
+  padding: 12px;
+}
+
+/* Remove top and bottom borders */
+.full-width-table thead tr,
+.full-width-table tbody tr:last-child {
+  border-top: none;
+  border-bottom: none;
+}
+
+
+
+  .full-width-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 16px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    // color: #767676;
+  
+    thead {
+      background-color: #F4F4F4;
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      // font-family: Plus Jakarta Sans;  
+    }
+  
+    th, td {
+      padding: 12px;
+      // border: 1px solid #04466C;
+    }
+
+    th{
+      color: #767676;
+    }
+
+    td{
+      // color: #000000;
+      background-color: #FCFCFC;
+    }
+  
+    // tbody tr:nth-child(even) {
+    //   background-color: #FCFCFC;
+    // }
+  
+    // tbody tr:hover {
+    //   background-color: #f1f1f1;
+    // }
+  
+    /* Applying z-index to table corners */
+    .corner {
+      position: relative;
+      background-color: #F4F4F4;
+    }
+    
+  
+    .top-left {
+      border-top-left-radius: 10px;
+      z-index: 100;
+    }
+  
+    .top-right {
+      border-top-right-radius: 10px;
+      z-index: 100;
+    }
+  }
+
+  .refresh-wrapper{
+    color: #FFF;
+    text-align: center;
+    font-size: 15px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+  }
+
+  .gain-positive {
+    color: #0CB300;
+    // font-weight: bold;
+  }
+  
+  .gain-negative {
+    color: #EB0004;
+    // font-weight: bold;
+  }
+  
+  .gain-neutral {
+    color: black;
+  }
+
+  .timer {
+    // font-size: 18px;
+    font-weight: bold;
+    color: #FFF;
+  }
+  
+  .countdown {
+    // font-size: 22px;
+    font-weight: bold;
+    color: #FFF; /* Orange countdown */
+  }
+
+
+  @media screen and (max-width: 768px) {
+    .full-width-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 16px;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      // color: #767676;
+    
+      thead {
+        background-color: #F4F4F4;
+        font-weight: bold;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        // font-family: Plus Jakarta Sans;  
+      }
+    
+      th, td {
+        padding: 12px;
+        // border: 1px solid #04466C;
+      }
+  
+      th{
+        color: #767676;
+      }
+  
+      td{
+        // color: #000000;
+        background-color: #FCFCFC;
+      }
+    
+      // tbody tr:nth-child(even) {
+      //   background-color: #FCFCFC;
+      // }
+    
+      // tbody tr:hover {
+      //   background-color: #f1f1f1;
+      // }
+    
+      /* Applying z-index to table corners */
+      .corner {
+        position: relative;
+        background-color: #F4F4F4;
+      }
+      
+    
+      .top-left {
+        border-top-left-radius: 10px;
+        z-index: 100;
+      }
+    
+      .top-right {
+        border-top-right-radius: 10px;
+        z-index: 100;
+      }
+    }
+  }
+  
+
+   

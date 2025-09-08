@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="tabbing-link">
+      <button [ngClass]="category == 'live' ? 'active' : ''" (click)="categoryHandle('live')">Live Accounts</button>
+      <button [ngClass]="category == 'demo' ? 'active' : ''" (click)="categoryHandle('demo')">Demo Accounts</button>
+    </div>
+  </div>
+  <div class="col-md-6 text-right">
+    <button style="background-color: #2369B3; color: white;" class="btn me-2" (click)="accountOpen('demo')">Open Demo Account</button>
+    <button style="background-color: #2369B3; color: white;" class="btn" (click)="accountOpen('live')">Open Live Account</button>
+  </div>
+</div>
+
+
+
+
+
+<div class="main-white-box" [loader]="isLoading">
+  <div class="table-overflow-box">
+    <table class="full-width-table">
+      <tr>
+        <th>Type </th>
+        <th>Trading Platform Login </th>
+        <th>Leverage </th>
+        <th>Currency </th>
+        <th>Balance </th>
+        <th>Credit </th>
+        <th>Equity </th>
+        <th>Margin </th>
+        <th>Action </th>
+      </tr>
+      <ng-container *ngIf="accountList?.length > 0">
+        <tr *ngFor="let item of accountList; let index = index;">
+          <td> {{item.type.title}}</td>
+          <td (click)="accountShowHandle(item)"><a class="general-link pointer"> {{item.login}}</a></td>
+          <td> 1:{{item.leverage}}</td>
+          <td> {{item.currency}}</td>
+          <td> {{item.balance ? currencyFor(item.balance) : '0.00'}}</td>
+          <td> {{item.credit ? currencyFor(item.credit) : '0.00'}}</td>
+          <td> {{item.equity ? currencyFor(item.equity) : '0.00'}}</td>
+          <td> {{item.margin ? currencyFor(item.margin) : '0.00'}}</td>
+          <td>
+            <button class="simple-button" (click)="accountShowHandle(item)"><svg xmlns="http://www.w3.org/2000/svg"
+                width="30" height="30" viewBox="0 0 30 30" fill="none">
+                <path
+                  d="M21.8884 14.2267C21.3397 13.0001 19.1877 9 14.5001 9C9.81249 9 7.66056 13.0001 7.1118 14.2267C7.03813 14.3911 7 14.5698 7 14.7506C7 14.9315 7.03813 15.1101 7.1118 15.2745C7.66056 16.4999 9.81249 20.5 14.5001 20.5C19.1877 20.5 21.3397 16.4999 21.8884 15.2733C21.9619 15.109 22 14.9306 22 14.75C22 14.5694 21.9619 14.391 21.8884 14.2267ZM14.5001 19.2222C10.5581 19.2222 8.71871 15.7939 8.24995 14.757C8.71871 13.7061 10.5581 10.2778 14.5001 10.2778C18.4327 10.2778 20.2728 13.6914 20.7503 14.75C20.2728 15.8086 18.4327 19.2222 14.5001 19.2222Z"
+                  fill="#2369B3" />
+                <path
+                  d="M14.5001 11.5557C13.882 11.5557 13.2778 11.743 12.7639 12.094C12.25 12.445 11.8494 12.9439 11.6129 13.5276C11.3764 14.1114 11.3145 14.7537 11.435 15.3733C11.5556 15.993 11.8533 16.5622 12.2903 17.0089C12.7274 17.4557 13.2842 17.7599 13.8904 17.8832C14.4966 18.0064 15.125 17.9432 15.696 17.7014C16.267 17.4596 16.7551 17.0502 17.0985 16.5248C17.4419 15.9995 17.6252 15.3819 17.6252 14.7501C17.6242 13.9032 17.2946 13.0913 16.7088 12.4924C16.1229 11.8936 15.3286 11.5567 14.5001 11.5557ZM14.5001 16.6668C14.1292 16.6668 13.7667 16.5544 13.4584 16.3438C13.15 16.1332 12.9097 15.8338 12.7678 15.4836C12.6258 15.1334 12.5887 14.748 12.6611 14.3762C12.7334 14.0044 12.912 13.6629 13.1742 13.3948C13.4365 13.1268 13.7706 12.9442 14.1343 12.8703C14.498 12.7963 14.875 12.8343 15.2176 12.9793C15.5603 13.1244 15.8531 13.3701 16.0591 13.6853C16.2652 14.0005 16.3751 14.371 16.3751 14.7501C16.3751 15.2584 16.1776 15.746 15.8259 16.1054C15.4743 16.4648 14.9974 16.6668 14.5001 16.6668Z"
+                  fill="#2369B3" />
+              </svg></button>
+            <button class="simple-button" (click)="accountDepositHandle(item)">
+  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+    <polygon points="3 19 3 5 5 3 19 3 21 5 21 19 19 21 5 21 3 19" fill="none" stroke="#2369B3" stroke-miterlimit="10"/>
+    <polyline points="8 12 12 8 16 12" fill="none" stroke="#2369B3" stroke-miterlimit="10"/>
+    <line x1="12" y1="8" x2="12" y2="17" fill="none" stroke="#2369B3" stroke-miterlimit="10"/>
+  </svg>
+</button>
+
+          </td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="!accountList || accountList?.length == 0">
+        <tr>
+          <td colspan="9" class="text-center">No data found</td>
+        </tr>
+      </ng-container>
+    </table>
+  </div>
+</div>

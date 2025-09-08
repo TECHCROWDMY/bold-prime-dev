@@ -1,0 +1,25 @@
+
+<div  [loader]="isLoading">
+  <div class="top-area text-center">
+    <div class="small-title semi-weight">{{accountLabel}}: {{accountValue}}</div>
+  </div>
+  <div class="main-pop-box">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-sm-11">
+        <div class="row">
+          <div class="col-sm-4 border-top">
+            <div class="fund-title text-right font-size"><b>{{accountLabel}}</b></div>
+          </div>
+          <div class="col-sm-6 border-top font-size">
+            <div>{{accountValue ? accountValue : ''}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="button-parent text-center">
+      <button class="white-button md-btn sub-title semi-weight"  (click)="bsModalService.hide();" >Close</button>
+    </div>
+  </div>
+</div>
+
+

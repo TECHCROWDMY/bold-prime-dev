@@ -1,0 +1,72 @@
+<div [loader]="isLoading">
+
+
+  <div class="top-area text-center">
+    <div class="small-title semi-weight">Change Password</div>
+  </div>
+  <div class="main-pop-box">
+  <form  class="main-pop-box" [formGroup]="ProfileChangeEmailForm" (ngSubmit)="onSubmit()" >
+
+
+    <div class="row justify-content-center">
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-sm-6">
+                  <input type="text" placeholder="Email" class="gen-input" formControlName="email" id="email"
+                  name="email">
+                <div *ngIf="isSubmitted && f['email'].errors" class="errors">
+                  <p *ngIf="f['email'].errors['validEmail']">
+                    Please enter valid email address
+                  </p>
+                  <div *ngIf="!f['email'].errors['validEmail']">
+                    <p *ngIf="f['email'].errors['required']">
+                      Please enter email address
+                    </p>
+                  </div>
+                </div>
+                </div>
+                <div class="col-sm-6">
+
+                  <input type="text"
+                  placeholder="REASON"
+                  class="gen-input"
+                  formControlName="reason"
+                  id="reason"
+                  name="reason"
+                  >
+
+                </div>
+
+
+                <div class="col-sm-6">
+
+                  <input type="text"
+                  placeholder="PIN"
+                  class="gen-input"
+                  formControlName="pin"
+                  id="pin"
+                  name="pin"
+                  >
+                  <div *ngIf="isSubmitted && f['pin'].errors" class="errors">
+                   <p *ngIf="f['pin'].errors['required']">Please enter Pin</p>
+                   <p *ngIf="f['pin'].errors['maxlength'] != null">
+                     Pin length must be 4 characters
+                   </p>
+                   <p *ngIf="f['pin'].errors['minlength'] != null">
+                     Pin length must be 4 characters
+                   </p>
+                 </div>
+
+                </div>
+
+              </div>
+
+        </div>
+    </div>
+    <div class="button-parent text-center d-flex justify-content-center">
+     <button  type="button" class="white-button md-btn sub-title semi-weight" (click)="bsModalService.hide()">Cancel</button> &nbsp; &nbsp; &nbsp;
+    <button  type="submit" class="primary-button md-btn sub-title semi-weight">Continue</button>
+    </div>
+  </form>
+</div>
+</div>

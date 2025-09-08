@@ -1,0 +1,26 @@
+.main-white-box{border-radius: 8px; overflow: hidden; background-color: var(--light-text);}
+
+.account-fund{padding: 0px 40px;}
+.account-fund .fund-item{margin: 40px 0; position: relative;}
+.account-fund .fund-item .floated{position: absolute; right: 60px; top: 0;}
+.account-fund .fund-item + .fund-item{border-left: 0px solid rgb(217 217 217 / 30%);}
+.account-fund .fund-item .fund-title{margin-bottom: 12px; opacity: .5; font-size: 12px; line-height: 1;}
+.account-fund .fund-item p{color: var(--secondary-color); font-weight: 600; font-size: 22px;}
+.account-fund.dark-text .fund-item p{color: var(--dark-text); font-size: 18px;}
+
+.button-parent{margin: 20px 0 50px;}
+.button- .filter-over-box .example-accordion .example-accordion-item::before{
+    transform: rotate(180deg);
+    margin-top: 10px;
+}
+parent .bordered-btn{color: var(--dark-color);}
+
+@media screen and (max-width: 1450px) {
+    .account-fund .fund-item .floated{right: 20px;}
+}
+@media screen and (max-width: 991px) {
+    .account-fund .fund-item{margin: 30px 0;}
+}
+@media screen and (max-width: 650px) {
+    .button-parent .bordered-btn{margin: 5px;}
+}

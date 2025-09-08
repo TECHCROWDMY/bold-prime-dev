@@ -1,0 +1,38 @@
+
+<div [loader]="isLoading">
+  <div class="main-white-box">
+    <div class="multi-data-area d-flex justify-content-between">
+      <div class="dates-area row align-items-end justify-content-between flex-grow-1 p-0">
+        <div class="boxed-label-input d-flex p-0">
+          <label>Common Currency</label>
+          <select name="" id="">
+            <option value="Email">USD</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <input type="text" placeholder="From" class="form-control gen-input" [maxDate]="maxDate()" (bsValueChange)="dateRangePiker($event,'from')" [bsConfig]="{ showWeekNumbers:false }" bsDatepicker>
+        </div>
+        <div class="input-group">
+          <input type="text" placeholder="To" class="form-control gen-input" [maxDate]="maxDate()" [minDate]="minDate()" (bsValueChange)="dateRangePiker($event,'to')" [bsConfig]="{ showWeekNumbers:false }" bsDatepicker>
+        </div>
+      </div>
+      <button type="button" (click)="getChartDetails()" class="primary-button md-btn sub-title">Submit</button>
+    </div>
+  </div>
+
+
+  <div class="main-white-box">
+    <div class="content-area">
+      <div class="chart-container3 chart-box">
+        <canvas  id="profitDataChart" >{{ profitData }}</canvas>
+      </div>
+
+      <hr>
+      <div class="chart-container3 chart-box">
+        <canvas  id="lotsDataChart" >{{ lotsData }}</canvas>
+      </div>
+
+    </div>
+  </div>
+
+</div>

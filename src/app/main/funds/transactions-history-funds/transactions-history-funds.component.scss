@@ -1,0 +1,134 @@
+.main-white-box{margin-top: 30px;}
+// .filter-parent-box{position: relative;}
+// .filter-over-box{background-color: var(--light-text); border-radius: 8px; overflow-x: hidden; width: 300px; position: absolute; top: 0; right: 0; overflow-y: auto; box-shadow: 0px 18px 30px rgba(131, 119, 198, 0.11); opacity: 0; visibility: hidden;}
+// .filter-over-box.show{opacity: 1; visibility: visible;}
+// .filter-over-box .filter-overflow{overflow-y: auto; overflow-x: hidden; max-height: calc(100vh - 300px);}
+// .filter-over-box .filter-overflow::-webkit-scrollbar{display: none;} /* to Hide Scrollbar */
+// .filter-over-box .accordion{padding: 15px 25px;}
+// .filter-over-box .accordion .accordion-item{border: 0; border-bottom: 1px solid #D9D9D9; border-radius: 0px;}
+// .filter-over-box .accordion .accordion-item .accordion-button{padding: 20px 0; border: 0; font-size: 14px; color: #999999; box-shadow: none; background: transparent;}
+// .filter-over-box .accordion .accordion-item .accordion-button.collapsed::after{transform: translate(0, 7.5px) rotate(-180deg);}
+// .filter-over-box .accordion .accordion-item .accordion-button::after{width: 0; height: 0; border: 6px solid transparent; border-bottom: 6px solid #000; transform: translate(0, 0px);}
+// .filter-over-box .accordion .accordion-body{padding: 0px 0 10px;}
+// .filter-over-box .button-parent{padding: 12px 24px;}
+// .filter-over-box .button-parent button{padding: 15px;}
+// .filter-over-box .radio-parent label{line-height: 20px; display: flex; align-items: center; padding-left: 35px;}
+// .filter-over-box .radio-parent label::before, .filter-over-box .radio-parent label::after{width: 20px; height: 20px;}
+
+// @media screen and (max-width: 650px) {
+//     .filter-over-box{right: initial; left: 0; top: 0; position: fixed; z-index: 9999; width: 100vw; height: 100vh;}
+//     .filter-over-box .filter-overflow{max-height: initial; height: calc(100vh - 220px);}
+//     .filter-over-box .button-parent button{padding: 10px;}
+// }
+
+.top-area{padding: 15px; border-bottom: 5px solid #FAFAFF;}
+.tabbing-link{border: 1px solid var(--secondary-color); border-radius: 10px; display: flex; overflow: hidden;width: fit-content;  margin-bottom: 30px; background-color: var(--light-text);}
+.tabbing-link a{padding: 15px; min-width: 222px; text-align: center; display: inline-block; color: var(--secondary-color); font-size: var(--sub-title);}
+.tabbing-link a + a{border-left: 1px solid rgba(255, 255, 255, 0.25);}
+.tabbing-link a.active{background-color: var(--secondary-color); color: var(--light-text);}
+.tabbing-link button{padding: 15px; min-width: 222px; text-align: center; display: inline-block; color: var(--secondary-color); border: none; font-size: var(--sub-title); background-color: transparent;}
+.tabbing-link button + button{border-left: 1px solid rgba(255, 255, 255, 0.25);}
+.tabbing-link button.active{background-color: var(--secondary-color); color: var(--light-text);}
+
+ .filter-over-box .example-accordion .example-accordion-item::before{
+    transform: rotate(180deg);
+    margin-top: 10px;
+}
+
+
+.bordered-btn {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    font-size: 18px;
+    background-color: #2369B3;
+    color: #fff;
+}
+
+.bordered-btn svg{
+    fill: white;
+}
+
+@media screen and (max-width: 1540px) {
+    .tabbing-link a, .tabbing-link button{min-width: 150px; padding: 13px;}
+}
+@media screen and (max-width: 991px) {
+    .tabbing-link a, .tabbing-link button{min-width: auto; padding: 10px 15px; font-size: 14px;}
+}
+@media screen and (max-width: 650px) {
+    .tabbing-link{margin: 0; width: 100%; margin-bottom: 10px;}
+    .tabbing-link a, .tabbing-link button{min-width: auto; padding: 10px 15px; font-size: 14px; width: 50%; text-align: center;}
+    .top-area{padding: 15px;}
+    .bs-datepicker  {
+        z-index: 9999 !important;
+      }
+    .bs-datepicker-container .bs-daterangepicker-container
+    {
+        z-index: 9999 !important;
+    }
+}
+
+.modal .modal-content .bs-datepicker {
+    z-index: 9999 !important;
+}
+  
+.bs-datepicker  {
+    z-index: 9999 !important;
+}
+
+.modal .modal-content .bs-datepicker-container .bs-daterangepicker-container
+{
+    z-index: 9999 !important;
+}
+
+.load_more{
+  font-size: 16px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  color: #FAFAFF;
+  padding: 11px;
+}
+// filter dropdoown
+// .example-accordion {
+//   display: block;
+//   max-width: 500px;
+// }
+
+// .example-accordion-item {
+//   display: block;
+//   border: solid 1px #ccc;
+// }
+
+// .example-accordion-item + .example-accordion-item {
+//   border-top: none;
+// }
+
+// .example-accordion-item-header {
+//   display: flex;
+//   align-content: center;
+//   justify-content: space-between;
+// }
+
+// .example-accordion-item-description {
+//   font-size: 0.85em;
+//   color: #999;
+// }
+
+// .example-accordion-item-header,
+// .example-accordion-item-body {
+//   padding: 16px;
+// }
+
+// .example-accordion-item-header:hover {
+//   cursor: pointer;
+//   background-color: #eee;
+// }
+
+// .example-accordion-item:first-child {
+//   border-top-left-radius: 4px;
+//   border-top-right-radius: 4px;
+// }
+
+// .example-accordion-item:last-child {
+//   border-bottom-left-radius: 4px;
+//   border-bottom-right-radius: 4px;
+// }

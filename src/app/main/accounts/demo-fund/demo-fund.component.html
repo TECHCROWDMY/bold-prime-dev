@@ -1,0 +1,29 @@
+<div class="account-dashboard" [loader]="isLoading">
+    <div class="row">
+        <div class="col-lg-12 p-2">
+            <div class="main-white-box">
+                <div class="content-area">
+                    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+                        <div class="boxed-label-input d-flex">
+                            <label>Deposit Ammount</label>
+                            <select class="real-select" name="depositAmmount" id="dipositAmmount" formControlName="depositAmmount">
+                                <option value="1000">1,000</option>
+                                <option value="3000">3,000</option>
+                                <option value="5000">5,000</option>
+                                <option value="10000">10,000</option>
+                                <option value="50000">50,000</option>
+                                <option value="100000">100,000</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="button-parent d-flex justify-content-center">
+                                <button type="submit"
+                                    class="primary-button sub-title lg-btn semi-weight">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

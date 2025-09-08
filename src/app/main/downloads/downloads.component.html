@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-lg-6 p-2" *ngFor="let item of downloadLists; let index = index">
+        <div class="main-white-box">
+            <div class="top-area">
+                <div class="small-title semi-weight">{{item.title}}</div>
+            </div>
+            <div class="content-area">
+                <div class="logo-box text-center">
+                    <img src="./assets/images/dark-logo.webp" alt="">
+                </div>
+                <div class="button-parent d-flex justify-content-center">
+                    <button (click)="downloadApp(item)" class="primary-button lg-btn p semi-weight">Download</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

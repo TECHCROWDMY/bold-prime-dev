@@ -1,0 +1,124 @@
+<div class="login-parnet-box">
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="col-lg-1"></div>
+      <div class="col-lg-5 text-center">
+        <img src="./assets/images/logo.webp" alt="logo">
+      </div>
+      <div class="col-lg-1"></div>
+      <div class="col-lg-4">
+        <form [loader]="isLoading" class="while-box-login" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="top-bar">
+            <div class="large-title">Welcome back!</div>
+            <div class="sub-title">Sign In into your account</div>
+            <div class="input-parent">
+              <div class="input-group">
+                <input
+                type="text"
+                class="gen-input"
+                placeholder="Email"
+                formControlName="email"
+                id="email"
+                  name="email">
+
+                <div *ngIf="isSubmitted && f['email'].errors" class="errors">
+                  <p *ngIf="f['email'].errors['validEmail']">
+                    Please enter valid email address
+                  </p>
+                  <div *ngIf="!f['email'].errors['validEmail']">
+                    <p *ngIf="f['email'].errors['required']">
+                      Please enter email address
+                    </p>
+                    <p *ngIf="f['email'].errors['maxlength'] != null">
+                      Please enter valid email address
+                    </p>
+                    <p *ngIf="f['email'].errors['minlength'] != null">
+                      Please enter valid email address
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="input-group">
+                <input
+                 [type]="passShowHide ? 'password' : 'text'"
+                  placeholder="Password"
+                  class="gen-input"
+                  formControlName="password"
+                  id="password" name="password"
+                  >
+                <div class="simple-button show-password" (click)="togglePasswordFieldType()">
+
+                  <svg *ngIf="!passShowHide"  width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 9C11.2044 9 10.4413 9.31607 9.87868 9.87868C9.31607 10.4413 9 11.2044 9 12C9 12.7956 9.31607 13.5587 9.87868 14.1213C10.4413 14.6839 11.2044 15 12 15C12.7956 15 13.5587 14.6839 14.1213 14.1213C14.6839 13.5587 15 12.7956 15 12C15 11.2044 14.6839 10.4413 14.1213 9.87868C13.5587 9.31607 12.7956 9 12 9ZM12 17C10.6739 17 9.40215 16.4732 8.46447 15.5355C7.52678 14.5979 7 13.3261 7 12C7 10.6739 7.52678 9.40215 8.46447 8.46447C9.40215 7.52678 10.6739 7 12 7C13.3261 7 14.5979 7.52678 15.5355 8.46447C16.4732 9.40215 17 10.6739 17 12C17 13.3261 16.4732 14.5979 15.5355 15.5355C14.5979 16.4732 13.3261 17 12 17ZM12 4.5C7 4.5 2.73 7.61 1 12C2.73 16.39 7 19.5 12 19.5C17 19.5 21.27 16.39 23 12C21.27 7.61 17 4.5 12 4.5Z" fill="black"/>
+                    </svg>
+
+                  <!-- <svg *ngIf="!passShowHide" xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                    viewBox="0 0 12 12" fill="none">
+                    <path
+                      d="M2.25983 2.96703L0.696332 1.40403L1.40383 0.696533L11.3033 10.5965L10.5958 11.3035L8.94083 9.64853C8.06144 10.2063 7.0412 10.5017 5.99983 10.5C3.30383 10.5 1.06083 8.56003 0.590332 6.00003C0.805347 4.83539 1.39065 3.77148 2.25983 2.96703ZM7.37833 8.08603L6.64633 7.35403C6.36636 7.48799 6.05172 7.5318 5.7458 7.47943C5.43988 7.42705 5.15773 7.28106 4.93827 7.0616C4.7188 6.84213 4.57282 6.55999 4.52044 6.25407C4.46806 5.94815 4.51187 5.63351 4.64583 5.35353L3.91383 4.62153C3.59569 5.10228 3.45347 5.6782 3.51125 6.25178C3.56903 6.82536 3.82326 7.36134 4.23089 7.76897C4.63853 8.17661 5.17451 8.43084 5.74809 8.48862C6.32167 8.5464 6.89759 8.40418 7.37833 8.08603ZM3.98683 1.88003C4.61033 1.63503 5.28983 1.50003 5.99983 1.50003C8.69583 1.50003 10.9388 3.44003 11.4093 6.00003C11.2561 6.83288 10.9118 7.61882 10.4033 8.29603L8.47333 6.36603C8.53066 5.97984 8.49674 5.58559 8.3743 5.21486C8.25185 4.84413 8.04427 4.50724 7.7682 4.23117C7.49213 3.95509 7.15523 3.74752 6.7845 3.62507C6.41378 3.50262 6.01953 3.4687 5.63333 3.52603L3.98683 1.88003Z"
+                      fill="#303030" /></svg> -->
+                  <svg *ngIf="passShowHide" xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                    viewBox="0 0 12 12" fill="none">
+                    <path
+                      d="M2.25983 2.96703L0.696332 1.40403L1.40383 0.696533L11.3033 10.5965L10.5958 11.3035L8.94083 9.64853C8.06144 10.2063 7.0412 10.5017 5.99983 10.5C3.30383 10.5 1.06083 8.56003 0.590332 6.00003C0.805347 4.83539 1.39065 3.77148 2.25983 2.96703ZM7.37833 8.08603L6.64633 7.35403C6.36636 7.48799 6.05172 7.5318 5.7458 7.47943C5.43988 7.42705 5.15773 7.28106 4.93827 7.0616C4.7188 6.84213 4.57282 6.55999 4.52044 6.25407C4.46806 5.94815 4.51187 5.63351 4.64583 5.35353L3.91383 4.62153C3.59569 5.10228 3.45347 5.6782 3.51125 6.25178C3.56903 6.82536 3.82326 7.36134 4.23089 7.76897C4.63853 8.17661 5.17451 8.43084 5.74809 8.48862C6.32167 8.5464 6.89759 8.40418 7.37833 8.08603ZM3.98683 1.88003C4.61033 1.63503 5.28983 1.50003 5.99983 1.50003C8.69583 1.50003 10.9388 3.44003 11.4093 6.00003C11.2561 6.83288 10.9118 7.61882 10.4033 8.29603L8.47333 6.36603C8.53066 5.97984 8.49674 5.58559 8.3743 5.21486C8.25185 4.84413 8.04427 4.50724 7.7682 4.23117C7.49213 3.95509 7.15523 3.74752 6.7845 3.62507C6.41378 3.50262 6.01953 3.4687 5.63333 3.52603L3.98683 1.88003Z"
+                      fill="#303030" /></svg>
+                </div>
+                <div *ngIf="isSubmitted && f['password'].errors" class="errors">
+                  <p *ngIf="f['password'].errors['required']">Please enter password</p>
+                  <p *ngIf="f['password'].errors['maxlength'] != null">
+                    Password length must be 8-16 characters
+                  </p>
+                  <p *ngIf="f['password'].errors['minlength'] != null">
+                    Password length must be 8-16 characters
+                  </p>
+                </div>
+              </div>
+              <div class="input-group d-flex justify-content-between align-items-center">
+                <div class="radio-parent">
+                  <input type="checkbox" id="remember-me" formControlName="rememberMe" name="rememberMe">
+                  <label for="remember-me">Remember me</label>
+                </div>
+                <a (click)="pageHandle('forgot')" class="general-link pointer">Forgot Password?</a>
+              </div>
+            </div>
+          </div>
+          <div class="bottom-bar">
+            <div class="button-parent text-center">
+              <button class="primary-button lg-btn" [disabled]="isLoading" type="submit">Sign In</button>
+            </div>
+            <!-- <div class="or text-center">Or</div> -->
+            <!-- <div class="login-via text-center">
+              <button class="simple-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
+                  <rect width="60" height="60" rx="8" fill="white" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M41.04 30.2613C41.04 29.4459 40.9668 28.6618 40.8309 27.9091H30V32.3575H36.1891C35.9225 33.795 35.1123 35.0129 33.8943 35.8284V38.7138H37.6109C39.7855 36.7118 41.04 33.7636 41.04 30.2613Z"
+                    fill="#4285F4" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M30 41.4998C33.105 41.4998 35.7081 40.47 37.6109 38.7137L33.8943 35.8282C32.8645 36.5182 31.5472 36.9259 30 36.9259C27.0047 36.9259 24.4695 34.903 23.5652 32.1848H19.7231V35.1644C21.6154 38.9228 25.5045 41.4998 30 41.4998Z"
+                    fill="#34A853" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M23.5652 32.1851C23.3352 31.4951 23.2045 30.7581 23.2045 30.0001C23.2045 29.2422 23.3352 28.5051 23.5652 27.8151V24.8356H19.7232C18.9443 26.3881 18.5 28.1444 18.5 30.0001C18.5 31.8558 18.9443 33.6122 19.7232 35.1647L23.5652 32.1851Z"
+                    fill="#FBBC05" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M30 23.0739C31.6884 23.0739 33.2043 23.6541 34.3961 24.7936L37.6945 21.4952C35.7029 19.6395 33.0997 18.5 30 18.5C25.5045 18.5 21.6154 21.077 19.7231 24.8355L23.5652 27.815C24.4695 25.0968 27.0047 23.0739 30 23.0739Z"
+                    fill="#EA4335" /></svg>
+              </button>
+              <button class="simple-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
+                  <rect width="60" height="60" rx="8" fill="white" />
+                  <path
+                    d="M41.5557 30.0001C41.5557 23.6488 36.4069 18.5001 30.0557 18.5001C23.7044 18.5001 18.5557 23.6488 18.5557 30.0001C18.5557 35.74 22.761 40.4976 28.2588 41.3604V33.3243H25.3389V30.0001H28.2588V27.4665C28.2588 24.5843 29.9757 22.9922 32.6025 22.9922C33.8607 22.9922 35.1768 23.2169 35.1768 23.2169V26.0469H33.7266C32.2981 26.0469 31.8525 26.9334 31.8525 27.8428V30.0001H35.042L34.5321 33.3243H31.8525V41.3604C37.3503 40.4976 41.5557 35.74 41.5557 30.0001Z"
+                    fill="#1877F2" /></svg>
+              </button>
+            </div> -->
+            <p class="text-center">You don't have an account? <a (click)="pageHandle('signup')" class="primary-link">Register</a></p>
+          </div>
+        </form>
+        <!-- </div> -->
+      </div>
+      <div class="col-lg-1"></div>
+    </div>
+  </div>
+  <p>Risk Warning : Trading FX instruments and CFDs can incur a high level of risk and may result in a loss of all your invested Capital.</p>
+</div>

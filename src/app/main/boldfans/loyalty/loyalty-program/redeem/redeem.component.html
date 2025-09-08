@@ -1,0 +1,152 @@
+<div>
+    <div class="p semi-weight mb-2">Bold Prime Fans Point Balance</div>
+    <hr>
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <span>Deposit Points: 0</span>
+        </div>
+        <div class="col-md-12">
+            <span>Lot Points: 2.69</span>
+        </div>
+    </div>
+    <div class="form-items">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">Search</span>
+                </div>
+                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Real</span>
+                    </div>
+                    <input class="form-select" readonly aria-label="Default select example" placeholder="Time Added: Least Recent" (click)="handleClickFilter()" value="{{ selectedRadio }}">
+                    </div>
+                    <div class="filters-custom" *ngIf="isVisible">
+                        <input type="text" class="form-control" (keyup)="searchHandle($event)" aria-describedby="basic-addon3" placeholder="Search...">
+                        <div class="filters-custom-box">
+                        <form #radioForm="ngForm">
+                            <div *ngFor="let rl of  filteredItems">
+                                <div class="form-check">
+                                    <input class="form-check-input" [(ngModel)]="selectedRadio" type="radio" name="{{ rl }}" value="{{ rl }}"  (change)="onRadioButtonChange($event)"  [checked]="selectedRadio === rl">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        {{ rl }}
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 mt-3">
+                <button class="btn btn-success">Submit</button>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 p-lg-2 p-md-1 p-2">
+                <div class="code-item">
+                  <div class="thumb">
+                    <a [href]="" target="_blank">
+                      <img [src]="" alt="">
+                    </a>
+                    <img src="	https://fx.myboldprime.com/uploads/public/loyalty/2023/09/27/165d35418fa8b9ce2bedc355641e4d3b.png" alt="image">
+                  </div>
+                  <div class="box-title">Bold Prime Totebag - 1</div>
+                  <div class="lang">
+                    <label>Deposit Points: 50</label>
+                    <div class="progress">
+                      <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <br>
+                    <label>Lot Points: 50</label>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                  <div class="button-box">
+                    <button type="button" class="btn btn-outline-primary">Redeem</button>
+                  </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 p-lg-2 p-md-1 p-2">
+                <div class="code-item">
+                  <div class="thumb">
+                    <a [href]="" target="_blank">
+                      <img [src]="" alt="">
+                    </a>
+                    <img src="	https://fx.myboldprime.com/uploads/public/loyalty/2023/09/27/165d35418fa8b9ce2bedc355641e4d3b.png" alt="image">
+                  </div>
+                  <div class="box-title">Bold Prime Totebag - 1</div>
+                  <div class="lang">
+                    <label>Deposit Points: 50</label>
+                    <div class="progress">
+                      <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <br>
+                    <label>Lot Points: 50</label>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                  <div class="button-box">
+                    <button type="button" class="btn btn-outline-primary">Redeem</button>
+                  </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 p-lg-2 p-md-1 p-2">
+                <div class="code-item">
+                  <div class="thumb">
+                    <a [href]="" target="_blank">
+                      <img [src]="" alt="">
+                    </a>
+                    <img src="	https://fx.myboldprime.com/uploads/public/loyalty/2023/09/27/165d35418fa8b9ce2bedc355641e4d3b.png" alt="image">
+                  </div>
+                  <div class="box-title">Bold Prime Totebag - 1</div>
+                  <div class="lang">
+                    <label>Deposit Points: 50</label>
+                    <div class="progress">
+                      <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <br>
+                    <label>Lot Points: 50</label>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                  <div class="button-box">
+                    <button type="button" class="btn btn-outline-primary">Redeem</button>
+                  </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 p-lg-2 p-md-1 p-2">
+                <div class="code-item">
+                  <div class="thumb">
+                    <a [href]="" target="_blank">
+                      <img [src]="" alt="">
+                    </a>
+                    <img src="	https://fx.myboldprime.com/uploads/public/loyalty/2023/09/27/165d35418fa8b9ce2bedc355641e4d3b.png" alt="image">
+                  </div>
+                  <div class="box-title">Bold Prime Totebag - 1</div>
+                  <div class="lang">
+                    <label>Deposit Points: 50</label>
+                    <div class="progress">
+                      <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <br>
+                    <label>Lot Points: 50</label>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                  <div class="button-box">
+                    <button type="button" class="btn btn-outline-primary">Redeem</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

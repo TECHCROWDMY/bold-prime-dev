@@ -1,0 +1,65 @@
+<div
+  class="dashboard-main-box"
+  [ngClass]="{ 'show-sidebar': sidebarBtn == true }"
+>
+  <div class="content-panel">
+    <div class="dashboard-top-panel">
+      <app-header></app-header>
+    </div>
+    <div
+      class="alert alert-warning mb-0"
+      id="notification-not-verified"
+      *ngIf="isUserVerified == false"
+    >
+      <h4>
+        <i class="icon fa fa-info fa-lg"></i><i class="icon-info"></i>Your
+        profile has not yet been verified
+      </h4>
+      Therefore some functionality may be limited.
+      <a (click)="goToProfile()" style="text-decoration: underline"
+        >Click here to see what exactly is missing</a
+      >
+    </div>
+    <div
+      class="content-view-box"
+      [ngClass]="{ 'change-hight': isShowComp === 0 }"
+    >
+      <router-outlet></router-outlet>
+    </div>
+    <!-- <app-right-panel></app-right-panel> -->
+  </div>
+  <div class="sidebar">
+    <app-sidebar></app-sidebar>
+  </div>
+  <button class="sidebar-btn" (click)="sidebarHideShow()">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height="24px"
+      viewBox="0 0 24 24"
+      width="24px"
+    >
+      <path d="M0 0h24v24H0V0z" fill="none"></path>
+      <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+    </svg>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="10"
+      height="10"
+      x="0"
+      y="0"
+      viewBox="0 0 426.667 426.667"
+      style="enable-background: new 0 0 512 512"
+      xml:space="preserve"
+      class=""
+    >
+      <g>
+        <path
+          d="M426.667 59.733 366.933 0l-153.6 153.6L59.733 0 0 59.733l153.6 153.6L0 366.933l59.733 59.734 153.6-153.6 153.6 153.6 59.734-59.734-153.6-153.6z"
+          fill="#000000"
+          data-original="#000000"
+          class=""
+        ></path>
+      </g>
+    </svg>
+  </button>
+</div>

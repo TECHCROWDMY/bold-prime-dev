@@ -1,0 +1,25 @@
+<div class="d-flex align-items-center justify-content-between">
+  <div class="logo pointer"  (click)="headerLogo()">
+    <img src="./assets/images/small-logo.png" alt="">
+  </div>
+  <div class="right-side-head">
+    <h3 class="small-title">
+      {{commonService.pageName}}
+    </h3>
+
+    <breadcrumb #parent>
+      <ol class="breadcrumb justify-content-end mb-0 pointer">
+        <ng-template ngFor let-route [ngForOf]="parent.breadcrumbs">
+          <li *ngIf="!route.terminal" class="breadcrumb-item cursor-pointer"
+            [routerLink]="route.url !== '/location' && route.url !== '/profile' ?  [route.url] : '/'">{{
+          route.displayName == 'Profile' ? 'Home' : route.displayName }}</li>
+          <li *ngIf="route.terminal" class="breadcrumb-item active" aria-current="page"> {{ route.displayName
+          }}</li>
+        </ng-template>
+      </ol>
+    </breadcrumb>
+
+    <!-- <div class="bradcrumbs small-text">
+      Home > Trader's Menu > Downloads</div> -->
+  </div>
+</div>

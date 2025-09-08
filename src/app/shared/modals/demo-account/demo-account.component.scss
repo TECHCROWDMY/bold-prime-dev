@@ -1,0 +1,134 @@
+.top-area {
+  padding: 25px;
+  border-bottom: 5px solid #fafaff;
+}
+
+.main-pop-box {
+  padding: 15px 0 40px;
+}
+
+.progres-bar {
+  margin-bottom: 40px;
+}
+.boxed-label-input {
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  max-width: 60%;
+  margin: 0px auto 10px;
+}
+.boxed-label-input label {
+  background: #f9f9f9;
+  border-radius: 5px;
+  color: hsla(0, 0%, 19%, 0.5);
+  padding: 15px 20px;
+  line-height: 1.3;
+  min-width: 127px;
+  text-align: center;
+}
+.boxed-label-input select {
+  border: 0;
+  background-color: transparent;
+  width: 340px;
+  padding-left: 15px;
+  margin-right: 10px;
+  border-left: 1px solid #dddddd;
+  outline: none;
+}
+.button-parent {
+  margin-top: 70px;
+}
+.button-parent button {
+  padding: 15px;
+}
+.button-parent button + button {
+  margin-left: 15px;
+}
+.button-parent button.primary-button {
+  box-shadow: 0px 18px 30px rgba(31, 219, 183, 0.11);
+}
+
+.fund-item {
+  margin: 40px 0;
+  position: relative;
+}
+.fund-item + .fund-item {
+  border-left: 0px solid rgb(217 217 217 / 30%);
+}
+.fund-item .fund-title {
+  margin-bottom: 12px;
+  opacity: 0.5;
+  font-size: 12px;
+  line-height: 1;
+}
+.fund-item p {
+  color: var(--dark-text);
+  font-weight: 600;
+}
+.account-fund.dark-text .fund-item p {
+  color: var(--dark-text);
+}
+
+.border-top {
+  border-top: 1px solid #d9d9d9;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.border-top .fund-title {
+  opacity: 0.5;
+}
+.border-top:nth-child(1),
+.border-top:nth-child(2) {
+  border-top: 0px !important;
+}
+
+@media screen and (max-width: 991px) {
+  .boxed-label-input {
+    max-width: calc(100% - 20px);
+  }
+  .fund-item {
+    margin: 30px 0;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .fund-item {
+    margin: 20px 0;
+  }
+  .top-area {
+    padding: 15px;
+  }
+  .boxed-label-input label {
+    min-width: 120px;
+    padding: 10px 15px;
+  }
+  .boxed-label-input select {
+    width: calc(100% - 130px);
+  }
+  .button-parent {
+    margin-top: 40px;
+  }
+  .button-parent button {
+    padding: 10px;
+    width: auto;
+    min-width: 120px;
+  }
+  .col-sm-11 {
+    max-width: 80%;
+  }
+}
+
+select option[data-indent="1"] {
+  padding-left: 20px;
+}
+
+select option[data-indent="1"]::before {
+  content: "\00a0\00a0\00a0\00a0"; /* Equivalent to 4 spaces */
+}
+
+select option[data-indent="2"] {
+  padding-left: 40px;
+}
+
+select option[data-indent="2"]::before {
+  content: "\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0"; /* Equivalent to 8 spaces */
+}

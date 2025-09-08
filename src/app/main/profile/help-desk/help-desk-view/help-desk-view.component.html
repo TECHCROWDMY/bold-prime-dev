@@ -1,0 +1,179 @@
+<div [loader]="isLoading">
+  <div class="main-white-box">
+    <div class="content-area">
+      <div class="row border-main-parent">
+        <div class="col-md-3 fund-item">
+          <div class="fund-title small-text">Title</div>
+          <p>{{helpDeskDetails.title}}</p>
+        </div>
+        <div class="col-md-3 fund-item">
+          <div class="fund-title small-text">Created</div>
+          <p>{{dateFormate(helpDeskDetails.createdAt)}}</p>
+        </div>
+        <div class="col-md-3 fund-item">
+          <div class="fund-title small-text">Category</div>
+          <p>{{helpDeskDetails.category}}</p>
+        </div>
+        <div class="col-md-3 fund-item">
+          <div class="fund-title small-text">Status</div>
+          <div [ngClass]="{
+                   'green-box' : helpDeskDetails.status == 'approved' ||
+                   helpDeskDetails.status == 'approved support',
+                'yellow-box' : helpDeskDetails.status == 'pending'
+                || helpDeskDetails.status ==  'fresh'
+                || helpDeskDetails.status ==  'fresh support'
+                || helpDeskDetails.status == 'pending support' ,
+
+                'red-box' : helpDeskDetails.status == 'declined'
+                || helpDeskDetails.status ==  'cancelled'
+                || helpDeskDetails.status ==  'cancelled support'
+                 || helpDeskDetails.status == 'declined support'
+                || helpDeskDetails.status == 'closed'
+              }">{{helpDeskDetails.status}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cancal-box d-flex justify-content-end">
+    <ng-container *ngIf="helpDeskDetails.status != 'closed'">
+      <button (click)="closeHelpDesk('close')" class="denger-btn">Close</button>
+    </ng-container>
+    <ng-container *ngIf="helpDeskDetails.deleteAllowed == true">
+      &nbsp; &nbsp; <button (click)="closeHelpDesk('delete')" class="denger-btn">Delete</button>
+    </ng-container>
+  </div>
+
+
+  <div class="main-white-box">
+    <div class="content-area">
+      <div class="conversation-parent" *ngFor="let item of helpDeskDetails.comments; let index = index;">
+
+        <ng-container *ngIf="item.author != 'Support'">
+          <div class="conversation-item secondary-color">
+            <div class="convo-top d-flex justify-content-between align-items-center">
+              <div class="user-portion">
+                <div class="thumb">BP</div>
+                <label>{{item.author}}</label>
+              </div>
+              <div class="time-box d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                  <path
+                    d="M6.5 0.25C9.95625 0.25 12.75 3.05 12.75 6.5C12.75 9.95625 9.95625 12.75 6.5 12.75C3.05 12.75 0.25 9.95625 0.25 6.5C0.25 3.05 3.05 0.25 6.5 0.25ZM6.28125 3.33125C6.025 3.33125 5.8125 3.5375 5.8125 3.8V6.95625C5.8125 7.11875 5.9 7.26875 6.04375 7.35625L8.49375 8.81875C8.56875 8.8625 8.65 8.8875 8.7375 8.8875C8.89375 8.8875 9.05 8.80625 9.1375 8.65625C9.26875 8.4375 9.2 8.15 8.975 8.0125L6.75 6.6875V3.8C6.75 3.5375 6.5375 3.33125 6.28125 3.33125Z"
+                    fill="#C1C1C1" /></svg>
+                {{dateFormate(item.createdAt)}}
+              </div>
+            </div>
+            <div class="convo-bottom">
+              <ng-container *ngIf="item?.text != '' ">
+                <p [innerHTML]="item.text" style="font-size: 15px;"></p>
+              </ng-container>
+              <ng-container *ngIf="item?.attachments?.length > 0 ">
+                <div *ngFor="let itemImg of item.attachments; let index = index;">
+                  <div class="d-flex">
+                    <p>
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        xmlns:svgjs="http://svgjs.com/svgjs" width="22" height="22" x="0" y="0" viewBox="0 0 32 32"
+                        style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                        <g>
+                          <path
+                            d="M30 9a7.948 7.948 0 0 1-2.343 5.657l-14.41 14.581a5.991 5.991 0 0 1-4.249 1.758 5.98 5.98 0 0 1-4.241-1.754 6.007 6.007 0 0 1 0-8.485l10.41-10.351c1.563-1.553 4.047-1.604 5.54-.113a3.72 3.72 0 0 1 1.082 2.772 4.072 4.072 0 0 1-1.203 2.763l-9.879 9.879a.999.999 0 1 1-1.414-1.414l9.879-9.879c.383-.383.603-.883.618-1.408a1.74 1.74 0 0 0-.497-1.299c-.715-.712-1.933-.661-2.715.117L6.169 22.173a4.005 4.005 0 0 0 .002 5.655 4.006 4.006 0 0 0 5.657 0l14.41-14.581C27.376 12.109 28 10.603 28 9s-.624-3.109-1.757-4.242C25.109 3.624 23.603 3 22 3s-3.109.624-4.243 1.758L3.705 18.71a1 1 0 0 1-1.409-1.42l14.05-13.949C17.854 1.832 19.863 1 22 1s4.146.832 5.657 2.344A7.944 7.944 0 0 1 30 9z"
+                            fill="#000000" data-original="#000000" class=""></path>
+                        </g>
+                      </svg>
+                      <b>attachment :</b>
+                    </p>
+                  </div>
+
+                  <div (click)="imageNpdfModal(itemImg.path)" class="imageHolder">
+                    <p> {{itemImg.name}}</p>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="item.author == 'Support'">
+          <div class="conversation-item primary-color">
+            <div class="convo-top d-flex justify-content-between align-items-center">
+              <div class="user-portion">
+                <div class="thumb">BP</div>
+                <label>{{item.author == 'Support' ? 'Bold Prime Ltd Support' : item.author }}</label>
+              </div>
+              <div class="time-box d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                  <path
+                    d="M6.5 0.25C9.95625 0.25 12.75 3.05 12.75 6.5C12.75 9.95625 9.95625 12.75 6.5 12.75C3.05 12.75 0.25 9.95625 0.25 6.5C0.25 3.05 3.05 0.25 6.5 0.25ZM6.28125 3.33125C6.025 3.33125 5.8125 3.5375 5.8125 3.8V6.95625C5.8125 7.11875 5.9 7.26875 6.04375 7.35625L8.49375 8.81875C8.56875 8.8625 8.65 8.8875 8.7375 8.8875C8.89375 8.8875 9.05 8.80625 9.1375 8.65625C9.26875 8.4375 9.2 8.15 8.975 8.0125L6.75 6.6875V3.8C6.75 3.5375 6.5375 3.33125 6.28125 3.33125Z"
+                    fill="#C1C1C1" /></svg>
+                {{dateFormate(item.createdAt)}}
+              </div>
+            </div>
+            <div class="convo-bottom">
+              <ng-container *ngIf="item?.text != '' ">
+                <p [innerHTML]="item.text"></p>
+              </ng-container>
+              <ng-container *ngIf="item?.attachments?.length > 0 ">
+                <div *ngFor="let itemImg of item.attachments; let index = index;">
+                  <div class="d-flex pb-2">
+                    <p>
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        xmlns:svgjs="http://svgjs.com/svgjs" width="22" height="22" x="0" y="0" viewBox="0 0 32 32"
+                        style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                        <g>
+                          <path
+                            d="M30 9a7.948 7.948 0 0 1-2.343 5.657l-14.41 14.581a5.991 5.991 0 0 1-4.249 1.758 5.98 5.98 0 0 1-4.241-1.754 6.007 6.007 0 0 1 0-8.485l10.41-10.351c1.563-1.553 4.047-1.604 5.54-.113a3.72 3.72 0 0 1 1.082 2.772 4.072 4.072 0 0 1-1.203 2.763l-9.879 9.879a.999.999 0 1 1-1.414-1.414l9.879-9.879c.383-.383.603-.883.618-1.408a1.74 1.74 0 0 0-.497-1.299c-.715-.712-1.933-.661-2.715.117L6.169 22.173a4.005 4.005 0 0 0 .002 5.655 4.006 4.006 0 0 0 5.657 0l14.41-14.581C27.376 12.109 28 10.603 28 9s-.624-3.109-1.757-4.242C25.109 3.624 23.603 3 22 3s-3.109.624-4.243 1.758L3.705 18.71a1 1 0 0 1-1.409-1.42l14.05-13.949C17.854 1.832 19.863 1 22 1s4.146.832 5.657 2.344A7.944 7.944 0 0 1 30 9z"
+                            fill="#000000" data-original="#000000" class=""></path>
+                        </g>
+                      </svg>
+                      <b>attachment :</b>
+                    </p>
+                  </div>
+                  <div (click)="imageNpdfModal(itemImg.path)" class="imageHolder">
+                    <p> {{itemImg.name}}</p>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+
+        </ng-container>
+
+      </div>
+    </div>
+  </div>
+  <div class="main-white-box">
+    <div class="top-area">
+      <div class="small-title semi-weight">New Comment</div>
+    </div>
+    <div class="content-area">
+      <div class="new-comment">
+        <textarea class="gen-input" (keyup)="uploadNewText($event)" [value]="updateMessageText" type="text"
+          placeholder="Comment text..." rows="10"></textarea>
+        <div class="floated">
+          <button type="button" (click)="submitMassageHandle()" class="primary-button md-btn">Submit</button>
+        </div>
+      </div>
+      <div *ngIf="isSubmited == true && !updateMessageText" class="errors">
+        <p>Please enter comment text</p>
+      </div>
+      <div class="new-comment">
+        <!-- <input class="gen-input" type="file" (change)="uploadNewFiles($event)" multiple/> -->
+
+        <ngx-dropzone (change)="uploadNewFiles($event)">
+          <ngx-dropzone-label>File</ngx-dropzone-label>
+          <ng-container *ngFor="let f of updateImage; let index = index;">
+            <ngx-dropzone-preview [removable]="true" (removed)="onRemove(index)">
+              <ngx-dropzone-label>
+                <img src="{{image64Convert(index)}}">
+                {{ f.name }}</ngx-dropzone-label>
+            </ngx-dropzone-preview>
+
+          </ng-container>
+        </ngx-dropzone>
+
+
+      </div>
+    </div>
+  </div>
+
+
+</div>

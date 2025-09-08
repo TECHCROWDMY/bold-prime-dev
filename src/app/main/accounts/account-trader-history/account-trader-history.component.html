@@ -1,0 +1,573 @@
+<div [loader]="isLoading">
+  <div class="button-parent d-flex align-items-center justify-content-between">
+    <a
+      class="bordered-btn active"
+      (click)="toggleShowTotals()"
+      *ngIf="showTotals === false && isLoading === false"
+      >Calculate Totals</a
+    >
+    <div></div>
+    <div class="filter-parent-box d-flex">
+      <a class="bordered-btn" (click)="filterHandle()">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="17"
+          height="16"
+          viewBox="0 0 17 16"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M13.9389 9.5655C15.5119 9.5655 16.7916 10.8388 16.7916 12.4035C16.7916 13.9683 15.5119 15.2415 13.9389 15.2415C12.365 15.2415 11.0844 13.9683 11.0844 12.4035C11.0844 10.8388 12.365 9.5655 13.9389 9.5655ZM13.9389 10.9405C13.1231 10.9405 12.4594 11.5968 12.4594 12.4035C12.4594 13.2111 13.1231 13.8665 13.9389 13.8665C14.7538 13.8665 15.4166 13.2111 15.4166 12.4035C15.4166 11.5968 14.7538 10.9405 13.9389 10.9405ZM7.24027 11.7516C7.61977 11.7516 7.92777 12.0596 7.92777 12.4391C7.92777 12.8186 7.61977 13.1266 7.24027 13.1266H1.46436C1.08486 13.1266 0.776858 12.8186 0.776858 12.4391C0.776858 12.0596 1.08486 11.7516 1.46436 11.7516H7.24027ZM3.60358 0.666504C5.1775 0.666504 6.45717 1.94067 6.45717 3.50542C6.45717 5.07017 5.1775 6.3425 3.60358 6.3425C2.03058 6.3425 0.75 5.07017 0.75 3.50542C0.75 1.94067 2.03058 0.666504 3.60358 0.666504ZM3.60358 2.0415C2.78867 2.0415 2.125 2.69784 2.125 3.50542C2.125 4.31209 2.78867 4.9675 3.60358 4.9675C4.41942 4.9675 5.08217 4.31209 5.08217 3.50542C5.08217 2.69784 4.41942 2.0415 3.60358 2.0415ZM15.5918 2.86687C15.9713 2.86687 16.2793 3.17487 16.2793 3.55437C16.2793 3.93387 15.9713 4.24187 15.5918 4.24187H9.81684C9.43734 4.24187 9.12934 3.93387 9.12934 3.55437C9.12934 3.17487 9.43734 2.86687 9.81684 2.86687H15.5918Z"
+          />
+        </svg>
+        Filter
+      </a>
+      <a class="bordered-btn" (click)="exportCSVFile()">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M0.833008 10.6342C0.833008 8.392 2.65717 6.56784 4.89934 6.56784H5.75367C6.13317 6.56784 6.44117 6.87584 6.44117 7.25534C6.44117 7.63484 6.13317 7.94284 5.75367 7.94284H4.89934C3.41434 7.94284 2.20801 9.15009 2.20801 10.6342L2.20801 15.1029C2.20801 16.5852 3.41434 17.7915 4.89934 17.7915H15.1009C16.585 17.7915 17.7913 16.5852 17.7913 15.1029V10.6241C17.7913 9.14642 16.5887 7.94284 15.111 7.94284H14.2466C13.8671 7.94284 13.5591 7.63484 13.5591 7.25534C13.5591 6.87584 13.8671 6.56784 14.2466 6.56784H15.111C17.3477 6.56784 19.1663 8.38834 19.1663 10.6241V15.1029C19.1663 17.3433 17.3431 19.1665 15.1009 19.1665H4.89934C2.65717 19.1665 0.833008 17.3433 0.833008 15.1029L0.833008 10.6342ZM6.84084 3.22741L9.51292 0.543409C9.53668 0.519466 9.56139 0.498024 9.58753 0.478403L9.51292 0.543409C9.54494 0.510933 9.57993 0.48205 9.61725 0.456991C9.63415 0.445961 9.65163 0.435322 9.6696 0.425463C9.68364 0.417461 9.69829 0.410097 9.71318 0.403271C9.72634 0.397484 9.73951 0.39193 9.75288 0.38678C9.7703 0.379869 9.78821 0.373817 9.80636 0.368509C9.82065 0.36451 9.83491 0.360834 9.84934 0.357611C9.86685 0.353516 9.88447 0.35029 9.90222 0.347755C9.91376 0.346319 9.92585 0.344915 9.93804 0.343832C9.95894 0.341732 9.97927 0.340828 9.99967 0.340828L10.0565 0.345501L10.0929 0.347382C10.0945 0.347593 10.096 0.347809 10.0976 0.34803L9.99967 0.340828C10.0506 0.340828 10.1009 0.346462 10.1499 0.357412C10.1644 0.360832 10.1787 0.36451 10.1928 0.368626C10.2111 0.373817 10.229 0.379869 10.2467 0.386648C10.2598 0.39193 10.273 0.397486 10.286 0.403431C10.3011 0.410099 10.3157 0.417461 10.3301 0.42535C10.3477 0.435322 10.3652 0.445961 10.3821 0.457335C10.3922 0.463768 10.4021 0.470827 10.4119 0.478159C10.4406 0.499985 10.4676 0.523767 10.4926 0.549501L13.1594 3.22741C13.2933 3.36124 13.3602 3.53724 13.3602 3.71233C13.3602 3.88833 13.2933 4.06524 13.1576 4.19908C12.8881 4.46674 12.4536 4.46583 12.1859 4.19724L10.6872 2.694L10.6872 12.0662C10.6872 12.4457 10.3792 12.7537 9.99967 12.7537C9.62017 12.7537 9.31217 12.4457 9.31217 12.0662L9.31217 2.69217L7.81434 4.19724C7.54667 4.46583 7.11217 4.46766 6.84267 4.19908C6.57317 3.93141 6.57317 3.49691 6.84084 3.22741Z"
+          />
+        </svg>
+        Export
+      </a>
+      <div class="filter-over-box" [ngClass]="{ show: filterHideShow == true }">
+        <div class="top-area">
+          <div class="text-center semi-weight">Filter</div>
+        </div>
+        <cdk-accordion class="example-accordion" *ngIf="true">
+          <cdk-accordion-item
+            *ngFor="let item of filterMenu; let index = index"
+            #accordionItem="cdkAccordionItem"
+            class="example-accordion-item"
+            role="button"
+            tabindex="0"
+            [attr.id]="'accordion-header-' + index"
+            [attr.aria-expanded]="accordionItem.expanded"
+            [attr.aria-controls]="'accordion-body-' + index"
+          >
+            <div (click)="setColumn(index)">
+              <div
+                class="example-accordion-item-header d-flex align-items-center justify-content-between"
+                (click)="accordionItem.toggle()"
+              >
+                {{ item.fields }}
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6.1018 8C5.02785 8 4.45387 9.2649 5.16108 10.0731L10.6829 16.3838C11.3801 17.1806 12.6197 17.1806 13.3169 16.3838L18.8388 10.0731C19.5459 9.2649 18.972 8 17.898 8H6.1018Z"
+                    fill="#212121"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div
+              class="example-accordion-item-body"
+              role="region"
+              [style.display]="accordionItem.expanded ? '' : 'none'"
+              [attr.id]="'accordion-body-' + index"
+              [attr.aria-labelledby]="'accordion-header-' + index"
+            >
+              <div *ngIf="!checkAccordionDate(index)">
+                <input
+                  *ngIf="normalRadioButton(index) && caseMultiple()"
+                  type="search"
+                  placeholder="search"
+                  name="search"
+                  (keyup)="filterSearchValue($event, index)"
+                  (click)="clearSearchValue(null, index)"
+                />
+                <input
+                  *ngIf="
+                    !normalRadioButton(index) && caseRange() && caseMultiple()
+                  "
+                  type="value"
+                  placeholder="value"
+                  name="value"
+                  (keyup)="filterSearchValue($event, index)"
+                  (click)="clearSearchValue(null, index)"
+                />
+                <input
+                  *ngIf="!caseRange() && !normalRadioButton(index)"
+                  type="from"
+                  placeholder="from"
+                  name="from"
+                  (keyup)="rangePiker($event, 'from', index)"
+                />
+                <input
+                  *ngIf="!caseRange() && !normalRadioButton(index)"
+                  type="to"
+                  placeholder="to"
+                  name="to"
+                  (keyup)="rangePiker($event, 'to', index)"
+                />
+                <div *ngIf="caseType(index) === true">
+                  <label style="cursor: pointer; margin-right: 6px">
+                    <input
+                      type="radio"
+                      name="option"
+                      value="In"
+                      [checked]=""
+                      (click)="setRadioMultiple('In')"
+                    />
+                    IN
+                  </label>
+                  <label style="cursor: pointer">
+                    <input
+                      type="radio"
+                      name="option"
+                      value="Not In"
+                      (click)="setRadioMultiple('Not In')"
+                    />
+                    NOT IN
+                  </label>
+                </div>
+                <form
+                  *ngIf="!caseMultiple() && !normalRadioButton(index)"
+                  (submit)="onSubmitMultiple()"
+                >
+                  <label style="cursor: pointer; margin-right: 6px">
+                    <input
+                      type="radio"
+                      name="option"
+                      value="In"
+                      [checked]=""
+                      (click)="setRadioMultiple('In')"
+                    />
+                    IN
+                  </label>
+                  <label style="cursor: pointer">
+                    <input
+                      type="radio"
+                      name="option"
+                      value="Not In"
+                      (click)="setRadioMultiple('Not In')"
+                    />
+                    NOT IN
+                  </label>
+                  <br />
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      margin-bottom: 4px;
+                      gap: 2px;
+                    "
+                  >
+                    Comma separated
+                    <div class="toggle-container" (click)="toggleSwitch()">
+                      <div class="toggle-switch" [class.active]="isChecked">
+                        <div class="toggle-slider"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="enter values"
+                    name="enter values"
+                    [(ngModel)]="tempInput"
+                    (input)="multipleInput($event, index)"
+                  />
+                  <button
+                    *ngIf="!isChecked"
+                    type="submit"
+                    style="padding: 0 2px; border: 2px solid black"
+                  >
+                    Submit
+                  </button>
+                </form>
+                <form
+                  *ngIf="!caseMultiple() && normalRadioButton(index)"
+                  (submit)="onSubmitMultiple()"
+                >
+                  <label style="cursor: pointer; margin-right: 6px">
+                    <input
+                      type="radio"
+                      name="option"
+                      value="In"
+                      [checked]=""
+                      (click)="setRadioMultiple('In')"
+                    />
+                    IN
+                  </label>
+                  <label style="cursor: pointer">
+                    <input
+                      type="radio"
+                      name="option"
+                      value="Not In"
+                      (click)="setRadioMultiple('Not In')"
+                    />
+                    NOT IN
+                  </label>
+                  <br />
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      margin-bottom: 4px;
+                      gap: 2px;
+                    "
+                  >
+                    Comma separated
+                    <div class="toggle-container" (click)="toggleSwitch()">
+                      <div class="toggle-switch" [class.active]="isChecked">
+                        <div class="toggle-slider"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="enter values"
+                    name="enter values"
+                    [(ngModel)]="tempInput"
+                    (input)="multipleInput($event, index)"
+                  />
+                  <button
+                    *ngIf="!isChecked"
+                    type="submit"
+                    style="padding: 0 2px; border: 2px solid black"
+                  >
+                    Submit
+                  </button>
+                </form>
+                <div
+                  div
+                  style="display: flex; gap: 2px; width: 200px; flex-wrap: wrap"
+                  *ngIf="!caseMultiple()"
+                >
+                  <div *ngFor="let item of multiple[column]; let idx = index">
+                    <div
+                      *ngIf="this.isChecked == false"
+                      (click)="removeMultiple(idx)"
+                      style="
+                        cursor: pointer;
+                        border: 1px solid gray;
+                        border-radius: 8px;
+                        display: flex;
+                        gap: 4px;
+                        padding: 0 2px;
+                        align-items: center;
+                      "
+                    >
+                      <label>
+                        {{ item }}
+                      </label>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="8"
+                        height="8"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        style="display: absolute; top: 8px"
+                      >
+                        <path
+                          d="M1 1L11 11M11 1L1 11"
+                          stroke="#000"
+                          stroke-width="1.5"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  *ngIf="normalRadioButton(index) === true && caseType(index)"
+                  style="
+                    display: flex;
+                    flex-direction: column;
+                    flex-wrap: wrap;
+                    width: 90%;
+                    overflow-y: auto;
+                    max-height: 100px;
+                  "
+                >
+                  <div>
+                    <label style="width: 90%">
+                      <input
+                        type="checkbox"
+                        [(ngModel)]="selectAll"
+                        (click)="toggleAllCheckboxes(index)"
+                      />
+                      Select All
+                    </label>
+                    <label
+                      style="width: 90%"
+                      *ngFor="let option of arrType; let indexStatus = index"
+                    >
+                      <input
+                        type="checkbox"
+                        [(ngModel)]="option.checked"
+                        (click)="checkSelectAll(option.value, index)"
+                      />
+                      {{ option.label }}
+                    </label>
+                  </div>
+                </div>
+                <ng-container
+                  *ngFor="let radioItem of filterRadio; let indexArray = index"
+                >
+                  <div
+                    *ngIf="
+                      normalRadioButton(index) === true && !caseType(index)
+                    "
+                    class="radio-parent"
+                  >
+                    <input
+                      type="radio"
+                      name="{{ item.fields }}"
+                      value="{{ radioItem.value }}"
+                      id="filter-box-{{ index }}{{ indexArray }}"
+                      [checked]=""
+                      (click)="filterInputValue(radioItem.value, index)"
+                    />
+                    <label for="filter-box-{{ index }}{{ indexArray }}">{{
+                      radioItem.name
+                    }}</label>
+                  </div>
+                </ng-container>
+                <ng-container
+                  *ngFor="let radioItem of filterRadio2; let indexArray = index"
+                >
+                  <div
+                    *ngIf="normalRadioButton(index) === false"
+                    class="radio-parent"
+                  >
+                    <input
+                      type="radio"
+                      name="{{ item.fields }}"
+                      value="{{ radioItem.value }}"
+                      id="filter-box-{{ index }}{{ indexArray }}"
+                      [checked]=""
+                      (click)="filterInputValue(radioItem.value, index)"
+                    />
+                    <label for="filter-box-{{ index }}{{ indexArray }}">{{
+                      radioItem.name
+                    }}</label>
+                  </div>
+                </ng-container>
+              </div>
+              <div style="display: block !important; flex-direction: column">
+                <div class="input-group" *ngIf="index === 4 || index === 6">
+                  <input
+                    type="text"
+                    placeholder="date from"
+                    [value]="
+                      (index === 4
+                        ? dashboardOpenTimeFrom
+                        : dashboardCloseTimeFrom
+                      ) | date : 'yyyy-MM-dd'
+                    "
+                    (bsValueChange)="dateRangePiker($event, 'from', index)"
+                    [bsConfig]="{ showWeekNumbers: false }"
+                    bsDatepicker
+                    [maxDate]="maxDate()"
+                  />
+                </div>
+                <div></div>
+                <div
+                  class="input-group"
+                  *ngIf="
+                    (index === 4 && dashboardOpenTimeFrom) ||
+                    (index === 6 && dashboardCloseTimeFrom)
+                  "
+                >
+                  <input
+                    type="text"
+                    placeholder="date to"
+                    [value]="
+                      (index === 4 ? dashboardOpenTimeTo : dashboardCloseTimeTo)
+                        | date : 'yyyy-MM-dd'
+                    "
+                    (bsValueChange)="dateRangePiker($event, 'to', index)"
+                    [bsConfig]="{ showWeekNumbers: false }"
+                    bsDatepicker
+                  />
+                </div>
+              </div>
+            </div>
+          </cdk-accordion-item>
+        </cdk-accordion>
+        <div class="button-parent col-md-12">
+          <div class="row">
+            <div class="col-md-4 p-2">
+              <button
+                (click)="resetFilter()"
+                type="button"
+                class="white-button full-width semi-weight"
+              >
+                Reset
+              </button>
+            </div>
+            <div class="col-md-4 p-2">
+              <button
+                (click)="closeFilter()"
+                type="button"
+                class="white-button full-width semi-weight"
+              >
+                Close
+              </button>
+            </div>
+            <div class="col-md-4 p-2">
+              <button
+                (click)="applyFilter()"
+                type="button"
+                class="primary-button full-width semi-weight"
+              >
+                Apply
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="main-white-box" (click)="filterRemove()">
+    <div>
+      <table class="full-width-table scrollable">
+        <thead #headerContainer>
+          <tr *ngIf="showTotals === true">
+            <th>Total</th>
+            <th></th>
+            <th></th>
+            <th>{{ +lotsTotal ? +lotsTotal : "0.00" }}</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>{{ +profitsTotal ? +profitsTotal : "0.00" }}</th>
+          </tr>
+          <tr>
+            <th
+              *ngFor="let item of accountTraderList.columns; let index = index"
+            >
+              {{ item.title
+              }}<button
+                class="simple-button"
+                (click)="shortingHandle(item, 'account-commissions', index)"
+              >
+                <div style="display: flex; align-items: center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="7"
+                    height="10"
+                    viewBox="0 0 7 10"
+                    fill="none"
+                  >
+                    <path
+                      d="M3.54377 9.92071L6.63497 6.73298C6.82785 6.53407 6.71093 6.15381 6.45689 6.15381H0.274486C0.0204399 6.15381 -0.0964805 6.53407 0.0964054 6.73298L3.18761 9.92071C3.29008 10.0264 3.44129 10.0264 3.54377 9.92071Z"
+                      fill="#D9D9D9"
+                      *ngIf="shortingDir === '' || shortingColumn !== index"
+                    />
+                    <path
+                      d="M3.18731 0.0792933L0.0961056 3.26702C-0.0967808 3.46593 0.0201392 3.84619 0.274185 3.84619L6.45659 3.84619C6.71063 3.84619 6.82755 3.46593 6.63467 3.26702L3.54347 0.0792933C3.44099 -0.0263808 3.28978 -0.0263805 3.18731 0.0792933Z"
+                      fill="#D9D9D9"
+                      *ngIf="shortingDir === '' || shortingColumn !== index"
+                    />
+                  </svg>
+                  <svg
+                    width="20px"
+                    height="20px"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M13 12H21M13 8H21M13 16H21M6 7V17M6 7L3 10M6 7L9 10"
+                      stroke="#000000"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      *ngIf="shortingDir === 'ASC' && shortingColumn === index"
+                    />
+                    <path
+                      d="M13 12H21M13 8H21M13 16H21M6 7V17M6 17L3 14M6 17L9 14"
+                      stroke="#000000"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      *ngIf="shortingDir === 'DESC' && shortingColumn === index"
+                    />
+                  </svg>
+                  <p
+                    *ngIf="shortingDir === 'DESC' && shortingColumn === index"
+                    style="font-size: 10px"
+                  >
+                    DESC
+                  </p>
+                  <p
+                    *ngIf="shortingDir === 'ASC' && shortingColumn === index"
+                    style="font-size: 10px"
+                  >
+                    ASC
+                  </p>
+                </div>
+              </button>
+            </th>
+          </tr>
+        </thead>
+        <tbody #bodyContainer style="height: 80vh">
+          <ng-container *ngIf="accountTraderList?.rows?.length == 0">
+            <div
+              class="text-center"
+              style="display: flex; width: 100%; justify-content: center"
+            >
+              No data found
+            </div>
+          </ng-container>
+          <ng-container *ngIf="accountTraderList?.rows?.length > 0">
+            <tr *ngFor="let item of accountTraderList.rows">
+              <td *ngFor="let rowData of item.data; let index = index">
+                <ng-container *ngIf="index == 7 || index == 9 || index == 12">
+                  {{ currencyFor(rowData.value) }}
+                </ng-container>
+
+                <ng-container
+                  *ngIf="
+                    index != 7 &&
+                    index != 9 &&
+                    index != 11 &&
+                    index != 12 &&
+                    index !== 4 &&
+                    index !== 6
+                  "
+                >
+                  {{ rowData.value != "" ? rowData.value : "-" }}
+                </ng-container>
+                <ng-container *ngIf="index === 11">
+                  {{ rowData.value }}
+                </ng-container>
+                <ng-container *ngIf="index === 4 || index === 6">
+                  {{ formatDate(rowData.value) }}
+                </ng-container>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+      <div class="button-parent d-flex justify-content-center">
+        <div
+          class="load_more bordered-btn"
+          *ngIf="
+            accountTraderList?.rows?.length > 0 &&
+            accountTraderList?.rows?.length >= this.limit
+          "
+        >
+          <a (click)="loadmore()">Load More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

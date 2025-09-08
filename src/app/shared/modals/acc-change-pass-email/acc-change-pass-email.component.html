@@ -1,0 +1,137 @@
+<div [loader]="accountEmailLoading" *ngIf="accountEmailModal">
+  <div class="top-area text-center" >
+    <div class="small-title semi-weight">Change Password</div>
+  </div>
+  <div class="main-pop-box">
+    <div class="progres-bar d-flex align-items-center justify-content-center">
+      <div class="progres-item active">Send PIN</div>
+      <div class="progres-item">Change Password</div>
+    </div>
+    <div class="boxed-label-input d-flex">
+      <label>Send PIN via</label>
+      <select name="" id="" >
+        <option value="Email">Email</option>
+      </select>
+    </div>
+    <div class="button-parent text-center">
+      <button  type="button" class="white-button md-btn sub-title semi-weight" (click)="bsModalService.hide()">Cancel</button> &nbsp; &nbsp; &nbsp;
+      <button type="submit" class="primary-button md-btn sub-title semi-weight" (click)="passChangeEmail()">Continue</button>
+    </div>
+  </div>
+</div>
+
+
+<div  [loader]="accountPinLoading" *ngIf="accountPinModal">
+  <div class="top-area text-center">
+    <div class="small-title semi-weight">Change Password</div>
+</div>
+
+
+<form  class="main-pop-box" [formGroup]="AccountChangePassForm" (ngSubmit)="onSubmitHandle()" >
+
+    <div class="progres-bar d-flex align-items-center justify-content-center">
+        <div class="progres-item">Send PIN</div>
+        <div class="progres-item active">Change Password</div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-sm-6">
+                    <input
+                    type="password"
+                    placeholder="New Password"
+                    class="gen-input"
+                    formControlName="password"
+                    id="password"
+                    name="password"
+                    >
+                    <div *ngIf="isSubmitted && f['password'].errors" class="errors">
+                      <p *ngIf="f['password'].errors['required']">Please enter Password</p>
+                      <p *ngIf="f['password'].errors['minlength'] != null">
+                        Password length must be 8-16 characters
+                      </p>
+                      <p *ngIf="f['password'].errors['maxlength'] != null" >
+                        Password length must be 8-16 characters
+                      </p>
+                      <p *ngIf="f['password'].errors['pattern'] != null && f['password'].errors['maxlength'] == null && f['password'].errors['minlength'] == null">
+                        Please Enter Strong Password
+                      </p>
+                      <p *ngIf="f['password'].errors['confirmedValidator']">
+                        Password and Confirm Password must be match.</p>
+
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <input type="confirmnpassword"
+                     placeholder="Confirm Password"
+                     formControlName="confirmnpassword"
+                     id="confirmnpassword"
+                     name="confirmnpassword"
+                      class="gen-input"
+                      >
+                      <div *ngIf="isSubmitted && f['confirmnpassword'].errors" class="errors">
+                        <p *ngIf="f['confirmnpassword'].errors['required']">Please enter Confirmn Password</p>
+                        <p *ngIf="f['confirmnpassword'].errors['maxlength'] != null">
+                          Confirmn Password length must be 8-16 characters
+                        </p>
+                        <p *ngIf="f['confirmnpassword'].errors['minlength'] != null">
+                          Confirmn Password length must be 8-16 characters
+                        </p>
+                        <p *ngIf="f['confirmnpassword'].errors['confirmedValidator']">
+                          Password and Confirm Password must be match.</p>
+
+                      </div>
+                </div>
+                <div class="col-dm-12 small-text">*Must contain at least 1 upper case latin letter, 1 lower case latin letter, 1 digit and be at least 8 characters long</div>
+            </div>
+            <p>&nbsp;</p>
+            <div class="row">
+                <div class="col-sm-6">
+                    <input type="text"
+                     placeholder="PIN"
+                     class="gen-input"
+                     formControlName="pin"
+                     id="pin"
+                     name="pin"
+                     >
+                     <div *ngIf="isSubmitted && f['pin'].errors" class="errors">
+                      <p *ngIf="f['pin'].errors['required']">Please enter Pin</p>
+                      <p *ngIf="f['pin'].errors['maxlength'] != null">
+                        Pin length must be 2-16 characters
+                      </p>
+                      <p *ngIf="f['pin'].errors['minlength'] != null">
+                        Pin length must be 2-16 characters
+                      </p>
+                    </div>
+                </div>
+                <div class="col-dm-12 small-text">*Please enter the PIN that has been sent to your email {{userEmail}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="button-parent text-center d-flex justify-content-center">
+     <button  type="button" class="white-button md-btn sub-title semi-weight" (click)="backHandle()">Back</button> &nbsp; &nbsp; &nbsp;
+    <button  type="submit" class="primary-button md-btn sub-title semi-weight">Continue</button>
+    </div>
+</form>
+
+
+</div>
+
+
+<div *ngIf="accountSuccessModal">
+  <div class="top-area text-center">
+    <div class="small-title semi-weight">Change Password</div>
+</div>
+<div class="main-pop-box">
+    <div class="text-center icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 45 45" fill="none"><g clip-path="url(#clip0_92_259)"><path d="M22.5 45C19.4513 45 16.575 43.6612 14.61 41.3269C11.7225 41.6569 8.74688 40.5675 6.59063 38.4113C4.43625 36.255 3.34875 33.2738 3.60938 30.2325C1.33875 28.425 0 25.5487 0 22.5C0 19.4513 1.33875 16.575 3.675 14.61C3.34688 11.7281 4.43438 8.74688 6.59063 6.59063C8.74688 4.43438 11.7225 3.34125 14.7675 3.60938C16.575 1.34062 19.4513 0 22.5 0C25.5487 0 28.425 1.33875 30.39 3.67313C33.2812 3.34875 36.2531 4.4325 38.4094 6.58875C40.5638 8.745 41.6512 11.7262 41.3906 14.7675C43.6613 16.575 45 19.4513 45 22.5C45 25.5487 43.6613 28.425 41.325 30.39C41.6531 33.2719 40.5656 36.2531 38.4094 38.4094C36.2513 40.5656 33.27 41.6456 30.2325 41.3906C28.425 43.6594 25.5487 45 22.5 45ZM14.7619 37.6425C15.8138 37.6425 16.7887 38.0944 17.4769 38.91C18.7294 40.3969 20.5594 41.25 22.5 41.25C24.4406 41.25 26.2706 40.3969 27.5231 38.91C28.2787 38.0119 29.3794 37.5581 30.5531 37.6538C32.4919 37.8169 34.3856 37.1287 35.7581 35.7562C37.1287 34.3856 37.8206 32.4881 37.6556 30.5513C37.5544 29.3813 38.0119 28.2769 38.9119 27.5194C40.3969 26.2687 41.25 24.4369 41.25 22.4981C41.25 20.5594 40.3969 18.7275 38.9119 17.4769C38.0138 16.7213 37.5544 15.615 37.6556 14.445C37.8206 12.5081 37.1306 10.6106 35.7581 9.24C34.3856 7.86937 32.4806 7.18875 30.555 7.3425C29.3812 7.4475 28.2787 6.98437 27.5231 6.08812C26.2706 4.60125 24.4406 3.74812 22.5 3.74812C20.5594 3.74812 18.7294 4.60125 17.4769 6.08812C16.7194 6.98625 15.615 7.43625 14.4469 7.34438C12.4987 7.17563 10.6144 7.86937 9.24187 9.24187C7.87125 10.6125 7.17938 12.51 7.34438 14.4469C7.44563 15.6169 6.98812 16.7212 6.08812 17.4787C4.60312 18.7294 3.75 20.5613 3.75 22.5C3.75 24.4387 4.60312 26.2706 6.08812 27.5213C6.98625 28.2769 7.44563 29.3831 7.34438 30.5531C7.17938 32.49 7.86937 34.3875 9.24187 35.7581C10.6144 37.1287 12.5287 37.8112 14.445 37.6556C14.5519 37.6462 14.6569 37.6425 14.7619 37.6425Z" fill="#2369B3"/><path d="M32.8876 19.8133L24.002 28.3783L24.0039 28.3801C22.9201 29.462 21.4933 30.0039 20.0589 30.0039C18.617 30.0039 17.1714 29.4545 16.0726 28.3558L11.8501 24.4333C11.0908 23.7283 11.0476 22.5414 11.7526 21.7839C12.4595 21.0245 13.6483 20.9833 14.402 21.6864L18.6733 25.6558C19.457 26.4358 20.6401 26.4358 21.3733 25.7026L30.2833 17.1133C31.0295 16.3951 32.2164 16.4176 32.9345 17.162C33.6545 17.9064 33.632 19.0951 32.8876 19.8133Z" fill="#1FDBB7"/></g><defs><clipPath id="clip0_92_259"><rect width="45" height="45" fill="white"/></clipPath></defs></svg>
+    </div>
+    <div class="text-center text-area">
+        <p>You have successfully changed {{type == 'main' ? 'Trading Platform' :  'Investor'  }} Password.</p>
+    </div>
+    <div class="button-parent text-center">
+        <button  type="submit" class="primary-button lg-btn sub-title semi-weight" (click)="accountSuccessHandle()">Ok</button>
+    </div>
+</div>
+
+</div>

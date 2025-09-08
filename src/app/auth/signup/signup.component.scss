@@ -1,0 +1,47 @@
+.login-parnet-box{background-image: var(--login-bg); height: 100vh; background-position: center; background-size: cover; display: flex; align-items: center; padding: 30px 0;}
+
+.while-box-login{height: calc(100vh - 60px); background-color: #fff; border-radius: 10px; overflow-y: auto; display: flex; padding: var(--gen-pad); flex-wrap: wrap; color: var(--dark-text);}
+.while-box-login .top-bar{flex: 0 0 100%; align-self: flex-start; max-width: 100%;}
+.while-box-login .top-bar .input-parent{margin-top: calc(0.5 * var(--gen-pad));}
+.while-box-login .top-bar .input-parent .input-group{margin-top: calc(0.5 * var(--gen-pad));}
+.while-box-login .top-bar .input-parent .input-group .show-password{position: absolute; bottom: 10px; right: 10px;}
+.while-box-login .top-bar .input-parent .custom-both select.gen-input{width: 75px; margin-right: 20px;}
+.while-box-login .top-bar .input-parent .custom-both input.gen-input{width: calc(100% - 95px);}
+.while-box-login .bottom-bar{flex: 0 0 100%; align-self: flex-end; color: var(--dark-text); max-width: 100%;}
+.bgDrop{color: #000;}
+.vertical-login-buttons{display: flex; margin: 7vh 0 4vh;}
+.bottom-bar .vertical-login-buttons .button-parent{flex: calc(100% - 245px);}
+.bottom-bar .vertical-login-buttons .or{margin-left: var(--gen-pad); margin-right: var(--gen-pad);}
+.bottom-bar .vertical-login-buttons > *{margin-bottom: 0; margin-top: 0;}
+
+.login-via{margin-bottom: 50px;}
+.login-via button{border-radius: 8px; box-shadow: 0px 18px 30px rgba(131, 119, 198, 0.11);}
+.login-via button + button{margin-left: 25px;}
+
+.bottom-bar .button-parent{margin-bottom: calc(0.9 * var(--gen-pad));}
+.captcha{margin-top: calc(1.9 * var(--gen-pad));}
+.terms-parent{margin-top: calc(1.5 * var(--gen-pad)); font-size: 12px;}
+.terms-parent .radio-parent + .radio-parent{margin-top: 15px;}
+.errors {position: absolute; top: 100%;}
+
+/* Responsive */
+@media screen and (max-width: 1536px) {
+    .while-box-login .top-bar .input-parent{margin-top: calc(1 * var(--gen-pad));}
+    .bottom-bar .button-parent{margin-bottom: calc(0.5 * var(--gen-pad));}
+    .while-box-login .top-bar .input-parent .input-group{margin-top: 20px;}
+    .login-via{margin-bottom: 30px;}
+    .login-via button + button{margin-left: 20px;}
+    .login-via button svg{width: 40px; height: auto;}
+
+    .bottom-bar .button-parent{margin-bottom: calc(.5 * var(--gen-pad));}
+    .captcha{margin-top: calc(1 * var(--gen-pad));}
+    .terms-parent{margin-top: calc(1 * var(--gen-pad));}
+}
+@media screen and (max-width: 1280px) {
+    .while-box-login .top-bar .input-parent{margin-top: calc(1 * var(--gen-pad));}
+    .while-box-login .top-bar .input-parent .input-group{margin-top: 15px;}
+    .login-via{margin-bottom: 15px;}
+}
+@media screen and (max-width: 1024px) {
+    .while-box-login{height: auto; margin-top: 10px; max-height: calc(100vh - 240px);}
+}

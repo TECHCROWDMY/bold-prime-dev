@@ -1,0 +1,23 @@
+<div class="top-area text-center"  [loader]="isLoading">
+  <div class="small-title semi-weight">Change Leverage</div>
+</div>
+<div class="main-pop-box">
+  <div class="boxed-label-input d-flex">
+    <label>Leverage</label>
+    <select name="leverage" id="leverage" (change)="leverageHandle($event)">
+      <ng-container *ngIf="leverageList?.length > 0" >
+        <option  value="" class="d-none"></option>
+        <option *ngFor="let item of leverageList;"
+        [defaultSelected]="leverageItem.selectedLeverage == item.value"
+        value="{{item.value}}">{{item.name}}</option>
+        </ng-container>
+    </select>
+  </div>
+  <div *ngIf="isSubmitted && leverageValue == ''" class="errors boxed-label-input no-border">
+    <p>Please select Leverage</p>
+  </div>
+  <div class="button-parent text-center">
+    <button  type="button" class="white-button md-btn sub-title semi-weight" (click)="bsModalService.hide()">Cancel</button> &nbsp; &nbsp; &nbsp;
+    <button type="submit" class="primary-button md-btn sub-title semi-weight" (click)="submitLeverageHandle()">Continue</button>
+  </div>
+</div>

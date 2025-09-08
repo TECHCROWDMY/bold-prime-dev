@@ -1,0 +1,93 @@
+<div [loader]="isLoading">
+
+  <div class="top-area text-center">
+    <div class="small-title semi-weight"> New Ticket</div>
+  </div>
+
+
+  <form class="main-pop-box" [formGroup]="helpDeskForm" (ngSubmit)="onSubmitHandle()">
+
+    <div class="boxed-label-input d-flex">
+      <label>Category</label>
+      <select id="category" name="category" formControlName="category" >
+
+        <ng-container *ngIf="!categoriesList">
+          <option value="" style="display: none;">
+            No data found
+          </option>
+        </ng-container>
+        <ng-container *ngIf="categoriesList">
+          <option [defaultSelected]="true" value="" style="display: none">Select Category</option>
+          <option *ngFor="let item of categoriesList; let index = index"  value="{{item}}" >{{item}}</option>
+        </ng-container>
+       </select>
+    </div>
+    <div *ngIf="isSubmitted && f['category'].errors" class="errors boxed-label-input no-border">
+      <p *ngIf="f['category'].errors['required']">Please select category</p>
+    </div>
+
+    <div class="boxed-label-input d-flex">
+      <label>Title</label>
+      <input type="title"
+      name="title" id="title"
+      formControlName="title"
+     />
+
+    </div>
+    <div *ngIf="isSubmitted && f['title'].errors" class="errors  boxed-label-input no-border">
+      <p *ngIf="f['title'].errors['required']">Please enter title</p>
+
+      <p *ngIf="f['title'].errors['minlength'] != null">
+        Title length must be 2-16 characters
+      </p>
+
+    </div>
+
+    <div class="boxed-label-input d-flex">
+      <label>Text</label>
+      <textarea type="text"
+      rows="5"
+      name="text" id="text"
+      formControlName="text"
+     ></textarea>
+
+
+    </div>
+    <div *ngIf="isSubmitted && f['text'].errors" class="errors  boxed-label-input no-border">
+      <p *ngIf="f['text'].errors['required']">Please enter Text</p>
+
+      <p *ngIf="f['text'].errors['minlength'] != null">
+        Text length must be 2-16 characters
+      </p>
+
+    </div>
+    <label style="max-width: 60%; margin: 0px auto 10px; display: flex;">Attach File / Images</label>
+    <div class="boxed-label-input d-flex">
+      <!-- <input type="file"
+      multiple
+      (change)="updateValue($event)"name="attachments" id="attachments"
+      /> -->
+ 
+      <ngx-dropzone (change)="uploadNewFiles($event)" style="width: 100%;">
+        <label>Attachments</label>
+        <ngx-dropzone-label>Attachments</ngx-dropzone-label>
+        <ng-container *ngFor="let f of updateImage; let index = index;" >
+          <ngx-dropzone-preview  [removable]="true" (removed)="onRemove(index)">
+              <ngx-dropzone-label>
+                <p>{{f.name}}</p></ngx-dropzone-label>
+            </ngx-dropzone-preview>
+
+        </ng-container>
+      </ngx-dropzone>
+    </div>
+
+
+    <div class="button-parent text-center">
+      <button type="button" class="white-button md-btn sub-title semi-weight"
+        (click)="backHandle()">Cancel</button>
+      <button type="submit" class="primary-button md-btn sub-title semi-weight"
+        >Continue</button>
+    </div>
+  </form>
+</div>
+

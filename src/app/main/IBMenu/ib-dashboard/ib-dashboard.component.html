@@ -1,0 +1,305 @@
+<div class="col-md-12" *ngIf="showSuccessAlert">
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Approved</strong>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Your application has been successfully submitted.</strong>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+</div>
+<div [loader]="isLoading">
+  <div
+    class="top-area title-btn-box d-flex align-items-center"
+    style="gap: 2px"
+  >
+    <div class="p semi-weight">Bold Prime IB Program</div>
+    <button (click)="tableList('transactions')" class="bordered-btn active">
+      IB Transactions
+    </button>
+    <button (click)="tableList('commission')" class="bordered-btn active">
+      Detailed Commission Breakdown
+    </button>
+  </div>
+  <div class="main-white-box">
+    <div class="top-area d-flex align-items-center justify-content-between">
+      <div class="small-title semi-weight">IB Summary</div>
+      <div class="btn-box d-flex" style="gap: 2px">
+        <button
+          *ngIf="canWithdraw"
+          type="button"
+          (click)="pageHandle('withdraw')"
+          class="bordered-btn"
+        >
+          Withdraw
+        </button>
+        <button
+          *ngIf="canTransfer"
+          (click)="pageHandle('depositFunds')"
+          class="bordered-btn"
+        >
+          Transfer To Trading Account
+        </button>
+      </div>
+    </div>
+    <div class="content-area">
+      <div class="row">
+        <div class="col-md-3 fund-item">
+          <div class="fund-title small-text">IB Wallet {{ loginID }}</div>
+          <p>{{ balanceAmount }} USD</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- put here -->
+  <!-- mv2 -->
+  <div class="main-white-box">
+    <div class="multi-data-area">
+      <div class="dates-area p-0">
+        <div class="boxed-label-input d-flex p-0">
+          <label>Common Currency</label>
+          <select name="" id="">
+            <option value="Email">USD</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <input
+            type="text"
+            [placeholder]="dateRangeFrom"
+            class="form-control gen-input"
+            (bsValueChange)="dateRangePiker($event, 'from')"
+            [bsConfig]="{
+              showWeekNumbers: false,
+              dateInputFormat: 'DD-MM-YYYY'
+            }"
+            [maxDate]="maxDate()"
+            bsDatepicker
+          />
+          <!-- [maxDate]="maxDate()" -->
+        </div>
+        <div class="input-group">
+          <input
+            type="text"
+            [placeholder]="dateRangeTo"
+            class="form-control gen-input"
+            (bsValueChange)="dateRangePiker($event, 'to')"
+            [bsConfig]="{
+              showWeekNumbers: false,
+              dateInputFormat: 'DD-MM-YYYY'
+            }"
+            bsDatepicker
+            [maxDate]="maxDate()"
+          />
+        </div>
+      </div>
+      <div style="margin-top: 12px">
+        <div class="tooltip-container">
+          <i class="fas fa-question-circle"></i>
+          <span class="tooltip-text">Total From 1 year - End Date</span>
+        </div>
+        <button
+          type="button"
+          (click)="getChartData()"
+          class="primary-button md-btn sub-title"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- Total 5 boxes -->
+  <div class="horizontal-boxes" style="overflow-x: scroll">
+    <div class="box box-1">
+      <div class="icon icon-deposit"></div>
+      <div class="title">Total Deposit</div>
+      <div class="summary">
+        <strong>{{ totalDeposits }}</strong>
+      </div>
+      <div></div>
+<!--        [ngClass]="{-->
+<!--          percentage: true,-->
+<!--          negative: percentageDifferenceDeposit < 0,-->
+<!--          positive: percentageDifferenceDeposit >= 0-->
+<!--        }"-->
+<!--      >-->
+<!--        {{ percentageDifferenceDeposit.toFixed(2) }}%-->
+<!--      </div>-->
+    </div>
+    <div class="box box-2">
+      <div class="icon icon-withdrawal"></div>
+      <div class="title">Total Withdraw</div>
+      <div class="summary">
+        <strong> {{ totalWithdraws }}</strong>
+      </div>
+      <div></div>
+<!--        [ngClass]="{-->
+<!--          percentage: true,-->
+<!--          negative: percentageDifference < 0,-->
+<!--          positive: percentageDifference >= 0-->
+<!--        }"-->
+<!--      >-->
+<!--        {{ percentageDifference.toFixed(2) }}%-->
+<!--      </div>-->
+    </div>
+    <div class="box box-3">
+      <div class="icon icon-lots"></div>
+      <div class="title">Total Lot</div>
+      <div class="summary">
+        <strong>{{ TotalCommissionSlot }}</strong>
+      </div>
+      <div></div>
+<!--        [ngClass]="{-->
+<!--          percentage: true,-->
+<!--          negative: percentageDifferenceLot < 0,-->
+<!--          positive: percentageDifferenceLot >= 0-->
+<!--        }"-->
+<!--      >-->
+<!--        {{ percentageDifferenceLot.toFixed(2) }}%-->
+<!--      </div>-->
+    </div>
+    <div class="box box-4">
+      <div class="icon icon-money"></div>
+      <div class="title">Total Commission</div>
+      <div class="summary">
+        <strong>{{ TotalCommissionUsd }}</strong>
+      </div>
+      <div>
+<!--        [ngClass]="{-->
+<!--          percentage: true,-->
+<!--          negative: percentageDifferenceCommission < 0,-->
+<!--          positive: percentageDifferenceCommission >= 0-->
+<!--        }"-->
+<!--      >-->
+<!--        {{ percentageDifferenceCommission.toFixed(2) }}%-->
+      </div>
+    </div>
+    <div class="box box-5">
+      <div class="icon icon-clients"></div>
+      <div class="title">Total Active Client</div>
+      <div class="summary">
+        <strong>{{ TotalRegistrations }}</strong>
+      </div>
+      <div>
+<!--        [ngClass]="{-->
+<!--          percentage: true,-->
+<!--          negative: percentageDifferenceAct < 0,-->
+<!--          positive: percentageDifferenceAct >= 0-->
+<!--        }"-->
+
+<!--        {{ percentageDifferenceAct.toFixed(2) }}%-->
+      </div>
+    </div>
+  </div>
+  <!-- Referral Info And Trading Instruments -->
+  <div class="row mt-5 mb-5">
+    <div
+      style="display: flex; gap: 40px; align-items: center"
+      class="mobileFlex"
+    >
+      <div
+        class="col-md-4 main-white-box chartpie123"
+        style="
+          height: 100%;
+          margin-top: 0 !important;
+          display: flex;
+          /* background-color: blue; */
+          flex-direction: column;
+          flex-grow: 1;
+          align-items: center;
+          padding: 0px 0;
+          overflow-x: auto;
+        "
+      >
+        <h5 class="semi-weight p-3">Referral Info</h5>
+        <div>
+          <div class="content-area-referral">
+            <div class="summary d-flex justify-content-center align-items-center">
+              <strong>{{ TotalRegistrations }}</strong>
+            </div>
+<!--            <div class="chart-container3 chart-box" id="referralInfoDoughnut">-->
+<!--&lt;!&ndash;               <canvas id="referralInfoChart"></canvas>&ndash;&gt;-->
+<!--              <img-->
+<!--                src="../../../../assets/images/empty.png"-->
+<!--                alt=""-->
+<!--                width="290"-->
+<!--                id="emptyReferralInfo"-->
+<!--                style="-->
+<!--                  padding-top: 35px;-->
+<!--                  padding-left: 5px;-->
+<!--                  padding-right: 5px;-->
+<!--                  width: 340px;-->
+<!--                "-->
+<!--              />-->
+<!--            </div>-->
+          </div>
+        </div>
+      </div>
+      <div
+        class="main-white-box col-md-4 chartpie123"
+        style="
+          height: 100%;
+          margin-top: 0 !important;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 0px 0;
+          flex-grow: 1;
+          overflow-x: auto;
+        "
+      >
+        <h5 class="semi-weight p-3">Top Trading Instruments</h5>
+        <div>
+          <div class="content-area-referral"> 
+            <div
+              class="chart-container3 chart-box"
+              id="topTradingInstrumentsPie"
+            >
+              <canvas id="topTradingInstrumentsChart"></canvas>
+              <!-- <img
+                src="../../../../assets/images/empty.png"
+                alt=""
+                width="290"
+                id="emptyTopTrading"
+                style="
+                  padding-top: 35px;
+                  padding-left: 5px;
+                  padding-right: 5px;
+                  min-width: 320px;
+                  margin-top: 30px;
+                "
+              /> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- mv2 -->
+</div>
+<div class="main-white-box" [loader]="isLoading">
+  <div class="content-area">
+    <div class="chart-container3 chart-box" style="height: 400px">
+      <canvas id="VolumeCharts">{{ volumeData }}</canvas>
+    </div>
+    <hr />
+    <div class="chart-container3 chart-box" style="height: 400px">
+      <canvas id="RegistrationCharts">{{ registrationsData }}</canvas>
+    </div>
+    <hr />
+    <div class="chart-container chart-box" style="height: 400px">
+      <canvas id="commissionsCharts">{{ CommissionsChart }}</canvas>
+    </div>
+  </div>
+</div>

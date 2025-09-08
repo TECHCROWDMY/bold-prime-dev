@@ -1,0 +1,168 @@
+<div [loader]="isLoading" *ngIf="transferAccountModal">
+
+  <div class="top-area text-center">
+    <div class="small-title semi-weight">Transfer Funds</div>
+  </div>
+
+
+  <form class="main-pop-box" [formGroup]="transferFundsForm" (ngSubmit)="onSubmitHandle()">
+
+    <div class="progres-bar d-flex align-items-center justify-content-center">
+      <div class="progres-item active">Initial Information</div>
+      <div class="progres-item">Transfer Details</div>
+      <div class="progres-item">Confirmation</div>
+    </div>
+
+    <div class="boxed-label-input d-flex">
+      <label>Transfer From</label>
+      <select name="fromLoginSid" id="fromLoginSid"
+      formControlName="fromLoginSid" [(ngModel)]="selectedOption"
+        (change)="selectDrop($event,'fromLoginSid')">
+
+
+        <ng-container *ngIf="accountListArray?.length == 0">
+          <option value="" [defaultSelected]="true" class="d-none"> No data found </option>
+      </ng-container>
+      <ng-container *ngIf="accountListArray?.length > 0">
+          <optgroup *ngFor="let item of accountListArray; let index = index;" label="{{item.title}}">
+              <option *ngFor="let element of item.data let indexArray = index;"
+              value="{{element.loginSid}} {{element.balance}}"> {{element.type.title}} {{element.login}}
+                {{currencyFor(element.balance)}} USD</option>
+          </optgroup>
+      </ng-container>
+
+
+
+      </select>
+
+    </div>
+    <div *ngIf="isSubmitted && f['fromLoginSid'].errors" class="errors  boxed-label-input no-border">
+      <p *ngIf="f['fromLoginSid'].errors['required']">Please select transfer from</p>
+    </div>
+    <div *ngIf="isSubmitted" class="errors  boxed-label-input no-border">
+      <p
+        *ngIf="transferFundsForm.controls['fromLoginSid'].value != '' && (transferFundsForm.controls['toLoginSid'].value == this.transferFundsForm.controls['fromLoginSid'].value)">
+        Transfer from and transfer to accounts cannot be the same</p>
+      <p
+        *ngIf="fromCurrencyValue == '0' && !(transferFundsForm.controls['toLoginSid'].value == this.transferFundsForm.controls['fromLoginSid'].value)">
+        Not enough money</p>
+    </div>
+
+
+    <div class="boxed-label-input d-flex">
+      <label>Transfer To</label>
+      <select name="toLoginSid" id="toLoginSid" formControlName="toLoginSid" (change)="selectDrop($event,'toLoginSid')">
+        <ng-container *ngIf="accountListArrayTo?.length == 0">
+          <option value="" [defaultSelected]="true" class="d-none"> No data found </option>
+      </ng-container>
+      <ng-container *ngIf="accountListArrayTo?.length > 0">
+
+
+        <ng-container *ngFor="let item of accountListArrayTo; let index = index;">
+          <optgroup label="{{item.title}}">
+            <ng-container *ngFor="let element of item.data let indexArray = index;">
+              <option value="" [defaultSelected]="true" class="d-none" *ngIf="index == 0">
+              </option>
+
+              <option value="{{element.loginSid}} {{element.balance}}"> {{element.type.title}} {{element.login}}
+                {{currencyFor(element.balance)}} USD </option>
+            </ng-container>
+          </optgroup>
+        </ng-container>
+      </ng-container>
+      </select>
+
+    </div>
+    <div *ngIf="isSubmitted && f['toLoginSid'].errors" class="errors  boxed-label-input no-border">
+      <p *ngIf="f['toLoginSid'].errors['required']">Please select transfer to </p>
+    </div>
+
+
+    <div class="button-parent text-center">
+      <button type="button" class="white-button md-btn sub-title semi-weight"
+        (click)="backHandle('hide')">Close</button>
+      <button  type="button"class="primary-button md-btn sub-title semi-weight"
+        (click)="onSubmitHandle()">Continue</button>
+    </div>
+  </form>
+</div>
+
+
+<div [loader]="isLoading" *ngIf="transferAmountModal">
+  <div class="top-area text-center">
+    <div class="small-title semi-weight">Transfer Funds</div>
+  </div>
+  <form class="main-pop-box" [formGroup]="transferAmountForm" (ngSubmit)="onSubmitVerify()">
+    <div class="progres-bar d-flex align-items-center justify-content-center">
+      <div class="progres-item">Initial Information</div>
+      <div class="progres-item active">Transfer Details</div>
+      <div class="progres-item">Confirmation</div>
+    </div>
+
+
+    <div class="boxed-label-input d-flex">
+      <label>Amount</label>
+      <input name="amount" id="amount" formControlName="amount" />
+    </div>
+    <div *ngIf="isSubmitted && a['amount'].errors" class="errors  boxed-label-input no-border">
+      <p *ngIf="a['amount'].errors['required']">Please enter amount</p>
+      <p *ngIf="a['amount'].errors['max']">You have only {{currencyFor(fromCurrencyValue)}} available</p>
+      <p *ngIf="a['amount'].errors['min']">Minimum transfer amount is 10.00 USD</p>
+    </div>
+    <div class="boxed-label-input no-border">
+      <p>Available {{currencyFor(fromCurrencyValue)}} USD</p>
+    </div>
+
+    <div class="button-parent text-center">
+      <button class="white-button md-btn sub-title semi-weight" type="button" (click)="backHandle('back')">Back</button>
+      <button type="button" class="primary-button md-btn sub-title semi-weight"
+        (click)="onSubmitVerify()">Continue</button>
+    </div>
+
+  </form>
+</div>
+
+
+<div *ngIf="transferSuccessModal">
+  <div class="top-area text-center">
+    <div class="small-title semi-weight">Amount successfully transfer!</div>
+  </div>
+  <div class="main-pop-box">
+    <div class="row justify-content-center">
+      <div class="col-sm-8">
+        <div class="row">
+          <div class="col-md-6 border-top">
+            <div class="fund-title text-right">Transfer From</div>
+          </div>
+          <div class="col-md-6 border-top">
+            <div>{{fromLoginSidlogin}}</div>
+          </div>
+          <div class="col-md-6 border-top">
+            <div class="fund-title text-right">Transfer To</div>
+          </div>
+          <div class="col-md-6 border-top">
+            <div>{{toLoginSidlogin}}</div>
+          </div>
+          <div class="col-md-6 border-top">
+            <div class="fund-title text-right">Will be deducted from {{fromLoginSidlogin}}</div>
+          </div>
+          <div class="col-md-6 border-top">
+            <div>{{currencyFor(transferAmountForm.controls['amount'].value)}}</div>
+          </div>
+          <div class="col-md-6 border-top">
+            <div class="fund-title text-right">Will be credited to {{toLoginSidlogin}}</div>
+          </div>
+          <div class="col-md-6 border-top">
+            <div>{{currencyFor(transferAmountForm.controls['amount'].value)}}</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="button-parent text-center">
+      <button class="white-button md-btn sub-title semi-weight" (click)="backHandle('hide')">Close</button>
+      <button type="button" class="primary-button md-btn sub-title semi-weight" (click)="onSubmitSuccess()">
+        Transaction Overview</button>
+    </div>
+  </div>
+</div>

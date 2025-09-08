@@ -1,0 +1,23 @@
+<div class="row align-items-center justify-content-center h-100">
+    <div class="col-md-6" [loader]="isLoading">
+        <p class="text-center text-primary">1. IB Application</p>
+        <form [formGroup]="requestForm">
+            <div class="content-area">
+                <div>
+                    <label>Select IB Account Currency</label>
+                    <select class="form-select" name="Currency" formControlName="Currency"
+                        (change)="onCurrencyChange()">
+                        <option value="">Select</option>
+                        <option value="USD">USD</option>
+                    </select>
+                    <div *ngIf="isSubmitted && f['Currency'] && f['Currency'].errors" class="errors">
+                        <p *ngIf="f['Currency'].errors['required']">Please select currency</p>
+                    </div>
+                </div>
+                <div class="primary-button text-light text-center mt-3" style="cursor: pointer;" (click)="onSubmit()">
+                    <p>Continue</p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

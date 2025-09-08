@@ -1,0 +1,20 @@
+.top-area{padding: 24px; border-bottom: 5px solid #FAFAFF;}
+.content-area{padding: 24px;}
+
+.file-box{display: flex; align-items: center; font-size: 16px; font-weight: 500; margin: 20px 30px; cursor: pointer;}
+.file-box svg{margin-right: 15px;}
+
+.main-white-box + .main-white-box{margin-top: 15px;}
+
+.left-border-before{position: relative;}
+.left-border-before::before{content: ''; background-color: #d9d9d9; opacity: 0.3; left: -1px; top: 0; bottom: 0; height: 100%; position: absolute; width: 1px;}
+.left-border-before:first-child:before{display: none;}
+.filter-over-box .example-accordion .example-accordion-item::before{
+    transform: rotate(180deg);
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 650px) {
+    .top-area{padding: 15px;}
+    .content-area{padding: 15px;}
+}

@@ -1,0 +1,36 @@
+.login-parnet-box{background-image: var(--login-bg); height: 100vh; background-position: center; background-size: cover; display: flex; align-items: center; padding: 30px 0;}
+
+.while-box-login{height: calc(100vh - 60px); background-color: #fff; border-radius: 10px; overflow-y: auto; display: flex; padding: var(--gen-pad); flex-wrap: wrap; color: var(--dark-text);}
+.while-box-login .top-bar{flex: 0 0 100%; align-self: flex-start; max-width: 100%; max-width: 100%;}
+.while-box-login .middle-bar{flex: 0 0 100%; align-self: center; color: var(--dark-text); max-width: 100%;}
+.while-box-login .bottom-bar{flex: 0 0 100%; align-self: flex-end; color: var(--dark-text); max-width: 100%;}
+
+.login-via{margin-bottom: 50px;}
+.login-via button{border-radius: 8px; box-shadow: 0px 18px 30px rgba(131, 119, 198, 0.11);}
+.login-via button + button{margin-left: 25px;}
+
+.bottom-bar .button-parent{margin-top: calc(0.9 * var(--gen-pad));}
+
+.otp-parent{padding: 20px 0; display: flex; align-items: center; justify-content: space-between;flex: 0 0 100%; max-width: 100%;}
+.otp-parent .ng-otp-input-wrapper input{max-width: calc(25% - 20px); font-size: 24px; padding: 30px; width: 90px; text-align: center; flex: 0 0 90px; margin: 0 10px; outline: none; border-radius: 6px; background-color: #f4f7fb; border: 0;}
+.otp-parent .ng-otp-input-wrapper input:first-child{margin-left: 0; max-width: calc(25% - 10px);}
+.otp-parent .ng-otp-input-wrapper input:last-child{margin-right: 0; max-width: calc(25% - 10px);}
+.resend-pin{text-align: right; font-weight: 600;}
+// .errors {position: absolute; top: 100%;}
+
+
+/* Responsive */
+@media screen and (max-width: 1536px) {
+    .while-box-login .top-bar .input-parent{margin-top: calc(1.3 * var(--gen-pad));}
+    .while-box-login .top-bar .input-parent .input-group{margin-top: 20px;}
+}
+@media screen and (max-width: 1280px) {
+    .while-box-login .top-bar .input-parent{margin-top: calc(1 * var(--gen-pad));}
+    .while-box-login .top-bar .input-parent .input-group{margin-top: 15px;}
+}
+@media screen and (max-width: 1024px) {
+    .while-box-login{height: auto; margin-top: 10px;}
+}
+@media screen and (max-width: 575px) {
+    .while-box-login .primary-button{margin-top: 15px;}
+}

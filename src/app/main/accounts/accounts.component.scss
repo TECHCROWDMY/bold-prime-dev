@@ -1,0 +1,27 @@
+.main-white-box{border-radius: 8px; overflow: hidden; background-color: var(--light-text);}
+
+.tabbing-link{border: 1px solid var(--secondary-color); border-radius: 10px; display: flex; overflow: hidden;width: fit-content;  margin-bottom: 30px; background-color: var(--light-text);}
+.tabbing-link a{padding: 15px; min-width: 222px; text-align: center; display: inline-block; color: var(--secondary-color); font-size: var(--sub-title);}
+.tabbing-link a + a{border-left: 1px solid rgba(255, 255, 255, 0.25);}
+.tabbing-link a.active{background-color: var(--secondary-color); color: var(--light-text);}
+
+
+.tabbing-link button{padding: 15px; min-width: 222px; text-align: center; display: inline-block; color: var(--secondary-color); border: none; font-size: var(--sub-title); background-color: transparent;}
+.tabbing-link button + button{border-left: 1px solid rgba(255, 255, 255, 0.25);}
+.tabbing-link button.active{background-color: var(--secondary-color); color: var(--light-text);}
+ .filter-over-box .example-accordion .example-accordion-item::before{
+    transform: rotate(180deg);
+    margin-top: 10px;
+}
+
+
+@media screen and (max-width: 1540px) {
+    .tabbing-link a, .tabbing-link button{min-width: 150px; padding: 13px;}
+}
+@media screen and (max-width: 991px) {
+    .tabbing-link a, .tabbing-link button{min-width: auto; padding: 10px 15px; font-size: 14px;}
+}
+@media screen and (max-width: 650px) {
+    .tabbing-link{margin: 0; width: 100%; margin-bottom: 10px;}
+    .tabbing-link a, .tabbing-link button{min-width: auto; padding: 10px 15px; font-size: 14px; width: 50%; text-align: center;}
+}

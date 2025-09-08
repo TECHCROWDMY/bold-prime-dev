@@ -1,0 +1,18 @@
+.top-area{padding: 25px;border-bottom: 5px solid #FAFAFF;}
+
+.main-pop-box{padding: 15px 0 40px;}
+
+.progres-bar{margin-bottom: 100px;}
+.boxed-label-input{border: 1px solid #DDDDDD; border-radius: 5px; max-width: 60%; margin: 0px auto 100px;}
+.boxed-label-input label{background: #F9F9F9; border-radius: 5px; color: hsla(0, 0%, 19%, 0.5); padding: 15px 20px; line-height: 1.3;}
+.boxed-label-input select{border: 0; background-color: transparent; width: calc(100% - 130px); padding-left: 15px; margin-right: 10px; border-left: 1px solid #DDDDDD; outline: none;}
+.button-parent button{box-shadow: 0px 18px 30px rgba(31, 219, 183, 0.11);}
+
+@media screen and (max-width: 991px) {
+    .boxed-label-input{max-width: calc(100% - 20px);}
+    form.main-pop-box{padding-left: 15px; padding-right: 15px;}
+}
+
+@media screen and (max-width: 650px) {
+    .top-area{padding: 15px;}
+}

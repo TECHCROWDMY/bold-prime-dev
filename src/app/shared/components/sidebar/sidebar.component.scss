@@ -1,0 +1,436 @@
+.profile-top-box {
+  padding: 28px;
+  border-bottom: 1px solid hsla(240, 100%, 99%, 0.2);
+}
+
+.profile-top-box .profile-box {
+  flex: 1;
+}
+
+.profile-top-box .profile-box .thumb::after {
+  display: none;
+}
+
+.profile-top-box .profile-box .thumb {
+  position: relative;
+  background-color: var(--primary-color);
+  border-radius: 100px;
+  min-width: 45px;
+  height: 45px;
+  -webkit-appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.profile-top-box .dropdown-toggle {
+  white-space: normal;
+}
+.profile-top-box .dropdown-toggle::after {
+  display: none;
+}
+
+.profile-top-box .profile-box span {
+  font-size: 14px;
+  color: var(--light-text);
+  font-weight: 600;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.profile-top-box .profile-box .thumb span {
+  font-size: 18px;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.profile-top-box .profile-box .thumb img {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  object-fit: cover;
+  object-position: center;
+}
+
+.profile-top-box .support-box a {
+  position: relative;
+}
+.profile-top-box .support-box a .msg-count {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+  padding: 2px 5px;
+  color: #fff;
+  background-color: #ff6757;
+  border-radius: 50px;
+  line-height: 1;
+}
+.profile-top-box .support-box a + a {
+  margin-left: 20px;
+}
+
+@media screen and (max-width: 650px) {
+  .bordered-btn {
+    margin: 5px;
+  }
+}
+.profile-popout {
+  background-color: #fff;
+  padding: 10px 0px;
+  border-radius: 8px;
+  width: 265px;
+  z-index: 99;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
+  margin-top: 15px;
+  margin-left: -10px;
+  border: 0;
+}
+
+.profile-popout.show {
+}
+
+.profile-popout::before {
+  content: "";
+  width: 25px;
+  height: 25px;
+  border-radius: 7px;
+  position: absolute;
+  background-color: #fff;
+  transform: rotate(45deg) translate(0, -50%);
+  left: 12px;
+  top: 0;
+}
+
+.profile-popout .profile-item {
+  padding: 15px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  border-bottom: 1px solid #fafaff;
+}
+
+.profile-popout .profile-item:last-child {
+  border: 0;
+}
+
+.profile-popout .profile-item a {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  background-color: transparent;
+  color: var(--dark-text);
+}
+
+.profile-popout .profile-item svg {
+  margin-right: 12px;
+}
+
+.profile-popout .log-outbox {
+  border-top: 5px solid #fafaff;
+}
+
+.profile-popout .log-outbox a {
+  color: #ff6757;
+  padding: 15px 25px;
+  font-size: 16px;
+  font-weight: 500;
+  background-color: transparent;
+}
+
+.side-links {
+  padding: 10px 12px;
+}
+
+.side-links .link-item + .link-item {
+  margin-top: 10px;
+}
+
+.side-links .link-item a:not(.sub-menu-item a) {
+  padding: 15px 18px;
+  border-radius: 15px;
+  width: 100%;
+  font-size: var(--p);
+  opacity: 0.5;
+  color: var(--light-text);
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.side-links .link-item > a::before {
+  content: "";
+  width: 7px;
+  height: 100%;
+  background-image: url(../../../../assets/images/curve.svg);
+  background-position: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  right: -12px;
+  top: 0;
+  transition: all ease-in-out 0.3s;
+  transform: translate(100%);
+}
+
+.side-links .link-item.active a:not(.sub-menu-item a),
+.side-links .link-item:hover a:not(.sub-menu-item a) {
+  opacity: 1;
+  background: #1fdbb7;
+}
+.active-sub {
+  opacity: 1;
+  background: #04816a;
+  border-radius: 12px;
+  margin: 5px;
+}
+
+.side-links .link-item a:not(.sub-menu-item a) svg {
+  margin-right: 15px;
+  font-size: var(--p);
+  color: var(--light-text);
+  width: 20px;
+}
+
+.below-links {
+  padding: 10px 12px;
+}
+
+.below-links .link-item + .link-item {
+  margin-top: 10px;
+}
+
+.below-links .link-title {
+  padding-left: 28px;
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--light-text);
+  margin-bottom: 20px;
+}
+
+.below-links .link-item a:not(.sub-menu-item a) {
+  padding: 15px 18px;
+  border-radius: 15px;
+  width: 100%;
+  font-size: var(--p);
+  opacity: 0.5;
+  color: var(--light-text);
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.below-links .link-item > a::before {
+  content: "";
+  width: 7px;
+  height: 100%;
+  background-image: url(../../../../assets/images/curve.svg);
+  background-position: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  right: -12px;
+  top: 0;
+  transition: all ease-in-out 0.3s;
+  transform: translate(100%);
+}
+
+.below-links .link-item.active a:not(.sub-menu-item a),
+.below-links .link-item:hover a:not(.sub-menu-item a) {
+  opacity: 1;
+  background: #1fdbb7;
+}
+
+.below-links .link-item a:not(.sub-menu-item a) svg {
+  margin-right: 15px;
+  font-size: var(--p);
+  color: var(--light-text);
+  width: 20px;
+}
+
+.accordion-item {
+  border: 0px;
+  background: transparent;
+}
+
+.accordion-item .accordion-button {
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.accordion-item .accordion-button::after {
+  margin-left: -35px;
+  filter: brightness(100);
+}
+
+.sub-menu-item {
+  padding: 8px 0 8px 50px;
+}
+
+.sub-menu-item > a {
+  font-size: 14px;
+  width: 200px;
+  line-height: 1;
+  color: var(--light-text);
+  opacity: 0.5;
+}
+
+.card-parent {
+  padding: 20px 30px 5px;
+}
+
+.card-parent .card-box {
+  background-color: hsla(0, 0%, 100%, 0.1);
+  padding: 15px;
+  border-radius: 12px;
+}
+
+.card-parent .card-box .card-level {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--light-text);
+}
+
+.card-parent .card-box .card-level svg {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.card-parent .card-box .linebox {
+  margin: 15px 0;
+  height: 4px;
+  background-color: var(--light-text);
+  border-radius: 5px;
+}
+
+.card-parent .card-box .balance-box {
+  font-size: 12px;
+  color: var(--light-text);
+}
+
+.card-parent .card-box .balance-box span {
+  opacity: 0.5;
+}
+
+.card-parent .card-box .label-box {
+  font-size: 12px;
+  text-align: right;
+  color: var(--light-text);
+}
+
+.card-parent .card-box .label-box span {
+  opacity: 0.5;
+}
+
+.card-parent .primary-button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.filter-over-box .accordion .accordion-item .accordion-button {
+  box-shadow: none;
+  background: transparent;
+  -moz-appearance: none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+
+/*
+  The following media query was causing the text to disappear.
+  The rules inside this block are designed to collapse the sidebar and hide text
+  by setting its width, height, and opacity to 0.
+  We have commented it out to fix the issue.
+*/
+/*
+@media screen and (min-width: 1281px) and (max-width: 1450px) {
+  .sidebox-hover {
+    transition: all 0.3s;
+  }
+
+  .profile-box:not(.sidebox-hover:hover .profile-box) {
+    transform: translate(-8px);
+    transition: all 0.3s;
+  }
+
+  .accordion-body .sub-menu-item:not(.sidebox-hover:hover .accordion-body .sub-menu-item) {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  .accordion-item .accordion-button::after {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+  }
+
+  .sidebox-hover:hover .accordion-item .accordion-button::after {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .below-links .link-title:not(.sidebox-hover:hover .below-links .link-title) {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    font-size: 0;
+    transition-delay: 0s;
+  }
+
+  .below-links .link-title {
+    transition: all 0.1s;
+  }
+
+  .card-parent:not(.sidebox-hover:hover .card-parent) {
+    opacity: 0;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  .profile-top-box .support-box:not(.sidebox-hover:hover .profile-top-box .support-box) {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  .below-links .link-item span:not(.sidebox-hover:hover .below-links .link-item span),
+  .side-links .link-item span:not(.sidebox-hover:hover .side-links .link-item span) {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+    transition-delay: 0s;
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    font-size: 0;
+  }
+
+  .below-links .link-item span,
+  .side-links .link-item span {
+    transition-delay: 0.1s;
+  }
+
+  .side-links .link-item svg:not(.sidebox-hover:hover .side-links .link-item svg),
+  .below-links .link-item svg:not(.sidebox-hover:hover .below-links .link-item svg) {
+    margin-right: 0;
+  }
+}
+*/

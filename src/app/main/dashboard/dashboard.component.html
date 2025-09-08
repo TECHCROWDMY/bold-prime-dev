@@ -1,0 +1,204 @@
+<div class="account-dashboard" [loader]="isLoading">
+    <div class="row">
+        <div class="col-lg-12 p-2">
+            <div class="custom-banner" [ngClass]="{'d-none': index != 0}"
+                *ngFor="let item of bannerList; let index= index;">
+                <img style="height:250px; width:100%;" src="{{getDataRow(item,'preview')}}" alt="image" class="custom-banner-img">
+            </div>
+            <div class="main-white-box">
+                <div class="top-area">
+                    <div class="small-title semi-weight">Primary Account</div>
+                    <h6 style="font-size: 14px;" *ngIf="accountListArray.length == 0">You don't have any primary account
+                    </h6>
+                </div>
+                <div class="content-area" *ngIf="accountListArray.length > 0">
+                    <div class="boxed-label-input d-flex" *ngIf="accountListArray.length > 0">
+                        <label>Real</label>
+                        <select class="real-select" name="loginSid" id="loginSid" (change)="selectDrop($event)">
+                            <ng-container *ngFor="let item of accountListArray; let index = index;">
+                                <optgroup label="{{item.title}}">
+                                    <ng-container *ngFor="let element of item.data let indexArray = index;">
+                                        <option value="{{element.loginSid}}">
+                                            {{element.type.title}} {{element.login}}
+                                            {{currencyFor(element.balance)}} USD </option>
+                                    </ng-container>
+                                </optgroup>
+                            </ng-container>
+                        </select>
+                        <!-- Please, select the deposit method -->
+                    </div>
+                    <div class="overview" *ngIf="accountListArray.length > 0">
+                        <div class="semi-weight p">Overview</div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="input-grp">
+                                    <input type="text" class="gen-input" disabled
+                                        value="{{accDetails.type ?  accDetails.type.server : 'N/A'}}"
+                                        placeholder="Overview">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-grp">
+                                    <input type="text" disabled
+                                        value="{{accDetails ? accDetails.leverage ? '1:'+ accDetails.leverage : 'N/A' : 'N/A'}}"
+                                        class="gen-input" placeholder="Leverage">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="current-fund" *ngIf="accountListArray.length > 0">
+                        <div class="semi-weight p">Current funds</div>
+                        <div class="row border-main-parent">
+                            <div class="col-md-4 fund-item">
+                                <div class="fund-title small-text">Free margin</div>
+                                <p> {{ accDetails ? accDetails.margin ? '$' + currencyFor(accDetails.margin) + ' USD' :
+                                    '0.00 USD' : '0.00 USD' }}
+                                </p>
+                            </div>
+                            <div class="col-md-4 fund-item">
+                                <div class="fund-title small-text">Equity</div>
+                                <p> {{ accDetails ? accDetails.equity ? '$' + currencyFor(accDetails.equity) + ' USD':
+                                    '0.00 USD' : '0.00 USD' }}</p>
+                            </div>
+                            <div class="col-md-4 fund-item">
+                                <div class="fund-title small-text">Balance</div>
+                                <p> {{ accDetails ? accDetails.balance ?'$' + currencyFor(accDetails.balance) + ' USD' :
+                                    '0.00 USD' : '0.00 USD' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-parent d-flex" *ngIf="accountListArray.length > 0">
+                        <button class="bordered-btn" (click)="pageHandle('deposit', 'head')">
+                            <svg class="stroke" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.9 16.9C19.6 14.2 19.6 9.7 16.9 7" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7.09995 7.1001C4.39995 9.8001 4.39995 14.3001 7.09995 17.0001" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9.69995 13.6C9.69995 14.5 10.4 15.2 11.3 15.2H13C13.7 15.2 14.4 14.6 14.4 13.8C14.4 12.9 14 12.6 13.5 12.4L10.7 11.4C9.99995 11.3 9.69995 11 9.69995 10.2C9.69995 9.40005 10.3 8.80005 11.1 8.80005H12.9C13.8 8.80005 14.5 9.50005 14.5 10.4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 7.80005V16.2" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+
+
+                            Deposit
+                        </button>
+                        <!-- <a  class="bordered-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><g clip-path="url(#clip0_360_4491)"><path d="M9 0C6.78413 0.00157978 4.6471 0.822467 3 2.30475V0.75C3 0.551088 2.92098 0.360322 2.78033 0.21967C2.63968 0.0790176 2.44891 0 2.25 0C2.05109 0 1.86032 0.0790176 1.71967 0.21967C1.57902 0.360322 1.5 0.551088 1.5 0.75V3C1.5 3.59674 1.73705 4.16903 2.15901 4.59099C2.58097 5.01295 3.15326 5.25 3.75 5.25H6C6.19891 5.25 6.38968 5.17098 6.53033 5.03033C6.67098 4.88968 6.75 4.69891 6.75 4.5C6.75 4.30109 6.67098 4.11032 6.53033 3.96967C6.38968 3.82902 6.19891 3.75 6 3.75H3.75C3.72471 3.74625 3.69966 3.74099 3.675 3.73425C4.89714 2.50337 6.5086 1.73481 8.2343 1.55975C9.96 1.38469 11.693 1.81399 13.1374 2.77437C14.5818 3.73475 15.6482 5.16667 16.1544 6.82571C16.6606 8.48476 16.5754 10.2681 15.9132 11.8713C15.251 13.4744 14.0529 14.7981 12.5235 15.6163C10.994 16.4345 9.22799 16.6965 7.52686 16.3577C5.82573 16.0188 4.29494 15.1 3.19579 13.7581C2.09664 12.4163 1.49728 10.7346 1.5 9C1.5 8.80109 1.42098 8.61032 1.28033 8.46967C1.13968 8.32902 0.948912 8.25 0.75 8.25C0.551088 8.25 0.360322 8.32902 0.21967 8.46967C0.0790176 8.61032 0 8.80109 0 9C0 10.78 0.527841 12.5201 1.51677 14.0001C2.50571 15.4802 3.91131 16.6337 5.55585 17.3149C7.20038 17.9961 9.00998 18.1743 10.7558 17.8271C12.5016 17.4798 14.1053 16.6226 15.364 15.364C16.6226 14.1053 17.4798 12.5016 17.8271 10.7558C18.1743 9.00998 17.9961 7.20038 17.3149 5.55585C16.6337 3.91131 15.4802 2.50571 14.0001 1.51677C12.5201 0.527841 10.78 0 9 0Z"/><path d="M9 4.5C8.80109 4.5 8.61032 4.57902 8.46967 4.71967C8.32902 4.86032 8.25 5.05109 8.25 5.25V9C8.25004 9.1989 8.32909 9.38963 8.46975 9.53025L10.7198 11.7803C10.8612 11.9169 11.0507 11.9925 11.2473 11.9908C11.4439 11.989 11.6321 11.9102 11.7711 11.7711C11.9102 11.6321 11.989 11.4439 11.9908 11.2473C11.9925 11.0507 11.9169 10.8612 11.7802 10.7198L9.75 8.6895V5.25C9.75 5.05109 9.67098 4.86032 9.53033 4.71967C9.38968 4.57902 9.19891 4.5 9 4.5Z"/></g><defs><clipPath id="clip0_360_4491"><rect width="18" height="18"/></clipPath></defs></svg> Trade
+                        </a> -->
+                        <a (click)="pageHandle('profile', '')" class="bordered-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                                <g clip-path="url(#clip0_360_4507)">
+                                    <path
+                                        d="M14.25 6.318V5.25C14.25 3.85761 13.6969 2.52226 12.7123 1.53769C11.7277 0.553124 10.3924 0 9 0C7.60761 0 6.27226 0.553124 5.28769 1.53769C4.30312 2.52226 3.75 3.85761 3.75 5.25V6.318C3.08202 6.60953 2.51347 7.08939 2.11387 7.69891C1.71428 8.30842 1.50096 9.02118 1.5 9.75V14.25C1.50119 15.2442 1.89666 16.1973 2.59966 16.9003C3.30267 17.6033 4.2558 17.9988 5.25 18H12.75C13.7442 17.9988 14.6973 17.6033 15.4003 16.9003C16.1033 16.1973 16.4988 15.2442 16.5 14.25V9.75C16.499 9.02118 16.2857 8.30842 15.8861 7.69891C15.4865 7.08939 14.918 6.60953 14.25 6.318ZM5.25 5.25C5.25 4.25544 5.64509 3.30161 6.34835 2.59835C7.05161 1.89509 8.00544 1.5 9 1.5C9.99456 1.5 10.9484 1.89509 11.6517 2.59835C12.3549 3.30161 12.75 4.25544 12.75 5.25V6H5.25V5.25ZM15 14.25C15 14.8467 14.7629 15.419 14.341 15.841C13.919 16.2629 13.3467 16.5 12.75 16.5H5.25C4.65326 16.5 4.08097 16.2629 3.65901 15.841C3.23705 15.419 3 14.8467 3 14.25V9.75C3 9.15326 3.23705 8.58097 3.65901 8.15901C4.08097 7.73705 4.65326 7.5 5.25 7.5H12.75C13.3467 7.5 13.919 7.73705 14.341 8.15901C14.7629 8.58097 15 9.15326 15 9.75V14.25Z" />
+                                    <path
+                                        d="M9 10.5C8.80109 10.5 8.61032 10.579 8.46967 10.7197C8.32902 10.8603 8.25 11.0511 8.25 11.25V12.75C8.25 12.9489 8.32902 13.1397 8.46967 13.2803C8.61032 13.421 8.80109 13.5 9 13.5C9.19891 13.5 9.38968 13.421 9.53033 13.2803C9.67098 13.1397 9.75 12.9489 9.75 12.75V11.25C9.75 11.0511 9.67098 10.8603 9.53033 10.7197C9.38968 10.579 9.19891 10.5 9 10.5Z" />
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_360_4507">
+                                        <rect width="18" height="18" />
+                                    </clipPath>
+                                </defs>
+                            </svg> Reset Password
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 p-2">
+            <!-- <div class="custom-banner" *ngFor="let item of bannerList; let index= index;"
+                [ngClass]="{'d-none': index != 1}">
+                <img style="height:250px; width:100%;" src="{{getDataRow(item,'preview')}}" alt="image">
+
+            </div> -->
+            <div class="main-white-box">
+                <div class="top-area row align-items-center small-top">
+                    <!-- Title column -->
+                    <div class="col-12 col-md-6">
+                      <div class="small-title semi-weight">Your Accounts</div>
+                    </div>
+                  
+                    <!-- Buttons column -->
+                    <div class="col-12 col-md-6 d-flex justify-content-md-end mt-3 mt-md-0">
+                      <div class="d-flex flex-column flex-md-row w-100 w-md-auto gap-2 justify-content-md-end">
+                        <button
+                          (click)="accountOpen('demo')"
+                          class="primary-button sub-title flex-grow-1 flex-md-grow-0"
+                          type="button"
+                        >
+                          New Demo Account
+                        </button>
+                        <button
+                          (click)="accountOpen('live')"
+                          class="primary-button sub-title flex-grow-1 flex-md-grow-0"
+                          type="button"
+                        >
+                          New Live Account
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                                                                        
+                <div class="content-area">
+                    <div class="table-overflow-box">
+                        <table class="full-width-table">
+                            <tr>
+                                <th>ID</th>
+                                <th>Type</th>
+                                <th>Server</th>
+                                <th>Balance</th>
+                                <th>Equity</th>
+                                <th>Action</th>
+                            </tr>
+
+                            <ng-container *ngIf="accountList?.length > 0">
+                                <tr *ngFor="let item of accountList; let index = index;">
+                                    <td class="pointer" (click)="accountDetails(item)">
+                                        <a class="general-link pointer"> {{item.login}}</a>
+                                    </td>
+                                    <td>{{item.type.category == 'brokeree_social_platform' ? 'brokeree social platform'
+                                        : item.type.category}}</td>
+                                    <td>{{item.type.server}}</td>
+                                    <td>{{item.balance ? currencyFor(item.balance) + ' USD' : '0.00 USD'}}</td>
+
+                                    <td>{{item.equity ? currencyFor(item.equity)+ ' USD' : '0.00 USD'}}</td>
+                                    <td>
+
+                                        <ng-container *ngIf="item.type.category == 'live'">
+                                            <button class="simple-button" title="Click to view details"  (click)="pageHandleView('view', item.loginSid )">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                width="30" height="30" viewBox="0 0 30 30" fill="none">
+
+
+
+
+
+                                                <path
+                                                d="M21.8884 14.2267C21.3397 13.0001 19.1877 9 14.5001 9C9.81249 9 7.66056 13.0001 7.1118 14.2267C7.03813 14.3911 7 14.5698 7 14.7506C7 14.9315 7.03813 15.1101 7.1118 15.2745C7.66056 16.4999 9.81249 20.5 14.5001 20.5C19.1877 20.5 21.3397 16.4999 21.8884 15.2733C21.9619 15.109 22 14.9306 22 14.75C22 14.5694 21.9619 14.391 21.8884 14.2267ZM14.5001 19.2222C10.5581 19.2222 8.71871 15.7939 8.24995 14.757C8.71871 13.7061 10.5581 10.2778 14.5001 10.2778C18.4327 10.2778 20.2728 13.6914 20.7503 14.75C20.2728 15.8086 18.4327 19.2222 14.5001 19.2222Z"
+                                                fill="#2369B3" />
+                                                <path
+                                                d="M14.5001 11.5557C13.882 11.5557 13.2778 11.743 12.7639 12.094C12.25 12.445 11.8494 12.9439 11.6129 13.5276C11.3764 14.1114 11.3145 14.7537 11.435 15.3733C11.5556 15.993 11.8533 16.5622 12.2903 17.0089C12.7274 17.4557 13.2842 17.7599 13.8904 17.8832C14.4966 18.0064 15.125 17.9432 15.696 17.7014C16.267 17.4596 16.7551 17.0502 17.0985 16.5248C17.4419 15.9995 17.6252 15.3819 17.6252 14.7501C17.6242 13.9032 17.2946 13.0913 16.7088 12.4924C16.1229 11.8936 15.3286 11.5567 14.5001 11.5557ZM14.5001 16.6668C14.1292 16.6668 13.7667 16.5544 13.4584 16.3438C13.15 16.1332 12.9097 15.8338 12.7678 15.4836C12.6258 15.1334 12.5887 14.748 12.6611 14.3762C12.7334 14.0044 12.912 13.6629 13.1742 13.3948C13.4365 13.1268 13.7706 12.9442 14.1343 12.8703C14.498 12.7963 14.875 12.8343 15.2176 12.9793C15.5603 13.1244 15.8531 13.3701 16.0591 13.6853C16.2652 14.0005 16.3751 14.371 16.3751 14.7501C16.3751 15.2584 16.1776 15.746 15.8259 16.1054C15.4743 16.4648 14.9974 16.6668 14.5001 16.6668Z"
+                                                fill="#2369B3" />
+                                            </svg>
+                                        </button>
+                                        <button class="simple-button" (click)="pageHandle('deposit', item)">
+                                            <svg height="30" width="30" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-115.4 -115.4 466.32 466.32" xml:space="preserve" fill="#2369B3" stroke="#2369B3" stroke-width="0.00235517" transform="rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="5.652407999999999"></g><g id="SVGRepo_iconCarrier"> <g> <path style="fill:#2369B3;" d="M118.1,235.517c7.898,0,14.31-6.032,14.31-13.483c0-7.441,0-13.473,0-13.473 c39.069-3.579,64.932-24.215,64.932-57.785v-0.549c0-34.119-22.012-49.8-65.758-59.977V58.334c6.298,1.539,12.82,3.72,19.194,6.549 c10.258,4.547,22.724,1.697,28.952-8.485c6.233-10.176,2.866-24.47-8.681-29.654c-11.498-5.156-24.117-8.708-38.095-10.236V8.251 c0-4.552-6.402-8.251-14.305-8.251c-7.903,0-14.31,3.514-14.31,7.832c0,4.335,0,7.843,0,7.843 c-42.104,3.03-65.764,25.591-65.764,58.057v0.555c0,34.114,22.561,49.256,66.862,59.427v33.021 c-10.628-1.713-21.033-5.243-31.623-10.65c-11.281-5.755-25.101-3.72-31.938,6.385c-6.842,10.1-4.079,24.449,7.294,30.029 c16.709,8.208,35.593,13.57,54.614,15.518v13.755C103.79,229.36,110.197,235.517,118.1,235.517z M131.301,138.12 c14.316,4.123,18.438,8.257,18.438,15.681v0.555c0,7.979-5.776,12.651-18.438,14.033V138.12z M86.999,70.153v-0.549 c0-7.152,5.232-12.657,18.71-13.755v29.719C90.856,81.439,86.999,77.305,86.999,70.153z"></path> </g> </g></svg>
+                                        </button>
+                                    </ng-container>
+                                    <ng-container *ngIf="item.type.category != 'live'">
+                                        <button class="simple-button" (click)="pageHandleView('view', item.loginSid )"><svg xmlns="http://www.w3.org/2000/svg"
+                                            width="30" height="30" viewBox="0 0 30 30" fill="none">
+                                            <path
+                                              d="M21.8884 14.2267C21.3397 13.0001 19.1877 9 14.5001 9C9.81249 9 7.66056 13.0001 7.1118 14.2267C7.03813 14.3911 7 14.5698 7 14.7506C7 14.9315 7.03813 15.1101 7.1118 15.2745C7.66056 16.4999 9.81249 20.5 14.5001 20.5C19.1877 20.5 21.3397 16.4999 21.8884 15.2733C21.9619 15.109 22 14.9306 22 14.75C22 14.5694 21.9619 14.391 21.8884 14.2267ZM14.5001 19.2222C10.5581 19.2222 8.71871 15.7939 8.24995 14.757C8.71871 13.7061 10.5581 10.2778 14.5001 10.2778C18.4327 10.2778 20.2728 13.6914 20.7503 14.75C20.2728 15.8086 18.4327 19.2222 14.5001 19.2222Z"
+                                              fill="#2369B3" />
+                                            <path
+                                              d="M14.5001 11.5557C13.882 11.5557 13.2778 11.743 12.7639 12.094C12.25 12.445 11.8494 12.9439 11.6129 13.5276C11.3764 14.1114 11.3145 14.7537 11.435 15.3733C11.5556 15.993 11.8533 16.5622 12.2903 17.0089C12.7274 17.4557 13.2842 17.7599 13.8904 17.8832C14.4966 18.0064 15.125 17.9432 15.696 17.7014C16.267 17.4596 16.7551 17.0502 17.0985 16.5248C17.4419 15.9995 17.6252 15.3819 17.6252 14.7501C17.6242 13.9032 17.2946 13.0913 16.7088 12.4924C16.1229 11.8936 15.3286 11.5567 14.5001 11.5557ZM14.5001 16.6668C14.1292 16.6668 13.7667 16.5544 13.4584 16.3438C13.15 16.1332 12.9097 15.8338 12.7678 15.4836C12.6258 15.1334 12.5887 14.748 12.6611 14.3762C12.7334 14.0044 12.912 13.6629 13.1742 13.3948C13.4365 13.1268 13.7706 12.9442 14.1343 12.8703C14.498 12.7963 14.875 12.8343 15.2176 12.9793C15.5603 13.1244 15.8531 13.3701 16.0591 13.6853C16.2652 14.0005 16.3751 14.371 16.3751 14.7501C16.3751 15.2584 16.1776 15.746 15.8259 16.1054C15.4743 16.4648 14.9974 16.6668 14.5001 16.6668Z"
+                                              fill="#2369B3" />
+                                          </svg></button>
+                                    </ng-container>                 
+                                  </td>
+                                </tr>
+                            </ng-container>
+                            <ng-container *ngIf="!accountList || accountList?.length == 0">
+                                <tr>
+                                    <td colspan="6" class="text-center">No data found</td>
+                                </tr>
+                            </ng-container>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+<div [loader]="isLoading == true">
+  <div class="main-white-box main-pop-box">
+    <div class="table-overflow-box">
+
+      <div class="px-5 pt-3 pb-3">
+        <h5>{{ name }} - Accounts</h5>
+      </div>
+      <!-- <a class="bordered-btn float-right" (click)="exportCSVFile(AccountsList)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M0.833008 10.6342C0.833008 8.392 2.65717 6.56784 4.89934 6.56784H5.75367C6.13317 6.56784 6.44117 6.87584 6.44117 7.25534C6.44117 7.63484 6.13317 7.94284 5.75367 7.94284H4.89934C3.41434 7.94284 2.20801 9.15009 2.20801 10.6342L2.20801 15.1029C2.20801 16.5852 3.41434 17.7915 4.89934 17.7915H15.1009C16.585 17.7915 17.7913 16.5852 17.7913 15.1029V10.6241C17.7913 9.14642 16.5887 7.94284 15.111 7.94284H14.2466C13.8671 7.94284 13.5591 7.63484 13.5591 7.25534C13.5591 6.87584 13.8671 6.56784 14.2466 6.56784H15.111C17.3477 6.56784 19.1663 8.38834 19.1663 10.6241V15.1029C19.1663 17.3433 17.3431 19.1665 15.1009 19.1665H4.89934C2.65717 19.1665 0.833008 17.3433 0.833008 15.1029L0.833008 10.6342ZM6.84084 3.22741L9.51292 0.543409C9.53668 0.519466 9.56139 0.498024 9.58753 0.478403L9.51292 0.543409C9.54494 0.510933 9.57993 0.48205 9.61725 0.456991C9.63415 0.445961 9.65163 0.435322 9.6696 0.425463C9.68364 0.417461 9.69829 0.410097 9.71318 0.403271C9.72634 0.397484 9.73951 0.39193 9.75288 0.38678C9.7703 0.379869 9.78821 0.373817 9.80636 0.368509C9.82065 0.36451 9.83491 0.360834 9.84934 0.357611C9.86685 0.353516 9.88447 0.35029 9.90222 0.347755C9.91376 0.346319 9.92585 0.344915 9.93804 0.343832C9.95894 0.341732 9.97927 0.340828 9.99967 0.340828L10.0565 0.345501L10.0929 0.347382C10.0945 0.347593 10.096 0.347809 10.0976 0.34803L9.99967 0.340828C10.0506 0.340828 10.1009 0.346462 10.1499 0.357412C10.1644 0.360832 10.1787 0.36451 10.1928 0.368626C10.2111 0.373817 10.229 0.379869 10.2467 0.386648C10.2598 0.39193 10.273 0.397486 10.286 0.403431C10.3011 0.410099 10.3157 0.417461 10.3301 0.42535C10.3477 0.435322 10.3652 0.445961 10.3821 0.457335C10.3922 0.463768 10.4021 0.470827 10.4119 0.478159C10.4406 0.499985 10.4676 0.523767 10.4926 0.549501L13.1594 3.22741C13.2933 3.36124 13.3602 3.53724 13.3602 3.71233C13.3602 3.88833 13.2933 4.06524 13.1576 4.19908C12.8881 4.46674 12.4536 4.46583 12.1859 4.19724L10.6872 2.694L10.6872 12.0662C10.6872 12.4457 10.3792 12.7537 9.99967 12.7537C9.62017 12.7537 9.31217 12.4457 9.31217 12.0662L9.31217 2.69217L7.81434 4.19724C7.54667 4.46583 7.11217 4.46766 6.84267 4.19908C6.57317 3.93141 6.57317 3.49691 6.84084 3.22741Z" />
+        </svg> Export
+      </a> -->
+      <table class="full-width-table">
+        <tr>
+          <th *ngFor="let item of AccountsList.columns; let index = index">
+            {{item.title}}
+          </th>
+        </tr>
+
+        <ng-container *ngIf="AccountsList?.rows?.length == 0">
+          <tr>
+            <td colspan="9" class="text-center"> No data found </td>
+          </tr>
+        </ng-container>
+        <ng-container *ngIf="AccountsList?.rows?.length > 0">
+
+          <tr *ngFor="let item of AccountsList.rows; let index = index">
+            <ng-container *ngFor="let rowData of item.data; let index = index">
+              <!-- <td [ngClass]="{'d-none':index == 1}"> -->
+              <td>
+                {{rowData.value }}
+              </td>
+            </ng-container>
+          </tr>
+        </ng-container>
+
+
+      </table>
+      <div class="button-parent text-center">
+        <button type="button" class="white-button sm-btn sub-title" (click)="backHandle('hide')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<!--
+  <div class="main-white-box">
+    <div class="table-overflow-box">
+      <table class="full-width-table">
+        <tr>
+          <th *ngFor="let item of AccountsList.columns; let index = index">
+            {{item.title}}
+          </th>
+        </tr>
+
+        <ng-container *ngIf="AccountsList?.rows?.length == 0">
+          <tr>
+            <td  colspan="9" class="text-center"> No data found </td>
+          </tr>
+        </ng-container>
+        <ng-container *ngIf="AccountsList?.rows?.length > 0">
+
+        <tr *ngFor="let item of AccountsList.rows; let index = index">
+          <ng-container *ngFor="let rowData of item.data; let index = index">
+            <td [ngClass]="{'d-none':index == 1}">
+              {{rowData.value }}
+            </td>
+          </ng-container>
+        </tr>
+      </ng-container>
+
+
+      </table>
+      <div class="button-parent text-center">
+        <button type="button" class="white-button md-btn sub-title semi-weight"
+          (click)="backHandle('hide')">Cancel</button>
+      </div>
+    </div>
+  </div> -->

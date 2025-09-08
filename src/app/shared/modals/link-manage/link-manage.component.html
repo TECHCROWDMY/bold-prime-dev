@@ -1,0 +1,54 @@
+<div [loader]="isLoading">
+
+  <div class="top-area text-center">
+    <div class="small-title semi-weight">Edit Links</div>
+  </div>
+
+
+  <form class="main-pop-box" [formGroup]="linkForm" (ngSubmit)="editData()">
+
+    <div class="boxed-label-input d-flex">
+      <label>Name</label>
+      <input name="name" id="name" formControlName="name"  (keyup)="accountTypeHandle('name',$event)"/>
+    </div>
+    <div *ngIf="isSubmitted && f['name'].errors" class="errors  boxed-label-input no-border">
+      <p *ngIf="f['name'].errors['required']">Please enter link name</p>
+    </div>
+
+    <div class="boxed-label-input d-flex">
+      <label>Landing Page</label>
+      <select id="optionId" name="optionId" formControlName="optionId" (change)="accountTypeHandle('optionId',$event)">
+
+
+        <ng-container *ngIf="linksLandingList?.length == 0">
+          <option value="" style="display: none;" [defaultSelected]="true">
+            No data found
+          </option>
+        </ng-container>
+
+        <ng-container *ngIf="linksLandingList?.length > 0">
+         <option *ngFor="let item of linksLandingList; let index = index"
+            value="{{item.id}}"
+            [defaultSelected]="data.landingPage.id == item.id"
+             >{{item.name}}</option>
+        </ng-container>
+
+       </select>
+    </div>
+    <div *ngIf="isSubmitted && f['name'].errors" class="errors boxed-label-input no-border">
+      <p *ngIf="f['name'].errors['required']">Please select landing page</p>
+    </div>
+
+
+    <div class="button-parent text-center">
+      <button type="button" class="white-button md-btn sub-title semi-weight"
+        (click)="cancelData()">Cancel</button>
+      <button type="submit" class="primary-button md-btn sub-title semi-weight"
+       >Submit</button>
+    </div>
+  </form>
+</div>
+
+
+
+

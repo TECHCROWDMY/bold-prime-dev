@@ -1,0 +1,103 @@
+<noscript>
+    <div class="alert alert-danger">
+        <i class="icon fa fa-file-code fa-lg"></i> This site requires JavaScript support to function properly.
+    </div>
+</noscript>
+
+<div class="col-lg-12">
+    <div id="popupWrapper"></div>
+    <div class="card text-dark bg-light mb-3" *ngIf="isUserVerified == false">
+        <div class="card-body" >
+            <h4 class="no-margin">Welcome to Bold Prime Ltd. You are a few steps away from trading. </h4>
+            Your profile has not yet been verified - therefore some functionality may be limited. <br>
+            Below is a list of what is required in order to become verified.
+        </div>
+    </div>
+</div>
+
+<div class="row first-page">
+    <div class="col-lg-6">
+        <div class="card mb-3" style="height: 100%;">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h4>ID/Passport</h4>
+                    </div>
+                    <div class="col-lg-6">
+                        <i class="fa fa-times fa-fw icon float-end"></i>
+                        <b class="float-end">Not Uploaded</b>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <p>
+                    A colour photocopy of one form of a non-expired, government-issued photo ID.
+                    Your identification must clearly indicate your date of birth.
+                    All documents that contain an expiration date must be valid unless stated
+                    otherwise.
+                </p>
+                <p>
+                    Please upload a selfie picture with your ID Card and ensure the details of your
+                    documents are clearly visible.
+                </p>
+                <p></p>
+                <p></p>
+                <p>Examples of this include:</p>
+                <ul>
+                    <li>Passport</li>
+                    <li>Driver's license</li>
+                    <li>Non-driver's ID</li>
+                </ul>
+            </div>
+            <div class="primary-button card-footer text-light text-center" style="cursor: pointer;" (click)="goToUpload('id-passport')">
+                <i class="fa fa-plus"></i>
+                <p>Upload</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-6">
+        <div class="card mb-3" style="height: 100%;">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h4>Proof of Address</h4>
+                    </div>
+                    <div class="col-lg-6">
+                        <i class="fa fa-times fa-fw icon float-end"></i>
+                        <b class="float-end">Not Uploaded</b>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <p>
+                    A proof of residence dated within three months for the address indicated on the
+                    application. (Post office boxes or postal bags are not acceptable.)
+                </p>
+                <p>
+                    Please note that we are unable to accept any statement or bill that has not been
+                    received in its entirety.
+                    Information such as the billing name and address must be visible, as well as the
+                    company
+                    that has issued the bill.
+                    Your document must not be folded. Payment stubs are not acceptable, as they
+                    display
+                    limited information.
+                    Confidential information, such as an account number, may be removed at your own
+                    discretion.
+                </p>
+                <p>Examples of this include:</p>
+                <ul>
+                    <li>Utilities bill </li>
+                    <li>Credit card statement </li>
+                    <li>Bank statement </li>
+                </ul>
+            </div>
+            <div class="primary-button  card-footer text-light text-center" style="cursor: pointer;" (click)="goToUpload('proof-of-address')">
+                <i class="fa fa-plus"></i>
+                <p>Upload</p>
+            </div>
+        </div>
+    </div>
+</div>

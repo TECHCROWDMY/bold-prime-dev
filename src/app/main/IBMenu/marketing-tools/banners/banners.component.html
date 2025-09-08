@@ -1,0 +1,224 @@
+<div class="d-flex align-items-center justify-content-between">
+  <div class="small-title semi-weight">Banners</div>
+
+  <div class="filter-parent-box d-flex">
+    <ng-container *ngIf="viewMoreStatus == true">
+      <a class="bordered-btn mr-3" (click)="backHandle()"> Back </a>
+    </ng-container>
+    <ng-container *ngIf="viewMoreStatus == false">
+      <a class="bordered-btn" (click)="filterHandle()">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="19"
+          viewBox="0 0 20 19"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M13.9389 9.5655C15.5119 9.5655 16.7916 10.8388 16.7916 12.4035C16.7916 13.9683 15.5119 15.2415 13.9389 15.2415C12.365 15.2415 11.0844 13.9683 11.0844 12.4035C11.0844 10.8388 12.365 9.5655 13.9389 9.5655ZM13.9389 10.9405C13.1231 10.9405 12.4594 11.5968 12.4594 12.4035C12.4594 13.2111 13.1231 13.8665 13.9389 13.8665C14.7538 13.8665 15.4166 13.2111 15.4166 12.4035C15.4166 11.5968 14.7538 10.9405 13.9389 10.9405ZM7.24027 11.7516C7.61977 11.7516 7.92777 12.0596 7.92777 12.4391C7.92777 12.8186 7.61977 13.1266 7.24027 13.1266H1.46436C1.08486 13.1266 0.776858 12.8186 0.776858 12.4391C0.776858 12.0596 1.08486 11.7516 1.46436 11.7516H7.24027ZM3.60358 0.666504C5.1775 0.666504 6.45717 1.94067 6.45717 3.50542C6.45717 5.07017 5.1775 6.3425 3.60358 6.3425C2.03058 6.3425 0.75 5.07017 0.75 3.50542C0.75 1.94067 2.03058 0.666504 3.60358 0.666504ZM3.60358 2.0415C2.78867 2.0415 2.125 2.69784 2.125 3.50542C2.125 4.31209 2.78867 4.9675 3.60358 4.9675C4.41942 4.9675 5.08217 4.31209 5.08217 3.50542C5.08217 2.69784 4.41942 2.0415 3.60358 2.0415ZM15.5918 2.86687C15.9713 2.86687 16.2793 3.17487 16.2793 3.55437C16.2793 3.93387 15.9713 4.24187 15.5918 4.24187H9.81684C9.43734 4.24187 9.12934 3.93387 9.12934 3.55437C9.12934 3.17487 9.43734 2.86687 9.81684 2.86687H15.5918Z"
+          />
+        </svg>
+        Filter
+      </a>
+    </ng-container>
+    <div class="filter-over-box" [ngClass]="{ show: filterHideShow == true }">
+      <div class="top-area">
+        <div class="text-center semi-weight mt-3">Filter</div>
+      </div>
+      <cdk-accordion class="example-accordion">
+        <cdk-accordion-item
+          *ngFor="let item of filterMenu; let index = index"
+          #accordionItem="cdkAccordionItem"
+          class="example-accordion-item"
+          role="button"
+          tabindex="0"
+          [attr.id]="'accordion-header-' + index"
+          [attr.aria-expanded]="accordionItem.expanded"
+          [attr.aria-controls]="'accordion-body-' + index"
+          (click)="accordionItem.toggle()"
+        >
+          <div
+            class="example-accordion-item-header d-flex align-items-center justify-content-between"
+          >
+            {{ item.fields }}
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6.1018 8C5.02785 8 4.45387 9.2649 5.16108 10.0731L10.6829 16.3838C11.3801 17.1806 12.6197 17.1806 13.3169 16.3838L18.8388 10.0731C19.5459 9.2649 18.972 8 17.898 8H6.1018Z"
+                fill="#212121"
+              />
+            </svg>
+            <!-- <span class="example-accordion-item-description">
+                  Click to {{ accordionItem.expanded ? 'close' : 'open' }}
+                </span> -->
+          </div>
+          <div
+            class="example-accordion-item-body"
+            role="region"
+            [style.display]="accordionItem.expanded ? '' : 'none'"
+            [attr.id]="'accordion-body-' + index"
+            [attr.aria-labelledby]="'accordion-header-' + index"
+          >
+            <!-- <input type="search" placeholder="search" name="search" (keyup)="filterSearchValue($event , index) "> -->
+
+            <!-- <div class="radio-parent" *ngFor="let radioItem of item.fieldsArray let indexArray = index;">
+              <input type="radio" name="{{item.fields}}" value="{{radioItem}}" id="filter-box-{{index}}{{indexArray}}"
+                (click)="filterInputValue(radioItem,index)">
+              <label for="filter-box-{{index}}{{indexArray}}">
+                {{radioItem == 'en' ? 'English' : radioItem}}
+              </label>
+            </div> -->
+
+            <div
+              class="radio-parent"
+              *ngFor="let radioItem of item.fieldsArray; let indexArray = index"
+            >
+              <input
+                type="radio"
+                name="{{ item.fields }}"
+                value="tes{{ radioItem }}"
+                id="filter-box-{{ index }}{{ indexArray }}"
+                [checked]="item.value.includes(radioItem)"
+                (click)="filterInputValue(radioItem, index)"
+              />
+              <label for="filter-box-{{ index }}{{ indexArray }}">
+                {{ radioItem == "en" ? "English" : radioItem }}
+              </label>
+            </div>
+          </div>
+        </cdk-accordion-item>
+      </cdk-accordion>
+
+      <div class="button-parent col-md-12">
+        <div class="row">
+          <div class="col-md-4 p-2">
+            <button
+              (click)="resetFilters()"
+              type="button"
+              class="white-button full-width semi-weight"
+            >
+              Reset
+            </button>
+          </div>
+          <div class="col-md-4 p-2">
+            <button
+              (click)="applyFilter()"
+              type="button"
+              class="primary-button full-width semi-weight"
+            >
+              Apply
+            </button>
+          </div>
+          <div class="col-md-4 p-2">
+            <button
+              (click)="closeFilter()"
+              type="button"
+              class="white-button full-width semi-weight"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="main-white-box">
+  <div class="row" [loader]="isLoading">
+    <div *ngIf="bannerListView.length === 0">
+      <h5 class="text-center">Nothing Found</h5>
+    </div>
+    <!-- <div class="col-lg-3 col-md-4 col-sm-6 p-lg-2 p-md-1 p-2" *ngFor="let item of bannerList; let index= index;">
+      <div class="code-item">
+        <div class="thumb">
+          <img src="{{getDataRow(item,'preview')}}" alt="image">
+        </div>
+        <div class="box-title">{{getDataRow(item,'campaign')}}</div>
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="lang">
+            <label>Language</label>
+            <div class="value">{{getDataRow(item,'language')}}</div>
+          </div>
+          <div class="size">
+            <label>Size</label>
+            <div class="value">{{getDataRow(item,'size')}}</div>
+          </div>
+        </div>
+        <div class="button-box">
+          <button type="button" (click)="getCodes()">Get Code</button>
+        </div>
+      </div>
+    </div> -->
+    <ng-container *ngIf="viewMoreStatus == false">
+      <div
+        class="col-lg-3 col-md-4 col-sm-6 p-lg-2 p-md-1 p-2"
+        *ngFor="let item of bannerListView; let index = index"
+      >
+        <div class="code-item">
+          <div class="thumb">
+            <a [href]="getDataRow(item.image)" target="_blank">
+              <img [src]="getDataRow(item.image)" alt="{{ item.title }}" />
+            </a>
+            <!-- <img src="{{getDataRow(item.image)}}" alt="image"> -->
+          </div>
+          <div class="box-title">{{ item.title }}</div>
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="lang">
+              <label>Language</label>
+              <div class="value">
+                {{ item.language == "en" ? "ENGLISH" : item.language }}
+              </div>
+            </div>
+            <div class="size">
+              <label>Size</label>
+              <div class="value">{{ item.size }}</div>
+            </div>
+          </div>
+          <div class="button-box">
+            <!-- <button type="button" (click)="viewMore(item)">View More</button> -->
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="viewMoreStatus == true">
+      <ng-container *ngFor="let item of bannerList; let index = index">
+        <ng-container *ngIf="item.title == titleViewMore">
+          <div class="col-lg-3 col-md-4 col-sm-6 p-lg-2 p-md-1 p-2">
+            <div class="code-item">
+              <div class="thumb">
+                <a [href]="getDataRow(item.image)" target="_blank">
+                  <img [src]="getDataRow(item.image)" alt="{{ item.title }}" />
+                </a>
+                <!-- <img src="{{getDataRow(item.image)}}" alt="image"> -->
+              </div>
+              <div class="box-title">{{ item.title }}</div>
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="lang">
+                  <label>Language</label>
+                  <div class="value">
+                    {{ item.language == "en" ? "ENGLISH" : item.language }}
+                  </div>
+                </div>
+                <div class="size">
+                  <label>Size</label>
+                  <div class="value">{{ item.size }}</div>
+                </div>
+              </div>
+              <div class="button-box">
+                <!-- <button type="button" (click)="getCodes()">View More</button> -->
+                <button type="button" (click)="getCodes()">Get Code</button>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

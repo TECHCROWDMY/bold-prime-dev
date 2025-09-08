@@ -1,0 +1,76 @@
+<div [loader]="isLoading">
+
+
+  <div class="top-area text-center">
+    <div class="small-title semi-weight">Change Password</div>
+  </div>
+  <div class="main-pop-box">
+  <form  class="main-pop-box" [formGroup]="AccountChangePassForm" (ngSubmit)="onSubmitHandle()" >
+
+
+    <div class="row justify-content-center">
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-sm-6">
+                    <input
+                    type="password"
+                    placeholder="Old Password"
+                    class="gen-input"
+                    formControlName="oldPassword"
+                    id="oldPassword"
+                    name="oldPassword"
+                    >
+                    <div *ngIf="isSubmitted && f['oldPassword'].errors" class="errors">
+                      <p *ngIf="f['oldPassword'].errors['required']">Please enter Old Password</p>
+                      <p *ngIf="f['oldPassword'].errors['minlength'] != null">
+                        Old Password length must be 8-16 characters
+                      </p>
+                      <p *ngIf="f['oldPassword'].errors['maxlength'] != null" >
+                        Old Password length must be 8-16 characters
+                      </p>
+
+                    
+
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <input type="newPassword"
+                     placeholder="New Password"
+                     formControlName="newPassword"
+                     id="newPassword"
+                     name="newPassword"
+                      class="gen-input"
+                      >
+                      <div *ngIf="isSubmitted && f['newPassword'].errors" class="errors">
+                        <p *ngIf="f['newPassword'].errors['required']">Please enter New Password</p>
+                        <p *ngIf="f['newPassword'].errors['maxlength'] != null">
+                          New Password length must be 8-16 characters
+                        </p>
+                        <p *ngIf="f['newPassword'].errors['minlength'] != null">
+                          New Password length must be 8-16 characters
+                        </p>
+                        <p *ngIf="!f['newPassword'].errors['required'] && f['newPassword'].errors['maxlength'] == null
+                        && f['newPassword'].errors['minlength'] == null">
+                          Old Password Enter Strong Password
+                        </p>
+
+                          <p *ngIf="AccountChangePassForm.controls['oldPassword'].value == AccountChangePassForm.controls['oldPassword'].value">
+                            New password cannot be the same as the old password. Please choose a different password
+                          </p>
+                         
+                          
+
+                      </div>
+                </div>
+                <div class="col-dm-12 small-text">*Must contain at least 1 upper case latin letter, 1 lower case latin letter, 1 digit and be at least 8 characters long</div>
+            </div>
+
+        </div>
+    </div>
+    <div class="button-parent text-center d-flex justify-content-center">
+     <button  type="button" class="white-button md-btn sub-title semi-weight" (click)="bsModalService.hide()">Cancel</button> &nbsp; &nbsp; &nbsp;
+    <button  type="submit" class="primary-button md-btn sub-title semi-weight">Continue</button>
+    </div>
+  </form>
+</div>
+</div>

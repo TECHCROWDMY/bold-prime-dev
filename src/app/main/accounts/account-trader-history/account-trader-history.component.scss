@@ -1,0 +1,286 @@
+.main-white-box {
+  margin-top: 30px;
+  min-height: calc(100vh - 350px);
+}
+
+.top-area {
+  padding: 15px;
+  border-bottom: 5px solid #fafaff;
+}
+
+.filter-parent-box {
+  position: relative;
+}
+
+.filter-over-box {
+  background-color: var(--light-text);
+  border-radius: 8px;
+  overflow-x: hidden;
+  width: 300px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  overflow-y: auto;
+  box-shadow: 0px 18px 30px rgba(131, 119, 198, 0.11);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.filter-over-box.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.filter-over-box .filter-overflow {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: calc(100vh - 300px);
+}
+
+.filter-over-box .filter-overflow::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-over-box .example-accordion .example-accordion-item::before {
+  transform: rotate(180deg);
+  margin-top: 10px;
+}
+
+.bordered-btn {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  font-size: 18px;
+  background-color: #2369b3;
+  color: #fff;
+}
+
+.bordered-btn svg {
+  fill: white;
+}
+
+.tabbing-link {
+  border: 1px solid var(--secondary-color);
+  border-radius: 10px;
+  display: flex;
+  overflow: hidden;
+  width: fit-content;
+  margin-bottom: 30px;
+  background-color: var(--light-text);
+}
+
+.tabbing-link a {
+  padding: 15px;
+  min-width: 222px;
+  text-align: center;
+  display: inline-block;
+  color: var(--secondary-color);
+  font-size: var(--sub-title);
+}
+
+.tabbing-link a + a {
+  border-left: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.tabbing-link a.active {
+  background-color: var(--secondary-color);
+  color: var(--light-text);
+}
+
+.tabbing-link button {
+  padding: 15px;
+  min-width: 222px;
+  text-align: center;
+  display: inline-block;
+  color: var(--secondary-color);
+  border: none;
+  font-size: var(--sub-title);
+  background-color: transparent;
+}
+
+.tabbing-link button + button {
+  border-left: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.tabbing-link button.active {
+  background-color: var(--secondary-color);
+  color: var(--light-text);
+}
+
+.scrollable {
+  display: block;
+}
+
+.scrollable thead,
+.scrollable tbody {
+  display: block;
+  overflow-y: scroll;
+}
+
+.scrollable tbody {
+  max-height: 70vh;
+  overflow: auto;
+}
+
+.scrollable tr {
+  display: flex;
+}
+
+.scrollable th,
+.scrollable td {
+  display: block;
+  padding: 10px 15px;
+}
+
+.scrollable th:not(:last-child),
+.scrollable td:not(:last-child) {
+  border-right: none;
+}
+
+.scrollable tr > th:nth-child(1),
+.scrollable tr > td:nth-child(1) {
+  flex: 0 0 17%;
+}
+
+.scrollable tr > th:nth-child(2),
+.scrollable tr > td:nth-child(2) {
+  flex: 0 0 17%;
+}
+
+.scrollable tr > th:nth-child(3),
+.scrollable tr > td:nth-child(3) {
+  flex: 1 0 17%;
+}
+
+.scrollable tr > th:nth-child(4),
+.scrollable tr > td:nth-child(4) {
+  flex: 0 0 17%;
+}
+
+.scrollable tr > th:nth-child(5),
+.scrollable tr > td:nth-child(5) {
+  flex: 0 0 17%;
+}
+
+.scrollable tr > th:nth-child(6),
+.scrollable tr > td:nth-child(6) {
+  flex: 0 0 17%;
+}
+
+.scrollable tr > th:nth-child(7),
+.scrollable tr > td:nth-child(7) {
+  flex: 0 0 17%;
+}
+
+.scrollable tr > th:nth-child(8),
+.scrollable tr > td:nth-child(8) {
+  flex: 0 0 17%;
+}
+
+.scrollable tr > th:nth-child(9),
+.scrollable tr > td:nth-child(9) {
+  flex: 0 0 17%;
+}
+
+.scrollable tr > th:nth-child(10),
+.scrollable tr > td:nth-child(10) {
+  flex: 0 0 17%;
+}
+
+.scrollable tr > th:nth-child(11),
+.scrollable tr > td:nth-child(11) {
+  flex: 0 0 17%;
+}
+
+.scrollable tr > th:nth-child(12),
+.scrollable tr > td:nth-child(12) {
+  flex: 0 0 17%;
+}
+
+@media screen and (max-width: 1540px) {
+  .tabbing-link a,
+  .tabbing-link button {
+    min-width: 150px;
+    padding: 13px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .tabbing-link a,
+  .tabbing-link button {
+    min-width: auto;
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .filter-over-box {
+    right: initial;
+    left: 0;
+    top: 0;
+    position: fixed;
+    z-index: 9999;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .filter-over-box .filter-overflow {
+    max-height: initial;
+    height: calc(100vh - 220px);
+  }
+
+  .top-area {
+    padding: 15px;
+  }
+
+  .tabbing-link {
+    margin: 0;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .tabbing-link a,
+  .tabbing-link button {
+    min-width: auto;
+    padding: 10px 15px;
+    font-size: 14px;
+    width: 50%;
+    text-align: center;
+  }
+}
+
+.toggle-container {
+  display: inline-block;
+  position: relative;
+  width: 40px;
+  height: 20px;
+}
+
+.toggle-switch {
+  position: absolute;
+  cursor: pointer;
+  background-color: #ccc;
+  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+  transition: background-color 0.2s;
+}
+
+.toggle-switch .toggle-slider {
+  position: absolute;
+  top: 50%;
+  left: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: white;
+  transition: left 0.2s;
+  transform: translateY(-50%);
+}
+
+.toggle-switch.active {
+  background-color: #4caf50;
+}
+
+.toggle-switch.active .toggle-slider {
+  left: 24px;
+}

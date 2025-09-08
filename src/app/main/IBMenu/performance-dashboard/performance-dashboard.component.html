@@ -1,0 +1,519 @@
+<div>
+  <!-- rm1 -->
+  <div class="main-white-box" *ngIf="false">
+    <div class="content-area">
+      <div class="current-fund">
+        <!-- <div class="semi-weight p">Current funds</div> -->
+        <div class="row border-main-parent">
+          <div
+            class="col-md-4 fund-item"
+            *ngFor="let chartDetails of userDetail"
+          >
+            <div class="fund-title small-text">{{ chartDetails.label }}</div>
+            <p>{{ chartDetails.data }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-white-box shadow-sm p-3 mb-5 bg-white rounded">
+    <div
+      class="multi-data-area d-flex align-items-center justify-content-between"
+    >
+      <div class="dates-area d-flex">
+        <div class="input-group date-group">
+          <!-- [placeholder]="'05/05/2023'" -->
+          <input
+            type="text"
+            placeholder="From"
+            class="form-control gen-input"
+            [placeholder]="dashboardDateFrom"
+            (bsValueChange)="dateRangePiker($event, 'from')"
+            [bsConfig]="{ showWeekNumbers: false }"
+            bsDatepicker
+          />
+        </div>
+        <div class="input-group date-group">
+          <input
+            type="text"
+            [placeholder]="dashboardDateTo"
+            placeholder="To"
+            class="form-control gen-input"
+            (bsValueChange)="dateRangePiker($event, 'to')"
+            [bsConfig]="{ showWeekNumbers: false }"
+            bsDatepicker
+          />
+          <br />
+        </div>
+        <div class="boxed-label-input d-flex">
+          <label>Common Currency</label>
+          <select name="" id="">
+            <option value="Email">USD</option>
+          </select>
+        </div>
+      </div>
+      <button
+        type="button"
+        (click)="submitFunction()"
+        class="primary-button md-btn sub-title full-w" 
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+  <div class="performance-dashboard">
+    <div class="performance-stats">
+      <div class="stat">
+        <div class="stat-label">Commissions</div>
+        <div class="stat-value">{{ TotalCommissionUsd }}</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Total Volume</div>
+        <div class="stat-value">{{ TotalCommissionSlot }}</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Registrations</div>
+        <div class="stat-value">{{ TotalRegistrations }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="">
+    <div class="p semi-weight pt-5">Bold Prime IB Program</div>
+    <div class="row">
+      <div class="button-parent d-flex align-items-center justify-content-between flex-wrap">
+        <!-- Left Side Button -->
+        <div class="titles col-lg-4 col-md-5 d-flex align-items-center flex-column flex-md-row text-center text-md-start">
+          <!-- Direct Referrals -->
+          <span class="me-2 mb-2 mb-md-0" *ngIf="directReferrals?.length > 0">
+            Direct Referrals ({{ directReferrals }})
+          </span>
+    
+          <!-- Table View Button -->
+          <button
+            class="bordered-btn btn btn-primary me-2 mb-2 mb-md-0"
+            *ngIf="dashboardList?.size ?? 0 > 0"
+            (click)="pageHandle('tableView')"
+          >
+            Table View
+          </button>
+    
+          <!-- FTD -->
+          <span *ngIf="ftd?.length > 0">
+            FTD: {{ ftd }} ({{ ftdPercentage }} %)
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="row d-flex align-items-center justify-content-between">
+      <!-- Left Buttons -->
+      <div class="left-button d-flex gap-3 col-md-4 col-12">
+        <!-- Group Referrals Stats -->
+        <div class="radio-parent d-flex align-items-center">
+          <input
+            type="checkbox"
+            id="group-referrals"
+            (click)="groupReferralsStats($event)"
+          />
+          <label for="group-referrals" class="ms-2">Group Referrals Stats</label>
+        </div>
+        <!-- Show Only Sub-IBs -->
+        <div class="radio-parent d-flex align-items-center">
+          <input
+            type="checkbox"
+            id="sub-ibs"
+            [checked]="showIBS"
+            (click)="filterManage($event)"
+          />
+          <label for="sub-ibs" class="ms-2">Show Only Sub-IBs</label>
+        </div>
+      </div>
+      
+    
+      <!-- Right Buttons -->
+      <div class="right-buttons d-flex gap-3 align-items-center justify-content-end col-md-8">
+        <!-- Search Box -->
+        <div class="bordered-input-box position-relative ">
+          <input
+            type="text"
+            class="form-control full-w"
+            placeholder="Search"
+            (keyup)="searchHandle($event)"
+          />
+          <div class="floated position-absolute top-50 end-0 translate-middle-y me-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M11.5187 10.3185L15.8225 14.6223C15.9737 14.7737 16.0587 14.979 16.0586 15.193C16.0585 15.407 15.9734 15.6122 15.8221 15.7635C15.6707 15.9147 15.4654 15.9997 15.2514 15.9996C15.0374 15.9995 14.8322 15.9144 14.6809 15.7631L10.3771 11.4593C9.09054 12.4558 7.47267 12.9247 5.85262 12.7707C4.23258 12.6167 2.73205 11.8513 1.6563 10.6302C0.580551 9.40911 0.0103839 7.82408 0.0617907 6.19754C0.113197 4.57101 0.782316 3.02514 1.93303 1.87443C3.08374 0.723722 4.6296 0.0546036 6.25614 0.00319691C7.88268 -0.0482098 9.46771 0.521957 10.6888 1.59771C11.9099 2.67346 12.6753 4.17398 12.8293 5.79403C12.9833 7.41407 12.5144 9.03194 11.5179 10.3185H11.5187ZM6.45889 11.1993C7.73187 11.1993 8.95271 10.6936 9.85285 9.79345C10.753 8.89332 11.2587 7.67248 11.2587 6.3995C11.2587 5.12652 10.753 3.90568 9.85285 3.00554C8.95271 2.10541 7.73187 1.59972 6.45889 1.59972C5.18591 1.59972 3.96507 2.10541 3.06494 3.00554C2.1648 3.90568 1.65911 5.12652 1.65911 6.3995C1.65911 7.67248 2.1648 8.89332 3.06494 9.79345C3.96507 10.6936 5.18591 11.1993 6.45889 11.1993Z"
+                fill="#737373"
+              />
+            </svg>
+          </div>
+        </div>
+    
+        <!-- Expand and Collapse Buttons -->
+        <a
+          class="bordered-btn btn btn-outline-primary full-w"
+          role="button"
+          aria-expanded="false"
+          (click)="isExpandAllBtn()"
+        >
+          Expand All
+        </a>
+        <a
+          class="bordered-btn btn btn-outline-secondary full-w"
+          role="button"
+          aria-expanded="false"
+          (click)="isCollapseBtn()"
+        >
+          Collapse All
+        </a>
+      </div>
+    </div>
+    
+    <div
+      class="title-btn-box row d-flex align-items-center justify-content-between"
+    >
+      
+      <div
+        class="col-lg-8 col-md-7 d-flex justify-content-end align-items-center additional-filter"
+      > 
+        
+        <!-- <button class="bordered-btn"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="2" viewBox="0 0 12 2">
+            <path
+              d="M0.99999 1.83268C0.763879 1.83268 0.565823 1.75268 0.405823 1.59268C0.246379 1.43324 0.166656 1.23546 0.166656 0.999349C0.166656 0.763238 0.246379 0.565182 0.405823 0.405182C0.565823 0.245738 0.763879 0.166016 0.99999 0.166016H11C11.2361 0.166016 11.4339 0.245738 11.5933 0.405182C11.7533 0.565182 11.8333 0.763238 11.8333 0.999349C11.8333 1.23546 11.7533 1.43324 11.5933 1.59268C11.4339 1.75268 11.2361 1.83268 11 1.83268H0.99999Z" />
+          </svg> Collapse All
+        </button> -->
+        </div>
+      <div class="col-lg-3">
+        <span>Records found: {{ totalRecords }}</span>
+      </div>
+    </div>
+  </div>
+  <!-- mv1 -->
+  <div class="main-white-box" [loader]="isLoading">
+    <div class="table-overflow-box">
+      <table class="full-width-table scrollable">
+        <thead #headerContainer>
+          <tr>
+            <!-- <ng-container *ngIf="showIBS"> -->
+
+            <th *ngFor="let item of dashboardListRows; let index = index">
+              {{ item.name }}
+              <button
+                *ngIf="index > 0 && index != 8"
+                (click)="shortingHandle(item, 'account-commissions', index)"
+                class="simple-button"
+              >
+                <div style="display: flex; align-items: center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="7"
+                    height="10"
+                    viewBox="0 0 7 10"
+                    fill="none"
+                  >
+                    <path
+                      d="M3.54377 9.92071L6.63497 6.73298C6.82785 6.53407 6.71093 6.15381 6.45689 6.15381H0.274486C0.0204399 6.15381 -0.0964805 6.53407 0.0964054 6.73298L3.18761 9.92071C3.29008 10.0264 3.44129 10.0264 3.54377 9.92071Z"
+                      fill="#D9D9D9"
+                      *ngIf="shortingDir === '' || shortingColumn !== index"
+                    />
+                    <path
+                      d="M3.18731 0.0792933L0.0961056 3.26702C-0.0967808 3.46593 0.0201392 3.84619 0.274185 3.84619L6.45659 3.84619C6.71063 3.84619 6.82755 3.46593 6.63467 3.26702L3.54347 0.0792933C3.44099 -0.0263808 3.28978 -0.0263805 3.18731 0.0792933Z"
+                      fill="#D9D9D9"
+                      *ngIf="shortingDir === '' || shortingColumn !== index"
+                    />
+                  </svg>
+                  <svg
+                    width="20px"
+                    height="20px"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M13 12H21M13 8H21M13 16H21M6 7V17M6 7L3 10M6 7L9 10"
+                      stroke="#000000"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      *ngIf="shortingDir === 'ASC' && shortingColumn === index"
+                    />
+                    <path
+                      d="M13 12H21M13 8H21M13 16H21M6 7V17M6 17L3 14M6 17L9 14"
+                      stroke="#000000"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      *ngIf="shortingDir === 'DESC' && shortingColumn === index"
+                    />
+                  </svg>
+                  <p
+                    *ngIf="shortingDir === 'DESC' && shortingColumn === index"
+                    style="font-size: 10px"
+                  >
+                    DESC
+                  </p>
+                  <p
+                    *ngIf="shortingDir === 'ASC' && shortingColumn === index"
+                    style="font-size: 10px"
+                  >
+                    ASC
+                  </p>
+                </div>
+              </button>
+            </th>
+
+            <!-- </ng-container> -->
+            <!-- <ng-container *ngIf="!showIBS">
+                <th *ngFor="let item of dashboardList.columns; let index = index;"
+                  [ngClass]="{'d-none':index == 2 || index == 0}">
+
+                  <ng-container *ngIf="index == 1">
+
+                  </ng-container>
+                  <ng-container *ngIf="index != 1">
+                    {{item.title}}
+                    <button (click)="shortingHandle(item)" class="simple-button"><svg xmlns="http://www.w3.org/2000/svg" width="7" height="10"
+                        viewBox="0 0 7 10" fill="none">
+                        <path
+                          d="M3.54377 9.92071L6.63497 6.73298C6.82785 6.53407 6.71093 6.15381 6.45689 6.15381H0.274486C0.0204399 6.15381 -0.0964805 6.53407 0.0964054 6.73298L3.18761 9.92071C3.29008 10.0264 3.44129 10.0264 3.54377 9.92071Z"
+                          fill="#D9D9D9"></path>
+                        <path
+                          d="M3.18731 0.0792933L0.0961056 3.26702C-0.0967808 3.46593 0.0201392 3.84619 0.274185 3.84619L6.45659 3.84619C6.71063 3.84619 6.82755 3.46593 6.63467 3.26702L3.54347 0.0792933C3.44099 -0.0263808 3.28978 -0.0263805 3.18731 0.0792933Z"
+                          fill="#D9D9D9"></path>
+                      </svg></button>
+                  </ng-container>
+
+                </th>
+
+              </ng-container> -->
+          </tr>
+          <tr>
+            <th>Total</th>
+            <th>{{ ibTotal?.balance | number : "1.2-3" }}</th>
+            <th>{{ ibTotal?.equity | number : "1.2-3" }}</th>
+            <th>{{ ibTotal?.deposits | number : "1.2-3" }}</th>
+            <th>{{ ibTotal?.withdrawals | number : "1.2-3" }}</th>
+            <th>
+              {{ ibTotal?.lots | number : "1.2-3" }}
+            </th>
+            <th>{{ ibTotal?.commission | number : "1.2-3" }}</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody #bodyContainer>
+          <ng-container *ngIf="dashboardList?.size == 0">
+            <tr>
+              <td colspan="12" class="text-center notfound">Nothing found</td>
+            </tr>
+          </ng-container>
+
+          <ng-container *ngIf="dashboardList?.size ?? 0 > 0">
+            <ng-container
+              *ngFor="let element of dashboardList; let indexArray = index"
+            >
+              <ng-container>
+                <tr>
+                  <!-- <ng-container *ngIf="showIBS"> -->
+                  <td>
+                    <!-- tahan -->
+                    <ng-container *ngIf="element?.directCount > 0">
+                      <a
+                        *ngIf="
+                          element?.directCount > 0 && element?.self == false
+                        "
+                        class="btn btn-primary"
+                        data-bs-toggle="collapse"
+                        [href]="'#collapseExample' + indexArray"
+                        role="button"
+                        aria-expanded="false"
+                        (click)="
+                          isSubExpandBtn(
+                            element?.referralId,
+                            indexArray,
+                            element?.isPlus
+                          )
+                        "
+                      >
+                        {{ element?.isPlus ? "-" : "+" }}
+                      </a>
+                    </ng-container>
+
+                    {{ element?.values?.firstName }}
+                    {{ element?.values?.lastName }}
+                    <span style="color: grey">{{
+                      element?.levelName !== "direct" &&
+                      element?.levelName !== "self"
+                        ? "level " + element?.levelName
+                        : element?.levelName
+                    }}</span>
+                  </td>
+                  <td>
+                    {{
+                      isChecked == true &&
+                      element?.directCount > 0 &&
+                      indexArray != 0
+                        ? element?.values?._total_.balance
+                        : element?.values?.balance
+                    }}
+                  </td>
+                  <td>
+                    {{
+                      isChecked == true &&
+                      element?.directCount > 0 &&
+                      indexArray != 0
+                        ? element?.values?._total_.equity
+                        : element?.values?.equity
+                    }}
+                  </td>
+                  <td>
+                    {{
+                      isChecked == true &&
+                      element?.directCount > 0 &&
+                      indexArray != 0
+                        ? element?.values?._total_.deposits
+                        : element?.values?.deposits
+                    }}
+                  </td>
+                  <td>
+                    {{
+                      isChecked == true &&
+                      element?.directCount > 0 &&
+                      indexArray != 0
+                        ? element?.values?._total_.withdrawals
+                        : element?.values?.withdrawals
+                    }}
+                  </td>
+                  <td>
+                    {{
+                      isChecked == true &&
+                      element?.directCount > 0 &&
+                      indexArray != 0
+                        ? element?.values?._total_.lots
+                        : element?.values?.lots
+                    }}
+                  </td>
+                  <td>
+                    {{
+                      isChecked == true &&
+                      element?.directCount > 0 &&
+                      indexArray != 0
+                        ? element?.values?._total_.commission
+                        : element?.values?.commission
+                    }}
+                  </td>
+                  <td>{{ element?.values?.country }}</td>
+                  <td>
+                    <button
+                      (click)="getAccountList(element)"
+                      class="simple-button"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="15"
+                        height="15"
+                        viewBox="0 0 15 15"
+                        fill="none"
+                      >
+                        <path
+                          d="M14.9999 14.374C14.9999 14.5398 14.9341 14.6987 14.8169 14.8159C14.6996 14.9331 14.5407 14.999 14.3749 14.999H0.624909C0.459148 14.999 0.300177 14.9331 0.182967 14.8159C0.0657566 14.6987 -9.14217e-05 14.5398 -9.14217e-05 14.374C-9.14217e-05 14.2082 0.0657566 14.0493 0.182967 13.9321C0.300177 13.8148 0.459148 13.749 0.624909 13.749H14.3749C14.5407 13.749 14.6996 13.8148 14.8169 13.9321C14.9341 14.0493 14.9999 14.2082 14.9999 14.374ZM0.181784 5.344C0.04711 5.0942 -0.0152823 4.81181 0.00160885 4.52853C0.0185 4.24524 0.114006 3.97227 0.277409 3.74025C0.544445 3.34844 0.902061 3.02685 1.31991 2.80275L6.00803 0.362747C6.46882 0.123141 6.98055 -0.00195313 7.49991 -0.00195312C8.01927 -0.00195313 8.531 0.123141 8.99179 0.362747L13.6793 2.80462C14.0971 3.02872 14.4547 3.35032 14.7218 3.74212C14.8852 3.97415 14.9807 4.24712 14.9976 4.5304C15.0145 4.81369 14.9521 5.09608 14.8174 5.34587C14.6724 5.62014 14.455 5.84937 14.1887 6.00861C13.9225 6.16786 13.6176 6.251 13.3074 6.249H13.1249V11.249H13.7499C13.9157 11.249 14.0746 11.3148 14.1919 11.4321C14.3091 11.5493 14.3749 11.7082 14.3749 11.874C14.3749 12.0398 14.3091 12.1987 14.1919 12.3159C14.0746 12.4331 13.9157 12.499 13.7499 12.499H1.24991C1.08415 12.499 0.925177 12.4331 0.807967 12.3159C0.690757 12.1987 0.624909 12.0398 0.624909 11.874C0.624909 11.7082 0.690757 11.5493 0.807967 11.4321C0.925177 11.3148 1.08415 11.249 1.24991 11.249H1.87491V6.249H1.69241C1.38188 6.25094 1.07679 6.16756 0.810402 6.00798C0.544016 5.84839 0.32657 5.61871 0.181784 5.344ZM3.12491 11.249H4.99991V6.249H3.12491V11.249ZM6.24991 6.249V11.249H8.74991V6.249H6.24991ZM11.8749 6.249H9.99991V11.249H11.8749V6.249ZM1.28928 4.76462C1.3285 4.83692 1.38685 4.89703 1.45796 4.93837C1.52907 4.97971 1.61018 5.00069 1.69241 4.999H13.3074C13.3896 5.00069 13.4708 4.97971 13.5419 4.93837C13.613 4.89703 13.6713 4.83692 13.7105 4.76462C13.7391 4.71685 13.7529 4.6617 13.7502 4.60611C13.7476 4.55051 13.7285 4.49694 13.6955 4.45212C13.5441 4.22707 13.3406 4.04183 13.1024 3.91212L8.41491 1.47025C8.13241 1.32364 7.81881 1.2471 7.50053 1.2471C7.18226 1.2471 6.86865 1.32364 6.58616 1.47025L1.89866 3.91212C1.66052 4.04225 1.45711 4.22766 1.30553 4.45275C1.27246 4.49738 1.25329 4.55076 1.25039 4.60624C1.2475 4.66171 1.26103 4.7168 1.28928 4.76462Z"
+                          fill="#2369B3"
+                        />
+                      </svg>
+                    </button>
+                  </td>
+                </tr>
+                <!-- <ng-container *ngIf="false">
+                  <tr
+                    class="collapse"
+                    id="collapseExample{{ indexArray }}"
+                    style="color: black"
+                    *ngFor="let item of element?.children; let index = index"
+                  >
+                    <td>
+                      {{ item?.values?.firstName }}
+                      {{ item?.values?.lastName }}
+                      <span style="color: grey">{{ item?.levelName }}</span>
+                    </td>
+                    <td>{{ item?.values?.balance }}</td>
+                    <td>{{ item?.values?.equity }}</td>
+                    <td>{{ item?.values?.deposits }}</td>
+                    <td>{{ item?.values?.withdrawals }}</td>
+                    <td>{{ item?.values?.lots }}</td>
+                    <td>{{ item?.values?.commission }}</td>
+                    <td>{{ item?.values?.country }}</td>
+                    <td>
+                      <button
+                        (click)="getAccountList(item)"
+                        class="simple-button"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="15"
+                          height="15"
+                          viewBox="0 0 15 15"
+                          fill="none"
+                        >
+                          <path
+                            d="M14.9999 14.374C14.9999 14.5398 14.9341 14.6987 14.8169 14.8159C14.6996 14.9331 14.5407 14.999 14.3749 14.999H0.624909C0.459148 14.999 0.300177 14.9331 0.182967 14.8159C0.0657566 14.6987 -9.14217e-05 14.5398 -9.14217e-05 14.374C-9.14217e-05 14.2082 0.0657566 14.0493 0.182967 13.9321C0.300177 13.8148 0.459148 13.749 0.624909 13.749H14.3749C14.5407 13.749 14.6996 13.8148 14.8169 13.9321C14.9341 14.0493 14.9999 14.2082 14.9999 14.374ZM0.181784 5.344C0.04711 5.0942 -0.0152823 4.81181 0.00160885 4.52853C0.0185 4.24524 0.114006 3.97227 0.277409 3.74025C0.544445 3.34844 0.902061 3.02685 1.31991 2.80275L6.00803 0.362747C6.46882 0.123141 6.98055 -0.00195313 7.49991 -0.00195312C8.01927 -0.00195313 8.531 0.123141 8.99179 0.362747L13.6793 2.80462C14.0971 3.02872 14.4547 3.35032 14.7218 3.74212C14.8852 3.97415 14.9807 4.24712 14.9976 4.5304C15.0145 4.81369 14.9521 5.09608 14.8174 5.34587C14.6724 5.62014 14.455 5.84937 14.1887 6.00861C13.9225 6.16786 13.6176 6.251 13.3074 6.249H13.1249V11.249H13.7499C13.9157 11.249 14.0746 11.3148 14.1919 11.4321C14.3091 11.5493 14.3749 11.7082 14.3749 11.874C14.3749 12.0398 14.3091 12.1987 14.1919 12.3159C14.0746 12.4331 13.9157 12.499 13.7499 12.499H1.24991C1.08415 12.499 0.925177 12.4331 0.807967 12.3159C0.690757 12.1987 0.624909 12.0398 0.624909 11.874C0.624909 11.7082 0.690757 11.5493 0.807967 11.4321C0.925177 11.3148 1.08415 11.249 1.24991 11.249H1.87491V6.249H1.69241C1.38188 6.25094 1.07679 6.16756 0.810402 6.00798C0.544016 5.84839 0.32657 5.61871 0.181784 5.344ZM3.12491 11.249H4.99991V6.249H3.12491V11.249ZM6.24991 6.249V11.249H8.74991V6.249H6.24991ZM11.8749 6.249H9.99991V11.249H11.8749V6.249ZM1.28928 4.76462C1.3285 4.83692 1.38685 4.89703 1.45796 4.93837C1.52907 4.97971 1.61018 5.00069 1.69241 4.999H13.3074C13.3896 5.00069 13.4708 4.97971 13.5419 4.93837C13.613 4.89703 13.6713 4.83692 13.7105 4.76462C13.7391 4.71685 13.7529 4.6617 13.7502 4.60611C13.7476 4.55051 13.7285 4.49694 13.6955 4.45212C13.5441 4.22707 13.3406 4.04183 13.1024 3.91212L8.41491 1.47025C8.13241 1.32364 7.81881 1.2471 7.50053 1.2471C7.18226 1.2471 6.86865 1.32364 6.58616 1.47025L1.89866 3.91212C1.66052 4.04225 1.45711 4.22766 1.30553 4.45275C1.27246 4.49738 1.25329 4.55076 1.25039 4.60624C1.2475 4.66171 1.26103 4.7168 1.28928 4.76462Z"
+                            fill="#2369B3"
+                          />
+                        </svg>
+                      </button>
+                    </td>
+                  </tr>
+                </ng-container> -->
+              </ng-container>
+            </ng-container>
+
+            <!-- <td   [ngClass]="{'d-none': element.data[2].value == 0 }">
+                    <button (click)="getAccountList(element)" class="simple-button"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
+                        <path
+                          d="M14.9999 14.374C14.9999 14.5398 14.9341 14.6987 14.8169 14.8159C14.6996 14.9331 14.5407 14.999 14.3749 14.999H0.624909C0.459148 14.999 0.300177 14.9331 0.182967 14.8159C0.0657566 14.6987 -9.14217e-05 14.5398 -9.14217e-05 14.374C-9.14217e-05 14.2082 0.0657566 14.0493 0.182967 13.9321C0.300177 13.8148 0.459148 13.749 0.624909 13.749H14.3749C14.5407 13.749 14.6996 13.8148 14.8169 13.9321C14.9341 14.0493 14.9999 14.2082 14.9999 14.374ZM0.181784 5.344C0.04711 5.0942 -0.0152823 4.81181 0.00160885 4.52853C0.0185 4.24524 0.114006 3.97227 0.277409 3.74025C0.544445 3.34844 0.902061 3.02685 1.31991 2.80275L6.00803 0.362747C6.46882 0.123141 6.98055 -0.00195313 7.49991 -0.00195312C8.01927 -0.00195313 8.531 0.123141 8.99179 0.362747L13.6793 2.80462C14.0971 3.02872 14.4547 3.35032 14.7218 3.74212C14.8852 3.97415 14.9807 4.24712 14.9976 4.5304C15.0145 4.81369 14.9521 5.09608 14.8174 5.34587C14.6724 5.62014 14.455 5.84937 14.1887 6.00861C13.9225 6.16786 13.6176 6.251 13.3074 6.249H13.1249V11.249H13.7499C13.9157 11.249 14.0746 11.3148 14.1919 11.4321C14.3091 11.5493 14.3749 11.7082 14.3749 11.874C14.3749 12.0398 14.3091 12.1987 14.1919 12.3159C14.0746 12.4331 13.9157 12.499 13.7499 12.499H1.24991C1.08415 12.499 0.925177 12.4331 0.807967 12.3159C0.690757 12.1987 0.624909 12.0398 0.624909 11.874C0.624909 11.7082 0.690757 11.5493 0.807967 11.4321C0.925177 11.3148 1.08415 11.249 1.24991 11.249H1.87491V6.249H1.69241C1.38188 6.25094 1.07679 6.16756 0.810402 6.00798C0.544016 5.84839 0.32657 5.61871 0.181784 5.344ZM3.12491 11.249H4.99991V6.249H3.12491V11.249ZM6.24991 6.249V11.249H8.74991V6.249H6.24991ZM11.8749 6.249H9.99991V11.249H11.8749V6.249ZM1.28928 4.76462C1.3285 4.83692 1.38685 4.89703 1.45796 4.93837C1.52907 4.97971 1.61018 5.00069 1.69241 4.999H13.3074C13.3896 5.00069 13.4708 4.97971 13.5419 4.93837C13.613 4.89703 13.6713 4.83692 13.7105 4.76462C13.7391 4.71685 13.7529 4.6617 13.7502 4.60611C13.7476 4.55051 13.7285 4.49694 13.6955 4.45212C13.5441 4.22707 13.3406 4.04183 13.1024 3.91212L8.41491 1.47025C8.13241 1.32364 7.81881 1.2471 7.50053 1.2471C7.18226 1.2471 6.86865 1.32364 6.58616 1.47025L1.89866 3.91212C1.66052 4.04225 1.45711 4.22766 1.30553 4.45275C1.27246 4.49738 1.25329 4.55076 1.25039 4.60624C1.2475 4.66171 1.26103 4.7168 1.28928 4.76462Z"
+                          fill="#2369B3" /></svg></button>
+                  </td> -->
+            <!-- </ng-container> -->
+
+            <!-- <ng-container *ngIf="!showIBS">
+                  <td *ngFor="let elementRow of element.data; let Arrayindex = index;"
+
+                    [ngClass]="{'d-none': Arrayindex == 0 || Arrayindex == 1 || Arrayindex == 2 || Arrayindex == 4  || Arrayindex == 5  }">
+                    {{ Arrayindex == 3 ? element.data[4].value :  '' }}
+                    {{ Arrayindex == 3 ? element.data[5].value :  '' }}
+                  <span [ngClass]="{'table-data-span': Arrayindex == 3 }">
+                    {{ Arrayindex == 3 ? elementRow.value : Arrayindex == 10 ? testValues(elementRow.value)  :  elementRow.value }}</span>
+                  <td>
+                    <button (click)="getAccountList(element)" class="simple-button"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
+                        <path
+                          d="M14.9999 14.374C14.9999 14.5398 14.9341 14.6987 14.8169 14.8159C14.6996 14.9331 14.5407 14.999 14.3749 14.999H0.624909C0.459148 14.999 0.300177 14.9331 0.182967 14.8159C0.0657566 14.6987 -9.14217e-05 14.5398 -9.14217e-05 14.374C-9.14217e-05 14.2082 0.0657566 14.0493 0.182967 13.9321C0.300177 13.8148 0.459148 13.749 0.624909 13.749H14.3749C14.5407 13.749 14.6996 13.8148 14.8169 13.9321C14.9341 14.0493 14.9999 14.2082 14.9999 14.374ZM0.181784 5.344C0.04711 5.0942 -0.0152823 4.81181 0.00160885 4.52853C0.0185 4.24524 0.114006 3.97227 0.277409 3.74025C0.544445 3.34844 0.902061 3.02685 1.31991 2.80275L6.00803 0.362747C6.46882 0.123141 6.98055 -0.00195313 7.49991 -0.00195312C8.01927 -0.00195313 8.531 0.123141 8.99179 0.362747L13.6793 2.80462C14.0971 3.02872 14.4547 3.35032 14.7218 3.74212C14.8852 3.97415 14.9807 4.24712 14.9976 4.5304C15.0145 4.81369 14.9521 5.09608 14.8174 5.34587C14.6724 5.62014 14.455 5.84937 14.1887 6.00861C13.9225 6.16786 13.6176 6.251 13.3074 6.249H13.1249V11.249H13.7499C13.9157 11.249 14.0746 11.3148 14.1919 11.4321C14.3091 11.5493 14.3749 11.7082 14.3749 11.874C14.3749 12.0398 14.3091 12.1987 14.1919 12.3159C14.0746 12.4331 13.9157 12.499 13.7499 12.499H1.24991C1.08415 12.499 0.925177 12.4331 0.807967 12.3159C0.690757 12.1987 0.624909 12.0398 0.624909 11.874C0.624909 11.7082 0.690757 11.5493 0.807967 11.4321C0.925177 11.3148 1.08415 11.249 1.24991 11.249H1.87491V6.249H1.69241C1.38188 6.25094 1.07679 6.16756 0.810402 6.00798C0.544016 5.84839 0.32657 5.61871 0.181784 5.344ZM3.12491 11.249H4.99991V6.249H3.12491V11.249ZM6.24991 6.249V11.249H8.74991V6.249H6.24991ZM11.8749 6.249H9.99991V11.249H11.8749V6.249ZM1.28928 4.76462C1.3285 4.83692 1.38685 4.89703 1.45796 4.93837C1.52907 4.97971 1.61018 5.00069 1.69241 4.999H13.3074C13.3896 5.00069 13.4708 4.97971 13.5419 4.93837C13.613 4.89703 13.6713 4.83692 13.7105 4.76462C13.7391 4.71685 13.7529 4.6617 13.7502 4.60611C13.7476 4.55051 13.7285 4.49694 13.6955 4.45212C13.5441 4.22707 13.3406 4.04183 13.1024 3.91212L8.41491 1.47025C8.13241 1.32364 7.81881 1.2471 7.50053 1.2471C7.18226 1.2471 6.86865 1.32364 6.58616 1.47025L1.89866 3.91212C1.66052 4.04225 1.45711 4.22766 1.30553 4.45275C1.27246 4.49738 1.25329 4.55076 1.25039 4.60624C1.2475 4.66171 1.26103 4.7168 1.28928 4.76462Z"
+                          fill="#2369B3" /></svg></button>
+                  </td>
+                </ng-container> -->
+
+            <!-- </tr> -->
+          </ng-container>
+        </tbody>
+      </table>
+      <div class="button-parent d-flex justify-content-center">
+        <div
+          class="load_more bordered-btn"
+          style="background-color: #2369b3"
+          *ngIf="totalRecords >= 20"
+        >
+          <a (click)="loadmore()" style="color: #fff">Load More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

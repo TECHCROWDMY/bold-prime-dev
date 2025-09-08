@@ -1,0 +1,298 @@
+<div [loader]="DemoOpenLoading" *ngIf="DemoOpenModal">
+  <div class="top-area text-center">
+    <div class="small-title semi-weight">
+      Open {{ types == "demo" ? "Demo" : "Live" }} Account
+    </div>
+  </div>
+
+  <form
+    class="main-pop-box"
+    [formGroup]="accountDemoForm"
+    (ngSubmit)="onSubmitHandle()"
+  >
+    <div class="progres-bar d-flex align-items-center justify-content-center">
+      <div class="progres-item active">Select Account Type</div>
+      <div class="progres-item">Confirmation</div>
+    </div>
+
+    <!-- Account Type Selection -->
+    <div class="boxed-label-input d-flex">
+      <label for="typeId">Type</label>
+      <select
+        id="typeId"
+        class="real-select"
+        name="typeId"
+        formControlName="typeId"
+        (change)="accountTypeHandle($event)"
+      >
+        <!-- No data found case -->
+        <option *ngIf="accountTypeDemo?.length === 0" value="" disabled>
+          No data found
+        </option>
+
+        <!-- Data available case -->
+        <option *ngIf="accountTypeDemo?.length > 0" value="">
+          &nbsp;&nbsp;&nbsp;&nbsp;Select Type
+        </option>
+
+        <!-- MetaTrader 4 Options -->
+        <option style="font-weight: bold; color: black" value="" disabled>
+          MetaTrader 4
+        </option>
+        <ng-container *ngFor="let item of accountTypeDemo">
+          <option
+            *ngIf="item.platform === 'mt4'"
+            [value]="item.id"
+            [innerHTML]="getIndentedTitle(item.title, 1)"
+          ></option>
+        </ng-container>
+
+        <!-- MetaTrader 5 Options -->
+        <option style="font-weight: bold; color: black" value="" disabled>
+          MetaTrader 5
+        </option>
+        <ng-container *ngFor="let item of accountTypeDemo">
+          <option
+            *ngIf="item.platform === 'mt5'"
+            [value]="item.id"
+            [innerHTML]="getIndentedTitle(item.title, 1)"
+          ></option>
+        </ng-container>
+      </select>
+    </div>
+
+    <!-- Error message for Account Type -->
+    <div
+      *ngIf="isSubmitted && f['typeId'].errors"
+      class="errors boxed-label-input no-border"
+    >
+      <p *ngIf="f['typeId'].errors['required']">Please select account type</p>
+    </div>
+
+    <!-- Leverage Selection -->
+    <div class="boxed-label-input d-flex">
+      <label for="leverage">Leverage</label>
+      <select name="leverage" id="leverage" formControlName="leverage">
+        <!-- Case when no type is selected -->
+        <option *ngIf="!accountDemoForm.controls['typeId'].value" value="">
+          &nbsp;&nbsp;&nbsp;&nbsp;Please select type first
+        </option>
+
+        <!-- No leverage data found -->
+        <option
+          *ngIf="!leveragesTypeDemo && accountDemoForm.controls['typeId'].value"
+          value=""
+        >
+          No data found
+        </option>
+
+        <option *ngFor="let item of leveragesTypeDemo[0]" [value]="item">
+          &nbsp;&nbsp;&nbsp;&nbsp;1:{{ item }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Error message for Leverage -->
+    <div
+      *ngIf="isSubmitted && f['leverage'].errors"
+      class="errors boxed-label-input no-border"
+    >
+      <p *ngIf="f['leverage'].errors['required']">Please select leverage</p>
+    </div>
+
+    <!-- Currency Selection -->
+    <div class="boxed-label-input d-flex">
+      <label for="currency">Currency</label>
+      <select name="currency" id="currency" formControlName="currency">
+        <option value="" disabled>
+          &nbsp;&nbsp;&nbsp;&nbsp;Select Currency
+        </option>
+        <option value="USD">&nbsp;&nbsp;&nbsp;&nbsp;USD</option>
+      </select>
+    </div>
+
+    <!-- Error message for Currency -->
+    <div
+      *ngIf="isSubmitted && f['currency'].errors"
+      class="errors boxed-label-input no-border"
+    >
+      <p *ngIf="f['currency'].errors['required']">Please select currency</p>
+    </div>
+
+    <!-- Initial Balance Selection for Demo Accounts -->
+    <ng-container *ngIf="types === 'demo'">
+      <div class="boxed-label-input d-flex">
+        <label for="ibId">Initial Balance</label>
+        <select name="ibId" id="ibId" formControlName="ibId">
+          <!-- Default option -->
+          <option value="" disabled>
+            &nbsp;&nbsp;&nbsp;&nbsp;Select Initial Balance
+          </option>
+
+          <!-- Options populated dynamically based on the available ibId values -->
+          <option *ngFor="let item of ibId" [value]="item.value">
+            &nbsp;&nbsp;&nbsp;&nbsp;{{ item.value }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Error message for Initial Balance -->
+      <div
+        *ngIf="isSubmitted && f['ibId'].errors"
+        class="errors boxed-label-input no-border"
+      >
+        <p *ngIf="f['ibId'].errors['required']">
+          Please select initial balance
+        </p>
+      </div>
+    </ng-container>
+
+    <!-- Buttons -->
+    <div class="button-parent text-center">
+      <button
+        type="button"
+        class="white-button md-btn sub-title semi-weight"
+        (click)="backHandle('hide')"
+      >
+        Cancel
+      </button>
+      <button type="submit" class="primary-button md-btn sub-title semi-weight">
+        Continue
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- second form confirmation form  -->
+
+<div [loader]="DemoVerifyLoading" *ngIf="DemoverifyModal">
+  <div class="top-area text-center">
+    <div class="small-title semi-weight">
+      Open {{ types == "demo" ? "Demo" : "Live" }} Account
+    </div>
+  </div>
+  <div class="main-pop-box">
+    <div class="progres-bar d-flex align-items-center justify-content-center">
+      <div class="progres-item">Select Account Type</div>
+      <div class="progres-item active">Confirmation</div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-sm-11">
+        <div class="row border-main-parent">
+          <div class="col-md-6 fund-item">
+            <div class="fund-title small-text">Account type</div>
+            <p>{{ accountTypeValue }}</p>
+          </div>
+          <div class="col-md-6 fund-item">
+            <div class="fund-title small-text">Leverage</div>
+            <p>1:{{ this.accountDemoForm.controls["leverage"].value }}</p>
+          </div>
+          <div class="col-md-6 fund-item">
+            <div class="fund-title small-text">Currency</div>
+            <p>{{ this.accountDemoForm.controls["currency"].value }}</p>
+          </div>
+          <ng-container *ngIf="types == 'demo'">
+            <div class="col-md-6 fund-item">
+              <div class="fund-title small-text">Balance</div>
+              <p>
+                {{ currencyFor(this.accountDemoForm.controls["ibId"].value) }}
+                {{ this.accountDemoForm.controls["currency"].value }}
+              </p>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="button-parent text-center">
+      <button
+        class="white-button md-btn sub-title semi-weight"
+        (click)="backHandle('back')"
+      >
+        Back
+      </button>
+      <button
+        type="submit"
+        class="primary-button md-btn sub-title semi-weight"
+        (click)="onSubmitVerify()"
+      >
+        Continue
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Third form sucess form  -->
+
+<div *ngIf="DemoSuccessModal">
+  <div class="top-area text-center">
+    <div class="small-title semi-weight">Account Successfully Created!</div>
+  </div>
+  <div class="main-pop-box">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-sm-11">
+        <div class="text-center mb-3">
+          Your account {{ addAccountRes.login }} has been successfully
+          created.<br />
+          Below is the details of your new account. We also sent it to
+          <a href="mailto:Sample@boldprime.com" class="general-link">{{
+            userEmail
+          }}</a
+          >.
+        </div>
+        <div class="row">
+          <div class="col-sm-6 border-top">
+            <div class="fund-title text-right">Login</div>
+          </div>
+          <div class="col-sm-6 border-top">
+            <div>{{ addAccountRes ? addAccountRes.login : "" }}</div>
+          </div>
+          <div class="col-sm-6 border-top">
+            <div class="fund-title text-right">Server</div>
+          </div>
+          <div class="col-sm-6 border-top">
+            <div>{{ addAccountRes.type ? addAccountRes.type.server : "" }}</div>
+          </div>
+          <div class="col-sm-6 border-top">
+            <div class="fund-title text-right">Leverage</div>
+          </div>
+          <div class="col-sm-6 border-top">
+            <div>{{ addAccountRes ? addAccountRes.leverage : "" }}</div>
+          </div>
+          <div class="col-sm-6 border-top">
+            <div class="fund-title text-right">Password</div>
+          </div>
+          <div class="col-sm-6 border-top">
+            <div>{{ addAccountRes ? addAccountRes.password : "" }}</div>
+          </div>
+          <div class="col-sm-6 border-top">
+            <div class="fund-title text-right">Investor Password</div>
+          </div>
+          <div class="col-sm-6 border-top">
+            <div>{{ addAccountRes ? addAccountRes.investorPassword : "" }}</div>
+          </div>
+          <div class="col-sm-6 border-top">
+            <div class="fund-title text-right">Currency</div>
+          </div>
+          <div class="col-sm-6 border-top">
+            <div>{{ addAccountRes ? addAccountRes.currency : "" }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="button-parent text-center">
+      <button
+        class="white-button md-btn sub-title semi-weight"
+        (click)="backHandle('deposit')"
+      >
+        Deposit Now
+      </button>
+      <button
+        type="submit"
+        class="primary-button md-btn sub-title semi-weight"
+        (click)="onSubmitSuccess()"
+      >
+        Account Overview
+      </button>
+    </div>
+  </div>
+</div>

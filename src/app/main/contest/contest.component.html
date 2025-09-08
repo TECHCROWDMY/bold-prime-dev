@@ -1,0 +1,91 @@
+<div class="button-parent d-flex align-items-center justify-content-between">
+    <!-- <a  class="bordered-btn active">Contest is running</a> -->
+    <div></div>
+    <!-- <div class="filter-parent-box d-flex"> -->
+        <!-- <a  class="bordered-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.9389 9.5655C15.5119 9.5655 16.7916 10.8388 16.7916 12.4035C16.7916 13.9683 15.5119 15.2415 13.9389 15.2415C12.365 15.2415 11.0844 13.9683 11.0844 12.4035C11.0844 10.8388 12.365 9.5655 13.9389 9.5655ZM13.9389 10.9405C13.1231 10.9405 12.4594 11.5968 12.4594 12.4035C12.4594 13.2111 13.1231 13.8665 13.9389 13.8665C14.7538 13.8665 15.4166 13.2111 15.4166 12.4035C15.4166 11.5968 14.7538 10.9405 13.9389 10.9405ZM7.24027 11.7516C7.61977 11.7516 7.92777 12.0596 7.92777 12.4391C7.92777 12.8186 7.61977 13.1266 7.24027 13.1266H1.46436C1.08486 13.1266 0.776858 12.8186 0.776858 12.4391C0.776858 12.0596 1.08486 11.7516 1.46436 11.7516H7.24027ZM3.60358 0.666504C5.1775 0.666504 6.45717 1.94067 6.45717 3.50542C6.45717 5.07017 5.1775 6.3425 3.60358 6.3425C2.03058 6.3425 0.75 5.07017 0.75 3.50542C0.75 1.94067 2.03058 0.666504 3.60358 0.666504ZM3.60358 2.0415C2.78867 2.0415 2.125 2.69784 2.125 3.50542C2.125 4.31209 2.78867 4.9675 3.60358 4.9675C4.41942 4.9675 5.08217 4.31209 5.08217 3.50542C5.08217 2.69784 4.41942 2.0415 3.60358 2.0415ZM15.5918 2.86687C15.9713 2.86687 16.2793 3.17487 16.2793 3.55437C16.2793 3.93387 15.9713 4.24187 15.5918 4.24187H9.81684C9.43734 4.24187 9.12934 3.93387 9.12934 3.55437C9.12934 3.17487 9.43734 2.86687 9.81684 2.86687H15.5918Z"/></svg> Filter
+        </a> -->
+        <!-- <div class="filter-over-box">
+            <div class="top-area">
+                <div class="text-center semi-weight">Filter</div>
+            </div>
+            <div class="filter-overflow">
+                <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">Position</button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+                            <div class="accordion-body">
+                                <div class="radio-parent">
+                                    <input type="checkbox" id="filter-box">
+                                    <label for="filter-box">Ticket</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">Participant</button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                            <div class="accordion-body">Symbol Filter Here</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">Performance</button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                            <div class="accordion-body">Type Filter Here</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-parent col-md-12">
+                <div class="row">
+                    <div class="col-md-6 p-2"><button  type="submit" class="white-button full-width semi-weight">Reset</button></div>
+                    <div class="col-md-6 p-2"><button  type="submit" class="primary-button full-width semi-weight">Apply</button></div>
+                </div>
+            </div>
+        </div> -->
+    <!-- </div> -->
+</div>
+<div class="main-white-box">
+    <div class="table-overflow-box">
+        <table class="full-width strips-bg">
+            <thead>
+                <tr>
+                    <th>Name </th>
+                    <th>Registration Period </th>
+                    <th>Contest Period </th>
+                    <th>Action</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+              <ng-container *ngIf="contesetList?.length == 0">
+                <tr>
+                  <td  colspan="4" class="text-center"> No data found </td>
+                </tr>
+              </ng-container>
+
+              <ng-container *ngIf="contesetList?.length > 0">
+
+                <tr *ngFor="let item of contesetList; let index = index;">
+                   <td class="general-link pointer" (click)="pageHandle(item.id)">{{item.name}}</td>
+                   <td>{{item.registrationPeriodFrom}}</td>
+                   <td>{{item.registrationPeriodTo}}</td>
+                   <td [ngClass]="{'green-box': item.finished === true}">
+                    <button type="button" (click)="submitHandle('participate', item.id)"
+                    class="yellow-box no-border"
+                    *ngIf="particiapteMangae(item)">Participate</button>
+                    {{item.finished == true ? 'Contest is over' : ''}}</td>
+                </tr>
+              </ng-container>
+
+            </tbody>
+        </table>
+    </div>
+</div>

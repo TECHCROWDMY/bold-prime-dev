@@ -1,0 +1,7 @@
+.right-side-head{text-align: right;}
+.right-side-head h3{font-weight: 600; margin-bottom: 5px;}
+.right-side-head .bradcrumbs{color: #979797;}
+
+@media screen and (max-width: 650px) {
+.right-side-head{display: none;}
+}

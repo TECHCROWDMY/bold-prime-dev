@@ -1,0 +1,384 @@
+<div [loader]="isLoading" *ngIf="initialModal">
+  <form
+    class="main-white-box"
+    [formGroup]="depositFundsForm"
+    (ngSubmit)="onSubmitHandle()"
+  >
+    <div class="top-area">
+      <div class="progres-bar d-flex align-items-center">
+        <div class="progres-item active">Initial Information</div>
+        <div class="progres-item">Transfer Details</div>
+        <div class="progres-item">Confirmation</div>
+      </div>
+    </div>
+
+    <div class="content-area">
+      <div class="row row-gap-4">
+        <div class="col-md-12">
+          <div class="boxed-label-input d-flex">
+            <ng-container *ngIf="accountListArray?.length == 0">
+              <label style="width: 100%"
+                >You don't have any accounts to deposit to.
+                <span (click)="pageHandle()" class="general-link pointer"
+                  >Open a Trading Account</span
+                ></label
+              >
+            </ng-container>
+
+            <ng-container *ngIf="accountListArray?.length > 0">
+              <label>Deposit To</label>
+              <select
+                name="loginSid"
+                id="loginSid"
+                formControlName="loginSid"
+                [(ngModel)]="selectedOption"
+                (change)="selectDrop($event)"
+              >
+                <ng-container
+                  *ngFor="let item of accountListArray; let i = index"
+                >
+                  <optgroup label="{{ item.title }}">
+                    <ng-container
+                      *ngFor="let element of item.data; let indexArray = index"
+                    >
+                      <!-- <option value="" [defaultSelected]="true" class="d-none" *ngIf="index == 0"></option> -->
+                      <option
+                        value="{{ element.loginSid }}+{{ element.balance }}+{{
+                          element.type.title
+                        }}+{{ element.login }}"
+                      >
+                        {{ element.type.title }} {{ element.login }}
+                        {{ currencyFor(element.balance) }} USD
+                      </option>
+                    </ng-container>
+                  </optgroup>
+                </ng-container>
+              </select>
+            </ng-container>
+            <!-- Please, select the deposit method -->
+          </div>
+        </div>
+        <div>
+          <div
+            *ngIf="isSubmitted && !f['loginSid'].errors"
+            class="errors boxed-label-input no-border"
+          >
+            <div class="boxRed" *ngIf="!paymentValue">
+              <div>Please select the deposit method</div>
+              <div>
+                You can not deposit to this account with this payment method
+              </div>
+            </div>
+          </div>
+          <div
+            *ngIf="isSubmitted && f['loginSid'].errors"
+            class="errors boxed-label-input no-border"
+          >
+            <p *ngIf="f['loginSid'].errors['required']">
+              Please select account
+            </p>
+          </div>
+        </div>
+
+        <ng-container *ngFor="let item of paymentListArray; let index = index">
+          <ng-container *ngIf="index < 30 && showMoreData == false">
+            <div
+              class="col-md-6 col-lg-3 boxHover"
+              [ngClass]="{ 'active-box': paymentValue == item.id }"
+              (click)="setPaymentValue(item)"
+            >
+              <div class="image-box-item deposit-Type">
+                <ng-container *ngIf="imagecheck(item)">
+                  <h4>{{ item.displayName }}</h4>
+                </ng-container>
+
+                <ng-container *ngIf="!imagecheck(item)">
+                  <img src="{{ imageFormat(item) }}" alt="" />
+                </ng-container>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="showMoreData == true">
+            <div
+              class="col-md-3 boxHover"
+              [ngClass]="{ 'active-box': paymentValue == item.id }"
+              (click)="setPaymentValue(item)"
+            >
+              <div class="image-box-item deposit-Type">
+                <ng-container *ngIf="imagecheck(item)">
+                  <h4>{{ item.displayName }}</h4>
+                </ng-container>
+
+                <ng-container *ngIf="!imagecheck(item)">
+                  <img src="{{ imageFormat(item) }}" alt="" />
+                </ng-container>
+              </div>
+            </div>
+          </ng-container>
+
+          <!-- <ng-container *ngIf="index < 30">
+            <div class="col-md-3 boxHover" [ngClass]="{'active-box' : paymentValue == item.id}"
+            (click)="setPaymentValue(item)">
+            <div class="image-box-item deposit-Type">
+
+              <ng-container *ngIf="imagecheck(item)">
+                <h4>{{item.displayName}}</h4>
+              </ng-container>
+
+              <ng-container *ngIf="!imagecheck(item)">
+                <img src="{{imageFormat(item)}}" alt="">
+              </ng-container>
+            </div>
+          </div>
+
+          </ng-container> -->
+          <!-- <div class="col-md-3 boxHover" [ngClass]="{'active-box' : paymentValue == item.id}"
+            (click)="setPaymentValue(item)">
+            <div class="image-box-item deposit-Type">
+
+              <ng-container *ngIf="imagecheck(item)">
+                <h4>{{item.displayName}}</h4>
+              </ng-container>
+
+              <ng-container *ngIf="!imagecheck(item)">
+                <img src="{{imageFormat(item)}}" alt="">
+              </ng-container>
+            </div>
+          </div> -->
+        </ng-container>
+
+        <div
+          class="button-parent d-flex justify-content-center mt-5"
+          *ngIf="paymentListArray.length > 30 && loadMoreButton"
+        >
+          <div class="bordered-btn" (click)="showData()">Load More</div>
+        </div>
+
+        <div class="col-md-12 mb-0" *ngIf="selectedCurrencies?.length > 0">
+          <div class="boxed-label-input d-flex">
+            <label>Currency</label>
+            <select
+              name="currency"
+              id="currency"
+              (change)="selectCurrency($event)"
+            >
+              <ng-container
+                *ngFor="let item of selectedCurrencies; let index = index"
+              >
+                <option value="{{ item }}">{{ item }}</option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="button-parent d-flex justify-content-center mt-5">
+            <button
+              type="submit"
+              class="primary-button sub-title lg-btn semi-weight"
+            >
+              Continue
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- Step One is End Here -->
+<!-- Step Two start from here -->
+<div [loader]="isLoading" *ngIf="transferModal">
+  <div class="row flex-column-reverse">
+    <div class="col-xl-12">
+      <div class="main-white-box">
+        <div class="top-area">
+          <div class="row">
+            <div class="col-md-6 fund-item no-margin">
+              <div class="fund-title small-text">Deposit With</div>
+              <p>{{ paymentNameValue }}</p>
+            </div>
+            <div class="col-md-6 fund-item no-margin">
+              <div class="fund-title small-text">Deposit To</div>
+              <p>{{ depositName }} {{ LoginsFormID }}</p>
+            </div>
+            <div class="col-md-6 fund-item">
+              <div class="fund-title small-text">Minimum Deposit Amount</div>
+              <p>{{ currencyFor(minAmount) }} {{ currency }}</p>
+            </div>
+            <div class="col-md-6 fund-item">
+              <div class="fund-title small-text">Maximum Deposit Amount</div>
+              <p>{{ currencyFor(maxAmount) }} {{ currency }}</p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-area"
+          *ngIf="plainText"
+          style="max-width: 700px; width: 100%; margin: 0 auto"
+        >
+          <div [innerHTML]="formattedHtml"></div>
+          <!-- <p>{{ plainText }}</p> -->
+          <!-- <div class="image-content text-center" [ngClass]="{'d-none': index != 0}"
+            *ngFor="let item of bannerList; let index= index;">
+            <img style="height:250px; width:100%;" (click)="imagePagehandle()" src="{{getDataRow(item,'preview')}}"
+              alt="image">
+          </div> -->
+        </div>
+      </div>
+    </div>
+    <form
+      class="col-xl-12"
+      [formGroup]="TransferFundsForm"
+      (ngSubmit)="onSubmitTrader()"
+    >
+      <div class="main-white-box">
+        <div class="top-area">
+          <div class="progres-bar d-flex align-items-center">
+            <div class="progres-item">Initial Information</div>
+            <div class="progres-item active">Transfer Details</div>
+            <div class="progres-item">Confirmation</div>
+          </div>
+        </div>
+        <div class="content-area">
+          <div class="input-group">
+            <input
+              type="text"
+              class="gen-input"
+              (keyup)="inrPrice($event)"
+              placeholder="Deposit Amount"
+              formControlName="amount"
+            />
+            <div class="floated">{{ currency }}</div>
+          </div>
+          <div
+            *ngIf="isSubmitted && a['amount'].errors"
+            class="errors text-boxed"
+          >
+            <p *ngIf="a['amount'].errors['required']">Please enter amount</p>
+            <p *ngIf="TransferFundsForm.controls['amount'].value < minAmount">
+              Minimum deposit amount is {{ minAmount }} {{ currency }}
+            </p>
+            <p *ngIf="TransferFundsForm.controls['amount'].value > maxAmount">
+              Maximum deposit amount is {{ maxAmount }} {{ currency }}
+            </p>
+          </div>
+          <div
+            *ngIf="isSubmitted && !a['amount'].errors"
+            class="errors text-boxed"
+          >
+            <p
+              *ngIf="
+                TransferFundsForm.controls['amount'].value < minAmount &&
+                minAmount != 0
+              "
+            >
+              Minimum deposit amount is {{ minAmount }} {{ currency }}
+            </p>
+            <p
+              *ngIf="
+                TransferFundsForm.controls['amount'].value > maxAmount &&
+                maxAmount != 0
+              "
+            >
+              Maximum deposit amount is {{ maxAmount }} {{ currency }}
+            </p>
+          </div>
+          <div class="text-boxed mt-2 text-secondary">
+            Deposit to {{ depositName }} {{ LoginsFormID }} ({{
+              currencyFor(CurrencyValue)
+            }})
+          </div>
+
+          <div class="input-group">
+            <input
+              type="text"
+              disabled
+              class="gen-input"
+              value="{{ USDPrice }}"
+              placeholder="Credited Amount"
+            />
+            <div class="floated">USD</div>
+          </div>
+          <div class="text-boxed mt-2">
+            Approximate amount to be credited onto your Trading Account after
+            deducting the Commission & Fees
+          </div>
+          <div class="button-parent d-flex justify-content-center">
+            <button
+              type="button"
+              class="white-button sub-title md-btn semi-weight"
+              (click)="backHandle('backInitial')"
+            >
+              Back
+            </button>
+            <button
+              type="submit"
+              class="primary-button sub-title md-btn semi-weight"
+            >
+              Continue
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="main-white-box" [loader]="isLoading" *ngIf="confirmModal">
+  <div class="top-area">
+    <div class="progres-bar d-flex align-items-center">
+      <div class="progres-item">Initial Information</div>
+      <div class="progres-item">Transfer Details</div>
+      <div class="progres-item active">Confirmation</div>
+    </div>
+  </div>
+  <div class="content-area">
+    <div class="row border-main-parent">
+      <div class="col-lg-3 col-md-6 fund-item">
+        <div class="fund-title small-text">Deposit With</div>
+        <p>{{ paymentNameValue }}</p>
+      </div>
+      <div class="col-lg-3 col-md-6 fund-item">
+        <div class="fund-title small-text">Deposit To</div>
+        <p>{{ depositName }} {{ LoginsFormID }}</p>
+      </div>
+      <div class="col-lg-3 col-md-6 fund-item">
+        <div class="fund-title small-text">Deposit Amount</div>
+        <p>
+          {{ TransferFundsForm.controls["amount"].value }} {{ depositCountry }}
+        </p>
+      </div>
+      <div class="col-lg-3 col-md-6 fund-item">
+        <div class="fund-title small-text">Amount To Be Credited</div>
+        <p>{{ USDPrice }} USD</p>
+      </div>
+    </div>
+    <div class="button-parent d-flex justify-content-center">
+      <button
+        type="button"
+        class="white-button sub-title lg-btn semi-weight"
+        (click)="backHandle('backTrader')"
+      >
+        Back
+      </button>
+      <button
+        type="button"
+        class="primary-button sub-title lg-btn semi-weight"
+        (click)="submitFormHandle()"
+      >
+        Continue
+      </button>
+      <button type="button" style="visibility: hidden" id="depositopen">
+        Continue
+      </button>
+    </div>
+    <button
+      type="button"
+      style="display: none"
+      class=""
+      #myButton
+      (click)="redirectPaymentMethod()"
+    ></button>
+  </div>
+</div>
