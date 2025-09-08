@@ -22,7 +22,6 @@
     "@fortawesome/fontawesome-free": "^6.5.2",
     "@popperjs/core": "^2.11.2",
     "@supabase/supabase-js": "^2.48.1",
-    "angular-crumbs": "^3.0.1",
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
     "chart.js": "^4.4.3",
@@ -43,6 +42,7 @@
     "rxjs": "~7.8.0",
     "scriptjs": "^2.5.9",
     "tslib": "^2.3.0",
+    "xng-breadcrumb": "^14.1.0",
     "zone.js": "~0.12.0"
   },
   "devDependencies": {

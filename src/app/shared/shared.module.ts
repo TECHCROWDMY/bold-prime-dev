@@ -5,8 +5,9 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AccChangePassEmailComponent } from './modals/acc-change-pass-email/acc-change-pass-email.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { BreadcrumbModule } from 'angular-crumbs'
-import { RouterModule } from '@angular/router';import { NgxLoaderIndicatorModule } from 'ngx-loader-indicator';
+import { BreadcrumbComponent } from 'xng-breadcrumb';
+import { RouterModule } from '@angular/router';
+import { NgxLoaderIndicatorModule } from 'ngx-loader-indicator';
 import { DemoAccountComponent } from './modals/demo-account/demo-account.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TransferFundsComponent } from './modals/transfer-funds/transfer-funds.component';
@@ -48,7 +49,7 @@ import { LinkManageComponent } from './modals/link-manage/link-manage.component'
     CommonModule,
     HttpClientModule,
     ModalModule.forRoot(),
-    BreadcrumbModule,
+    BreadcrumbComponent,
     RouterModule,
     ReactiveFormsModule,
     NgxDropzoneModule,
